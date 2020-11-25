@@ -1,0 +1,3355 @@
+{
+    "version": "1.0",
+    "encoding": "UTF-8",
+    "feed": {
+        "xmlns": "http://www.w3.org/2005/Atom",
+        "xmlns$openSearch": "http://a9.com/-/spec/opensearchrss/1.0/",
+        "xmlns$gsx": "http://schemas.google.com/spreadsheets/2006/extended",
+        "id": {
+            "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values"
+        },
+        "updated": {
+            "$t": "2020-11-17T02:22:49.243Z"
+        },
+        "category": [
+            {
+                "scheme": "http://schemas.google.com/spreadsheets/2006",
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+            }
+        ],
+        "title": {
+            "type": "text",
+            "$t": "Sheet2"
+        },
+        "link": [
+            {
+                "rel": "alternate",
+                "type": "application/atom+xml",
+                "href": "https://docs.google.com/spreadsheets/u/0/d/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/pubhtml"
+            },
+            {
+                "rel": "http://schemas.google.com/g/2005#feed",
+                "type": "application/atom+xml",
+                "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values"
+            },
+            {
+                "rel": "http://schemas.google.com/g/2005#post",
+                "type": "application/atom+xml",
+                "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values"
+            },
+            {
+                "rel": "self",
+                "type": "application/atom+xml",
+                "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values?alt\u003djson"
+            }
+        ],
+        "author": [
+            {
+                "name": {
+                    "$t": "efertsman"
+                },
+                "email": {
+                    "$t": "efertsman@gmail.com"
+                }
+            }
+        ],
+        "openSearch$totalResults": {
+            "$t": "94"
+        },
+        "openSearch$startIndex": {
+            "$t": "1"
+        },
+        "entry": [
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cokwr"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2012-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.43"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cokwr"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2012-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.43"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cpzh4"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2012-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.96"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cpzh4"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2012-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.96"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cre1l"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.52"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cre1l"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.52"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/chk2m"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.24"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/chk2m"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.24"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ciyn3"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.40"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ciyn3"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.40"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ckd7g"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.17"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ckd7g"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.17"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/clrrx"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.28"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/clrrx"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.28"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cyevm"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.83"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cyevm"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.83"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cztg3"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.18"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cztg3"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.18"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d180g"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.80"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d180g"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.80"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d2mkx"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.14"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d2mkx"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.14"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cssly"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.76"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cssly"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.76"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cu76f"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.42"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cu76f"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.42"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cvlqs"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2013-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.93"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cvlqs"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2013-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.93"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cx0b9"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.71"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/cx0b9"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.71"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d9ney"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.86"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d9ney"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.86"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/db1zf"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.57"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/db1zf"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.57"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dcgjs"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.81"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dcgjs"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.81"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ddv49"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.91"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ddv49"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.91"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d415a"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.60"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d415a"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.60"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d5fpr"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.10"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d5fpr"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.10"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d6ua4"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.46"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d6ua4"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.46"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d88ul"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.76"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/d88ul"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.76"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dkvya"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.61"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dkvya"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.61"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dmair"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.38"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dmair"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.38"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dnp34"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2014-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.08"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dnp34"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2014-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.08"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dp3nl"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.42"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dp3nl"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.42"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/df9om"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.75"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/df9om"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.75"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dgo93"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.54"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dgo93"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.54"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/di2tg"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.11"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/di2tg"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.11"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/djhdx"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.54"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/djhdx"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.54"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dw4je"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.64"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dw4je"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.64"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dxj3v"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.97"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dxj3v"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.97"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dyxo8"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.35"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dyxo8"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.35"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e0c8p"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.28"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e0c8p"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.28"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dqi9q"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -0.07"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dqi9q"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-0.07"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/drwu7"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.23"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/drwu7"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.23"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dtbek"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2015-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.22"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dtbek"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2015-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.22"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dupz1"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.11"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/dupz1"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.11"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e7d2q"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.01"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e7d2q"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.01"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e8rn7"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.81"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e8rn7"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.81"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ea67k"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.97"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ea67k"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.97"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ebks1"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.35"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ebks1"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.35"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e1qt2"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.45"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e1qt2"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.45"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e35dj"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.74"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e35dj"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.74"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e4jxw"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.68"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e4jxw"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.68"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e5yid"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.61"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/e5yid"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.61"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eilm2"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.56"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eilm2"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.56"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ek06j"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.70"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ek06j"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.70"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eleqw"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2016-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.91"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eleqw"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2016-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.91"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/emtbd"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.99"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/emtbd"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.99"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eczce"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.37"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eczce"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.37"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eedwv"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.06"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eedwv"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.06"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/efsh8"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.40"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/efsh8"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.40"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eh71p"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 4.63"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eh71p"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "4.63"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/etu5e"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 4.41"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/etu5e"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "4.41"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ev8pv"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.93"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ev8pv"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.93"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ewna8"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.64"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ewna8"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.64"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ey1up"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.47"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ey1up"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.47"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eo7vq"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.57"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/eo7vq"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.57"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/epmg7"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.66"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/epmg7"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.66"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/er10k"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2017-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 3.54"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/er10k"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2017-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "3.54"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/esfl1"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.77"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/esfl1"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.77"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a59y2"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.98"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a59y2"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.98"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a6oij"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.90"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a6oij"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.90"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a832w"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.40"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a832w"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.40"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a9hnd"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.49"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a9hnd"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.49"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/9znoe"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.31"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/9znoe"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.31"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a128v"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.42"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a128v"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.42"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a2gt8"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.73"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a2gt8"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.73"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a3vdp"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.37"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/a3vdp"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.37"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/agihe"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.53"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/agihe"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.53"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ahx1v"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.72"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ahx1v"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.72"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ajbm8"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2018-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.49"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ajbm8"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2018-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.49"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/akq6p"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.68"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/akq6p"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.68"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/aaw7q"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 0.98"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/aaw7q"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "0.98"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/acas7"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.44"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/acas7"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.44"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/adpck"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.07"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/adpck"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.07"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/af3x1"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.87"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/af3x1"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.87"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/arr0q"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.97"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/arr0q"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.97"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/at5l7"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.55"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/at5l7"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.55"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/auk5k"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.41"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/auk5k"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.41"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/avyq1"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-09-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.56"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/avyq1"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-09-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.56"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/am4r2"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-10-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.36"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/am4r2"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-10-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.36"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/anjbj"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-11-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.69"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/anjbj"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-11-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.69"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/aoxvw"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2019-12-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 1.98"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/aoxvw"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2019-12-01"
+                },
+                "gsx$gdp": {
+                    "$t": "1.98"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/aqcgd"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-01-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.08"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/aqcgd"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-01-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.08"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b2zk2"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-02-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: 2.60"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b2zk2"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-02-01"
+                },
+                "gsx$gdp": {
+                    "$t": "2.60"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b4e4j"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-03-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -5.33"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b4e4j"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-03-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-5.33"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b5sow"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-04-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -16.55"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b5sow"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-04-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-16.55"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b779d"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-05-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -12.98"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b779d"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-05-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-12.98"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/axdae"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-06-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -7.74"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/axdae"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-06-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-7.74"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ayruv"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-07-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -5.00"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/ayruv"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-07-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-5.00"
+                }
+            },
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b06f8"
+                },
+                "updated": {
+                    "$t": "2020-11-17T02:22:49.243Z"
+                },
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006",
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ],
+                "title": {
+                    "type": "text",
+                    "$t": "2020-08-01"
+                },
+                "content": {
+                    "type": "text",
+                    "$t": "gdp: -4.10"
+                },
+                "link": [
+                    {
+                        "rel": "self",
+                        "type": "application/atom+xml",
+                        "href": "https://spreadsheets.google.com/feeds/list/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values/b06f8"
+                    }
+                ],
+                "gsx$date": {
+                    "$t": "2020-08-01"
+                },
+                "gsx$gdp": {
+                    "$t": "-4.10"
+                }
+            }
+        ]
+    }
+}
