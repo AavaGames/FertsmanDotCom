@@ -40,9 +40,9 @@
         //var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A:E")
 
         var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A1:E7", "Sheet2!A28:E96")
-        
-        SpitOutElement(link);
-        //SetupDualAxisLineChart('myChart', link, 5, 3);
+        //var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A1:D7")
+
+        SetupDualAxisLineChart('myChart', link, 3);
         
             //MULTIRANGED
             //https://sheets.googleapis.com/v4/spreadsheets/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/values:batchGet?ranges=Sheet2!A1:E7&ranges=Sheet2!A28:E96&majorDimension=COLUMNS&key=AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM
@@ -81,40 +81,7 @@
         // e['values'][0][?][0] = dataHeader
         // e['values'][0][?][0]
 
-        function SpitOutElement(link)
-        {
-            $.getJSON(link, json => 
-            {
-                var firstValueRange = true; 
-                
-                json.valueRanges.forEach(element => {
-
-                    // var values = element.values;
-
-                    // var amountOfValues = element.values.length;
-
-                    // for (var i = 0; i < amountOfValues; i++)
-                    // {
-
-                    // }
-
-                    element.values.forEach(e => {
-                        console.log(e[0]);
-                        // if (firstValueRange)
-                        // {
-                        //     if (e[0])
-                        // }
-                        // else
-                        // {
-
-                        // }
-                    });
-                    firstValueRange = false;
-                });
-            });
-        }
-
-        function SetupDualAxisLineChart(chartName, link, size, ...rightAxis)
+        function OldJSONCode(link)
         {
             $.getJSON(link, json => 
             {
@@ -128,8 +95,6 @@
 
                 json.feed.entry.forEach((e) => 
                 {
-                    
-
                     const column = Number(e['gs$cell']['col']);
                     const row = Number(e['gs$cell']['row']);
 
@@ -150,6 +115,59 @@
                         Number(value);
                     }
                     data[dataNum].push(value);
+                });
+            });
+        }
+
+
+        function SetupDualAxisLineChart(chartName, link, ...rightAxis)
+        {
+            $.getJSON(link, json => 
+            {
+                const size = json.valueRanges[0].values.length;
+                
+                var data = [];
+                var dataHeaders = new Array(size);
+
+                for (var i = 0; i < size; i++)
+                {
+                    data[i] = new Array();
+                }
+
+                var firstValueRange = true; 
+                
+                // Iterate all VALUE RANGES
+                json.valueRanges.forEach(valueRange => {
+
+                    var amountOfColumns = valueRange.values.length;
+
+                    // Iterate all VALUES arrays
+                    for (var column = 0; column < amountOfColumns; column++)
+                    {
+                        var values = valueRange.values[column];
+
+                        var amountOfRows = values.length;
+
+                        for (var row = 0; row < amountOfRows; row++)
+                        {
+                            var value = values[row];
+
+                            if (firstValueRange & row == 0)
+                            {
+                                dataHeaders[column] = value;
+                                continue;
+                            }
+                                
+                            data[column].push(value);
+                        }
+                    }  
+                    firstValueRange = false;       
+                });
+                
+                
+                console.log(dataHeaders);
+                data.forEach(element => {
+                    console.log(element);
                 });
 
                 // End of JSON formatting
@@ -198,8 +216,7 @@
                     }
                 }
 
-                console.log(axisLabels[0]);
-                console.log(axisLabels[1]);
+                // End of Line Formatting
 
                 new Chart(document.getElementById('myChart'),
                 {
