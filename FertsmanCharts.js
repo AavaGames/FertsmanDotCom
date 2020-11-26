@@ -1,8 +1,6 @@
-var DEBUG = false;
-
 var sheets_api_key = "AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM"
 
-//'use strict';
+'use strict';
 
 var lineOptions = {
     colors: ["rgba(255, 255, 255, 1)",
@@ -33,9 +31,6 @@ function FormatLink(spreadSheetID, ...ranges) {
     });
 
     link = startOfLink + spreadSheetID + range + forceColumns + apiKey;
-
-    if (DEBUG)
-        console.log(link);
 
     return link;
 }

@@ -1,4 +1,6 @@
-function SetupDualAxisLineChart(chartName, link, ...rightAxis) {
+
+function SetupLineChart(chartName, link, ...rightAxis) 
+{
     $.getJSON(link, json => {
         const size = json.valueRanges[0].values.length;
 
@@ -35,14 +37,6 @@ function SetupDualAxisLineChart(chartName, link, ...rightAxis) {
             }
             firstValueRange = false;
         });
-
-        if (DEBUG)
-        {
-            console.log(dataHeaders);
-            data.forEach(element => {
-                console.log(element);
-            });
-        }
 
         // End of JSON formatting
 
@@ -89,7 +83,8 @@ function SetupDualAxisLineChart(chartName, link, ...rightAxis) {
 
         // End of Line / Dataset Formatting
 
-        new Chart(document.getElementById('myChart'),
+        var isDualAxisChart = rightAxis.length > 0;
+        new Chart(document.getElementById(chartName),
             {
                 type: 'line',
                 data: {
@@ -139,7 +134,7 @@ function SetupDualAxisLineChart(chartName, link, ...rightAxis) {
                             }
                         },
                         {
-                            display: true,
+                            display: isDualAxisChart,
                             position: 'right',
                             id: 'y-axis-2',
                             scaleLabel: {

@@ -4,10 +4,6 @@
     <meta charset="utf-8">
     <title>Fertsman.com LineChart</title>
     
-    <!-- SITE WIDE -->
-    <!-- Fertsman.com Chart Script -->
-    <script src="https://raw.githubusercontent.com/AavaGames/FertsmanDotCom/master/FertsmanCharts.js"></script>
-
     <!-- Chart js bundle min -->
     <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
 
@@ -17,6 +13,9 @@
     <!-- Open Sans Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Fertsman.com Chart Script -->
+    <script src="FertsmanCharts.js"></script>
 
     <script src="LineChart.js"></script>
 
@@ -30,7 +29,7 @@
 
     <script>
         var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A1:E7", "Sheet2!A28:E96")
-        SetupDualAxisLineChart('myChart', link, 3);
+        SetupLineChart('myChart', link, 3);
     </script>
 </body>
 
