@@ -23,7 +23,6 @@
 
 
     <script>
-        var sheets_api_key = "AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM"
 
         // get color 
         var lineOptions = {
@@ -36,57 +35,16 @@
         }
 
         // Multi Right-Axis Example
+        //SetupDualAxisLineChart('myChart', "LINK", 3, 3, 5);
 
-        //var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A:E")
+        SetupDualAxisLineChart('myChart', "https://spreadsheets.google.com/feeds/cells/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/2/public/values?alt=json", 5, 3);
 
-        var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A1:E7", "Sheet2!A28:E96")
-        //var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A1:D7")
-
-        SetupDualAxisLineChart('myChart', link, 3);
-        
-            //MULTIRANGED
-            //https://sheets.googleapis.com/v4/spreadsheets/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/values:batchGet?ranges=Sheet2!A1:E7&ranges=Sheet2!A28:E96&majorDimension=COLUMNS&key=AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM
-
-            //SINGLE RANGE
-            //https://sheets.googleapis.com/v4/spreadsheets/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/values:batchGet?ranges=Sheet2!A:E&majorDimension=COLUMNS&key=AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM
-
-            //SEPARATE HEADERS
-            //https://sheets.googleapis.com/v4/spreadsheets/1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU/values:batchGet?ranges=Sheet2!A1:E1&ranges=Sheet2!A21:E96&majorDimension=COLUMNS&key=AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM
-
-        function FormatLink(spreadSheetID, ...ranges)
-        {
-            var link;
-            const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
-            const forceColumns = "&majorDimension=COLUMNS"
-            const apiKey = "&key=" + sheets_api_key;
-
-            var range = "";
-            ranges.forEach(element => {
-                if (range == "")
-                {
-                    range = "/values:batchGet?ranges=" + element;
-                }
-                else
-                {
-                    range = range + "&ranges=" + element;
-                }
-            });
-
-            link = startOfLink + spreadSheetID + range + forceColumns + apiKey;
-
-            console.log(link);
-            return link;
-        }
-
-        // e['values'][0][?][0] = dataHeader
-        // e['values'][0][?][0]
-
-        function OldJSONCode(link)
+        function SetupDualAxisLineChart(chartName, link, size, ...rightAxis)
         {
             $.getJSON(link, json => 
             {
                 var data = [];
-                var dataHeaders = new Array(size);
+                var dataNames = new Array(size);
 
                 for (var i = 0; i < size; i++)
                 {
@@ -103,7 +61,7 @@
                     //Data is header/name
                     if (row == 1)
                     {
-                        dataHeaders[dataNum] = e['gs$cell']['$t'];
+                        dataNames[dataNum] = e['gs$cell']['$t'];
                         
                         //Moves to next element
                         return;
@@ -116,61 +74,6 @@
                     }
                     data[dataNum].push(value);
                 });
-            });
-        }
-
-
-        function SetupDualAxisLineChart(chartName, link, ...rightAxis)
-        {
-            $.getJSON(link, json => 
-            {
-                const size = json.valueRanges[0].values.length;
-                
-                var data = [];
-                var dataHeaders = new Array(size);
-
-                for (var i = 0; i < size; i++)
-                {
-                    data[i] = new Array();
-                }
-
-                var firstValueRange = true; 
-                
-                // Iterate all VALUE RANGES
-                json.valueRanges.forEach(valueRange => {
-
-                    var amountOfColumns = valueRange.values.length;
-
-                    // Iterate all VALUES arrays
-                    for (var column = 0; column < amountOfColumns; column++)
-                    {
-                        var values = valueRange.values[column];
-
-                        var amountOfRows = values.length;
-
-                        for (var row = 0; row < amountOfRows; row++)
-                        {
-                            var value = values[row];
-
-                            if (firstValueRange & row == 0)
-                            {
-                                dataHeaders[column] = value;
-                                continue;
-                            }
-                                
-                            data[column].push(value);
-                        }
-                    }  
-                    firstValueRange = false;       
-                });
-                
-                
-                console.log(dataHeaders);
-                data.forEach(element => {
-                    console.log(element);
-                });
-
-                // End of JSON formatting
 
                 Chart.defaults.global.defaultFontFamily = "Open Sans";
 
@@ -191,7 +94,7 @@
                         }
                     }
 
-                    var axisLabel = dataHeaders[i]
+                    var axisLabel = dataNames[i]
                     if (isRightAxis)
                     {
                         if (!axisLabels[1] == "")
@@ -206,7 +109,7 @@
                     }
 
                     _datasets[i-1] = {
-                        label: dataHeaders[i],
+                        label: dataNames[i],
                         //For Bar Chart
                         //backgroundColor: "rgba(0, 175, 181, 1)",
                         borderColor: lineOptions.colors[i],
@@ -216,7 +119,8 @@
                     }
                 }
 
-                // End of Line Formatting
+                console.log(axisLabels[0]);
+                console.log(axisLabels[1]);
 
                 new Chart(document.getElementById('myChart'),
                 {
@@ -245,7 +149,7 @@
                                 display: true,
                                 scaleLabel: {
                                     display: false,
-                                    //labelString: dataHeaders[0]
+                                    //labelString: dataNames[0]
                                 },
                                 gridLines: {
                                     borderDash: [2, 2]
