@@ -8,7 +8,8 @@ var lineOptions = {
         "rgba(255, 119, 0, 1)",
         "rgba(163, 0, 0, 1)",
         "rgba(0, 71, 119, 1)",
-        "rgba(239, 210, 141, 1)"]
+        "rgba(239, 210, 141, 1)"],
+    trendLine: "rgba(255, 150, 0, 1)",
 }
 
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
