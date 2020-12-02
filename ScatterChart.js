@@ -1,6 +1,9 @@
 function SetupScatterChart(chartName, link, ...rightAxis) 
 {
+    console.log("Fetching JSON from link");
     $.getJSON(link, json => {
+        console.log("JSON Acquired");
+
         const size = json.valueRanges[0].values.length;
 
         var data = [];
@@ -46,7 +49,7 @@ function SetupScatterChart(chartName, link, ...rightAxis)
         var _datasets = [];
 
         var axisLabels = ["", ""];
-        for (var i = 1; i < size; i++) {
+        for (var i = 0; i < size; i++) {
             var isRightAxis = false;
 
             var axis = 'y-axis-1';
@@ -83,12 +86,16 @@ function SetupScatterChart(chartName, link, ...rightAxis)
 
         var pointData = [];
         
-        for (var i = 0; i < data[1].length; i++)
+        for (var i = 0; i < data[0].length; i++)
         {
             pointData[i] = {
-                x: Number(data[1][i]),
-                y: Number(data[2][i])
+                x: Number(data[0][i]),
+                y: Number(data[1][i])
             }
+            // {
+            //     x: Number(data[0][i]),
+            //     y: Number(data[2][i])
+            // }]
         }
 
         _datasets[0] = 
@@ -99,7 +106,7 @@ function SetupScatterChart(chartName, link, ...rightAxis)
             borderColor: lineOptions.colors[1],
             data: pointData,
             //fill: true,
-            //yAxisID: 'y-axis-1',
+            yAxisID: axis,
         }
 
         // End of Line / Dataset Formatting
@@ -120,8 +127,6 @@ function SetupScatterChart(chartName, link, ...rightAxis)
                 }
             }
         });
-        //chart.render();
-        CalculateTrendLine(chart);
         // var isDualAxisChart = rightAxis.length > 0;
         // new Chart(document.getElementById(chartName),
         //     {
@@ -197,58 +202,45 @@ function SetupScatterChart(chartName, link, ...rightAxis)
         //             }
         //        }
         //     });
+        
+        CalculateTrendLine(chart);
     });
 }
-
-//import regression from 'regression';
 
 function CalculateTrendLine(chart) 
 {
     var dataPoints = chart.data.datasets[0].data;
 
-    var a, b, c, d, e, slope, yIntercept;
-    var xSum = 0, ySum = 0, xySum = 0, xSquare = 0, dpsLength = dataPoints.length;
+    var lowestAndHighest = GetLowestAndHighestNumberInArray(dataPoints)
+    var lowestX = lowestAndHighest[0];
+    var highestX = lowestAndHighest[1];
     
-    var lowestX = dataPoints[0].x;
-    var highestX = dataPoints[0].x;
-
-    for(var i = 0; i < dpsLength; i++)
+    var regressionData = [[]];
+    for (var i = 0; i < dataPoints.length; i++)
     {
-        lowestX = lowestX > dataPoints[i].x ? dataPoints[i].x : lowestX;
-        highestX = highestX < dataPoints[i].x ? dataPoints[i].x : highestX;
-
-        xySum += (dataPoints[i].x * dataPoints[i].y)
-
-        xSum += dataPoints[i].x;
-        ySum += dataPoints[i].y;
-
-        xSquare += Math.pow(dataPoints[i].x, 2);
+        regressionData[i] = [dataPoints[i].x, dataPoints[i].y]
     }
 
-    a = xySum * dpsLength;
-    b = xSum * ySum;
-    c = dpsLength * xSquare;
-    d = Math.pow(xSum, 2);
-    slope = (a-b)/(c-d);
-    e = slope * xSum;
-    yIntercept = (ySum - e) / dpsLength;
+    var result = regression.linear(regressionData);
 
-    // var startPoint = GetTrendLinePoint(dataPoints[0], slope, yIntercept);
-    // var endPoint = GetTrendLinePoint(dataPoints[dpsLength-1].x, slope, yIntercept);
+    var point = result.predict(lowestX);
+    var startPoint = {
+        x: point[0],
+        y: point[1]
+    }
 
-    var startPoint = GetTrendLinePoint(lowestX, slope, yIntercept);
-    var endPoint = GetTrendLinePoint(highestX, slope, yIntercept);
+    point = result.predict(highestX);
+    var endPoint = {
+        x: point[0],
+        y: point[1]
+    }
 
-    console.log(startPoint);
-    console.log(endPoint);
-    
-    //var reg = regression('linear', dataPoints);
-    //startPoint = reg.equation(lowestX);
-    //reg.string for equation
-    //var r2 = reg.r2.toPrecision(2);
+    var equation = result.string;
+    console.log(equation);
+    var r2 = result.r2.toPrecision(2);
 
     chart.data.datasets.push({
-        label: 'R2 - ',// + r2,
+        label: "Equation: " + equation + "  R2 = " + r2,
         data: [startPoint, endPoint],
         showLine: true,
         pointRadius: 0,
@@ -258,9 +250,15 @@ function CalculateTrendLine(chart)
     chart.update();
 }
 
-function GetTrendLinePoint(x, slope, intercept) {
-    return {
-        x: x, 
-        y: ((slope * x) + intercept) 
-    };
+function GetLowestAndHighestNumberInArray(array)
+{
+    var lowestX = array[0].x;
+    var highestX = array[0].x;
+
+    for(var i = 0; i < array.length; i++)
+    {
+        lowestX = lowestX > array[i].x ? array[i].x : lowestX;
+        highestX = highestX < array[i].x ? array[i].x : highestX;
+    }
+    return [lowestX, highestX];
 }
