@@ -1,5 +1,3 @@
-
-
 function SetupScatterChart(chartName, link, ...rightAxis) 
 {
     $.getJSON(link, json => {
@@ -84,7 +82,6 @@ function SetupScatterChart(chartName, link, ...rightAxis)
         }
 
         var pointData = [];
-
         
         for (var i = 0; i < data[1].length; i++)
         {
@@ -203,6 +200,8 @@ function SetupScatterChart(chartName, link, ...rightAxis)
     });
 }
 
+//import regression from 'regression';
+
 function CalculateTrendLine(chart) 
 {
     var dataPoints = chart.data.datasets[0].data;
@@ -242,9 +241,14 @@ function CalculateTrendLine(chart)
 
     console.log(startPoint);
     console.log(endPoint);
+    
+    //var reg = regression('linear', dataPoints);
+    //startPoint = reg.equation(lowestX);
+    //reg.string for equation
+    //var r2 = reg.r2.toPrecision(2);
 
     chart.data.datasets.push({
-        label: 'Line of Best Fit',
+        label: 'R2 - ',// + r2,
         data: [startPoint, endPoint],
         showLine: true,
         pointRadius: 0,
