@@ -59,9 +59,12 @@ function importCsvFromUrl() {
     //     console.log(splitData[i][0][0]);
     // }
 
+    WriteDataToSheet(splitData[2], 1);
+    WriteDataToSheet(splitData[3], 26);
+
     for (var i = 0; i < splitData.length; i++)
     {
-        writeDataToSheet(splitData[i], maxLength * (i + 1));
+        WriteDataToSheet(splitData[i], 1 + (maxLength * i));
         displayToastAlert("written to sheet");
     }
 
@@ -69,14 +72,14 @@ function importCsvFromUrl() {
 }
 
 //Writes a 2D array of data into existing sheet
-function writeDataToSheet(_data, startRow) {
+function WriteDataToSheet(_data, startRow) {
     var ss = SpreadsheetApp.getActive();
 
     //Change this to current sheet or get sheet
 
     sheet = ss.getSheetByName('STATISTICS CANADA TEST');
 
-    sheet.getRange(startRow, 1, (startRow * _data.length), _data[0].length).setValues(_data);
+    sheet.getRange(startRow, 1, (startRow + _data.length), _data[0].length).setValues(_data);
 }
 
 function SplitArrayIntoArrays(data, maxLength) {
@@ -89,7 +92,6 @@ function SplitArrayIntoArrays(data, maxLength) {
     for (var i = 0; i < data.length; i++) {
         if (counter > maxLength)
         {
-            console.log()
             counter = 0;
             arrayNum++;
             newData[arrayNum] = new Array();
