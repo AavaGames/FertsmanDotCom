@@ -21,65 +21,62 @@ function promptUserForInput(promptText) {
 
 //Imports a CSV file at a URL into the Google Sheet
 function importCsvFromUrl() {
-    var table = 36100434;
-    //var table = promptUserForInput("Please enter table number");
+    //var table = 36100434;
+    var table = promptUserForInput("Please enter table number");
     var url = ("https://www150.statcan.gc.ca/n1/tbl/csv/" + table + "-eng.zip");
+
+    displayToastAlert("Fetching");
+
     var zipblob = UrlFetchApp.fetch(url).getBlob();
+
+    displayToastAlert("Unzipping");
 
     var unzipblob = Utilities.unzip(zipblob);
     var unzipstr = unzipblob[0].getDataAsString();
 
+    displayToastAlert("Parsing");
+
     var contents = Utilities.parseCsv(unzipstr);
 
-    displayToastAlert("parsed");
+    displayToastAlert("Sorting");
 
-    var data = EliminateExcessData(contents);
-
-    displayToastAlert("organized data");
-
-    //data = LimitRows(data, 20);
-
-    //displayToastAlert("data sorted");
-
-    // 1 date column
-    // 862 catagories columns
-
-    // 1 header row
-    // 276 months rows
+    var data = SortStatsCanData(contents);
 
     var maxLength = 25;
 
     var splitData = SplitArrayIntoArrays(data, maxLength);
 
-    console.log("data total rows " + data.length);
-    console.log("split data arrays " + splitData.length);
-
-    // for (var i = 0; i < splitData.length; i++)
-    // {
-    //     console.log(splitData[i][0][0]);
-    // }
-
-    WriteDataToSheet(splitData[2], 1);
-    WriteDataToSheet(splitData[3], 26);
+    ClearSheet();
 
     for (var i = 0; i < splitData.length; i++)
     {
-        WriteDataToSheet(splitData[i], 1 + (maxLength * i));
-        displayToastAlert("written to sheet");
+        displayToastAlert("Writing part " + (i + 1) + " / " + splitData.length + " to sheet");
+        // Starting at row 2 bypasses a Spreadsheet Error bug
+        WriteDataToSheet(splitData[i], 2 + (maxLength * i));
     }
+    // Delete empty first row
+    sheet.deleteRow(1);
 
-    displayToastAlert("The CSV file was successfully imported.");
+    displayToastAlert("The CSV file was successfully imported");
 }
+
+var spreadSheetName = "STATISTICS CANADA TEST";
 
 //Writes a 2D array of data into existing sheet
 function WriteDataToSheet(_data, startRow) {
     var ss = SpreadsheetApp.getActive();
 
-    //Change this to current sheet or get sheet
+    // OOIJOIJOIJOIJ Change this to current sheet or get sheet
 
-    sheet = ss.getSheetByName('STATISTICS CANADA TEST');
+    sheet = ss.getSheetByName(spreadSheetName);
+    sheet.getRange(startRow, 1, _data.length, _data[0].length).setValues(_data);
+}
 
-    sheet.getRange(startRow, 1, (startRow + _data.length), _data[0].length).setValues(_data);
+function ClearSheet()
+{
+    var ss = SpreadsheetApp.getActive();
+    sheet = ss.getSheetByName(spreadSheetName);
+    sheet.clear();
 }
 
 function SplitArrayIntoArrays(data, maxLength) {
@@ -114,7 +111,7 @@ function LimitRows(data, rows) {
     return newData;
 }
 
-function EliminateExcessData(oldData) {
+function SortStatsCanData(oldData) {
     // data[rows][columns]
     var newData = [[]];
 
