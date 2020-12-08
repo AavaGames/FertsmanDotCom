@@ -1,18 +1,25 @@
 //Statistics Canada Data Import Program for FertsmanDotCom
 function onOpen(e) {
     var ui = SpreadsheetApp.getUi();
-    ui.createMenu("Statistics Canada")
-        .addItem("Import CSV by table number", "importCsvFromUrl")
-        //.addItem("Import CSV from drive", "importCsvFromDrive")
-        .addToUi();
+    ui.createMenu("Statistics Canada").addItem("Import CSV by table number", "ImportCsvFromUrl").addToUi();
 }
 
 //Displays an alert as a Toast message
-function displayToastAlert(message) {
+function log(message) {
     SpreadsheetApp.getActive().toast(message, "⚠️ Alert");
+    console.log(message);
 }
 
-function promptUserForInput(promptText) {
+//Prompts user for table
+function PromptUserForTable(promptText) {
+    var ui = SpreadsheetApp.getUi();
+    var prompt = ui.prompt(promptText);
+    var response = prompt.getResponseText();
+    return response;
+}
+
+//Promprts user for location
+function PromptUserForLocation(promptText) {
     var ui = SpreadsheetApp.getUi();
     var prompt = ui.prompt(promptText);
     var response = prompt.getResponseText();
@@ -20,121 +27,100 @@ function promptUserForInput(promptText) {
 }
 
 //Imports a CSV file at a URL into the Google Sheet
-function importCsvFromUrl() {
-    //var table = 10100107;
-    var table = 36100434;
-    //var table = promptUserForInput("Please enter table number");
+function ImportCsvFromUrl(prompt = true, tableID = "") {
+    var table;
+
+    if (prompt)
+        table = PromptUserForTable("Please enter table number");
+    else
+        table = tableID;
+
     var url = ("https://www150.statcan.gc.ca/n1/tbl/csv/" + table + "-eng.zip");
 
-    displayToastAlert("Fetching");
-
+    log("Fetching");
     var zipblob = UrlFetchApp.fetch(url).getBlob();
 
-    displayToastAlert("Unzipping");
-
+    log("Unzipping");
     var unzipblob = Utilities.unzip(zipblob);
     var unzipstr = unzipblob[0].getDataAsString();
 
-    displayToastAlert("Parsing");
-
+    log("Parsing");
     var contents = Utilities.parseCsv(unzipstr);
 
-    displayToastAlert("Sorting");
+    //contents = LimitRows(contents, 80);
 
-    var data = SortStatsCanData(contents);
+    log("Sorting");
+    var data = SafeSortStatsCanData(contents);
+  
+    //data = FillOutArray(data);
 
-    //data = FillOutRange(data);
+    var location = table;
+    
+    //log("Clearing Sheet");
+    //ClearEntireSheet(location);
+    log("Writing to sheet");
+    WriteDataToSheet(data, location);
 
-    //var maxLength = 25;
-    //var splitData = SplitArrayIntoArrays(data, maxLength);
-
-    //ClearSheet();
-
-    //for (var i = 0; i < splitData.length; i++)
-    // for (var i = 0; i < 4; i++)
-    // {
-    //     displayToastAlert("Writing part " + (i + 1) + " / " + splitData.length + " to sheet");
-
-    //     console.log("Writing part " + (i + 1) + " / " + splitData.length + " to sheet")
-    //     // Starting at row 2 bypasses a Spreadsheet Error bug
-    //     WriteDataToSheet(splitData[i], 2 + (maxLength * i));
-
-    //     console.log("Finished writing part " + (i + 1));
-    // }
-    // Delete empty first row
-
-    WriteDataToSheet(data, 1);
-
-    displayToastAlert("The CSV file was successfully imported");
+    log("The CSV file was successfully fetched and imported");
 }
-
-function GetLongestLengthColumn(array)
-{
-    var length = array[0].length;
-
-    for (var i = 1; i < array.length; i++)
-    {
-        length = length < array[i].length ? array[i].length : length;
-    }
-
-    console.log("0 length " + array[0].length + " - longest length " + length);
-
-    return length;
-}
-
-var spreadSheetName = "ScriptTest";
 
 //Writes a 2D array of data into existing sheet
-function WriteDataToSheet(_data, startRow) {
-    displayToastAlert("Writing to sheet");
-    console.log("Writing to sheet");
-
-    //var longestColumn = GetLongestLengthColumn(_data);
+function WriteDataToSheet(_data, location, startRow = 1) {
+    var spreadSheetName = location;
     var ss = SpreadsheetApp.getActive();
-
-    // TO DO Change this to current sheet or get sheet
-
     var sheet = ss.getSheetByName(spreadSheetName);
-    var ranges = sheet.getRange(startRow, 1, _data.length, _data[0].length)
-    //ranges.setValues(_data);
-
-    // Based on https://developers.google.com/apps-script/advanced/sheets
+    var ranges = sheet.getRange(startRow, 1, _data[0].length, _data.length);
     var request = {
         'valueInputOption': 'USER_ENTERED',
         'data': [
-        {
-            'range': spreadSheetName + "!" + ranges.getA1Notation(),
-            'majorDimension': 'ROWS',
-            'values': _data
-        }]
+            {
+                'range': spreadSheetName + "!" + ranges.getA1Notation(),
+                'majorDimension': 'COLUMNS',
+                'values': _data
+            }]
     };
     Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
-    var sheetID = sheet.getSheetId();
-    //Sheets.Spreadsheets.Values.batchUpdate(request, sheetID);
-    console.log('done writing through api');
-    //sheet.deleteRow(1);
 }
 
-function ClearSheet()
-{
-    displayToastAlert("Clearing Sheet");
+function ClearEntireSheet(location) {
+    var spreadSheetName = location;
+    var request = {
+        'valueInputOption': 'USER_ENTERED',
+        'data': [
+            {
+                'range': spreadSheetName,
+                'majorDimension': 'ROWS',
+            }]
+    };
+    Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
 
+    var spreadSheetName = location;
     var ss = SpreadsheetApp.getActive();
-    sheet = ss.getSheetByName(spreadSheetName);
-    sheet.clear();
+    var sheet = ss.getSheetByName(spreadSheetName);
+    var ranges = sheet.getRange(1, 1, sheet.getLastRow(), sheet.getLastColumn());
+    var request = {
+        'valueInputOption': 'USER_ENTERED',
+        'data': [
+            {
+                'range': spreadSheetName + "!" + ranges.getA1Notation(),
+                'majorDimension': 'ROWS',
+                'values': "userEnteredData"
+            }]
+    };
+    Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
 }
 
-function FillOutRange(range, fillItem) {
+function FillOutArray(array, fillItem) {
     var fill = (fillItem === undefined) ? "" : fillItem;
 
-    //Get the max row length out of all rows in range.
+    //Get the max row length out of all rows in array.
     var initialValue = 0;
-    var maxRowLen = range.reduce(function (acc, cur) {
+    var maxRowLen = array.reduce(function (acc, cur) {
         return Math.max(acc, cur.length);
     }, initialValue);
 
-    //Fill shorter rows to match max with selecte value.
-    var filled = range.map(function (row) {
+    //Fill shorter rows to match max with selected value.
+    var filled = array.map(function (row) {
         var dif = maxRowLen - row.length;
         if (dif > 0) {
             var arizzle = [];
@@ -144,28 +130,10 @@ function FillOutRange(range, fillItem) {
         return row;
     })
     return filled;
-};
+}
 
-function SplitArrayIntoArrays(data, maxLength) {
-    var newData = new Array();
-    var counter = 0;
-    var arrayNum = 0;
-
-    newData[0] = new Array();
-
-    for (var i = 0; i < data.length; i++) {
-        if (counter > maxLength)
-        {
-            counter = 0;
-            arrayNum++;
-            newData[arrayNum] = new Array();
-        }
-
-        newData[arrayNum][counter] = data[i];
-
-        counter++;
-    }
-    return newData;
+function GetMaxRowLength(array) {
+    
 }
 
 function LimitRows(data, rows) {
@@ -179,7 +147,7 @@ function LimitRows(data, rows) {
 }
 
 function SortStatsCanData(oldData) {
-    // data[rows][columns]
+    // theData[rows][columns]
     var newData = [[]];
 
     var dateCol = -1, vectorCol = -1, valueCol = -1;
@@ -214,7 +182,6 @@ function SortStatsCanData(oldData) {
     var amountOfOldRows = oldData.length;
 
     // i = 1 to skip headers
-    //newData[0]
 
     console.log("firstVector " + firstVectorID);
 
@@ -273,6 +240,88 @@ function SortStatsCanData(oldData) {
     }
     console.log("END rows " + newData.length + " - columns " + newData[0].length + "- loopedTimes " + loopTimes);
     //console.log("first vector " + oldData[1][vectorCol]);
-    
+
+    return newData;
+}
+
+
+function SafeSortStatsCanData(oldData) {
+    // Data Structure
+    // oldData[rows][columns] 
+    // newData[columns][rows]
+    var newData = [[]];
+
+    var dateCol = -1, vectorCol = -1, valueCol = -1;
+
+    // Find DATE, VECTOR and VALUE column numbers
+    for (var i = 0; i < oldData[0].length; i++) {
+        var cell = oldData[0][i];
+        if (cell.includes("REF_DATE"))
+            dateCol = i;
+        else if (cell == 'VECTOR')
+            vectorCol = i;
+        else if (cell == 'VALUE')
+            valueCol = i;
+
+        if (dateCol != -1 & vectorCol != -1 & valueCol != -1)
+            break;
+    }
+    console.log(dateCol, vectorCol, valueCol);
+
+    newData[0][0] = "Date";
+    newData[0][1] = oldData[1][dateCol];
+
+    //iterate through rows
+    var amountOfOldRows = oldData.length;
+
+    var newColumn = 0;
+    var newRow = 1;
+
+    console.log("Total Rows in unsorted CSV - " + amountOfOldRows);
+    // i = 1 to skip headers
+    for (var oldRow = 1; oldRow < amountOfOldRows; oldRow++) {
+        var date = oldData[oldRow][dateCol];
+        var vector = oldData[oldRow][vectorCol];
+        var value = oldData[oldRow][valueCol];
+
+        //compare date to latest newData date, if it fails, add date and move to next row
+        if (date != newData[0][newRow])
+        {
+            newRow++;
+            newData[0][newRow] = date;
+        }
+
+        var vectorFound = false;
+        var newVectorCol = -1;
+        //find vector in newData
+        for (var i = 0; i < newData.length; i++)
+        {
+            if (vector == newData[i][0])
+            {
+                vectorFound = true;
+                newVectorCol = i;
+                break;
+            }
+        }
+
+        if (vectorFound)
+        {
+            //insert value into proper column
+            //MIGHT BE ERROR, and need to push
+            newData[newVectorCol][newRow] = value;
+        }
+        else
+        {
+            //add new vector column
+            //place header at row[0]
+            //place value at current col/row
+            newData.push(new Array());
+            newColumn++;
+            newData[newColumn][0] = vector;
+            newData[newColumn][newRow] = value;
+        }
+    }
+    console.log("END columns " + newData.length + " - row " + newData[0].length);
+
     return newData;
 }
