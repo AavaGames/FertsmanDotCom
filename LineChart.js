@@ -1,3 +1,10 @@
+/**
+ * Creates a Line Chart using the Chart.js library
+ * @param {String} chartName Chart ID name to be called by html <canvas>
+ * @param {String} link The link/URL to the JSON
+ * @param {Number} rightAxis Rest syntax for all columns put on the right axis, count from 1.
+ *                           leave EMPTY if no right axis is desired.
+ */
 function SetupLineChart(chartName, link, ...rightAxis) 
 {
     $.getJSON(link, json => {
@@ -50,7 +57,7 @@ function SetupLineChart(chartName, link, ...rightAxis)
             }
         }
 
-        // End of Line / Dataset Formatting
+        // End of chart specific Line / Dataset Formatting
 
         var isDualAxisChart = rightAxis.length > 0;
         new Chart(document.getElementById(chartName), 

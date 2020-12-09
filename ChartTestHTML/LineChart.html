@@ -32,21 +32,29 @@
 
         if (vectorBased)
         {
-            var overwriteHeaders = ["Boom", "Big Shaq"];
-            FormatLinkForVectors("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
-            
-            //link = AddRangesToVectorLink(link, "1:1", "80:100000");
+            //  If not using keep variables EMPTY
 
+            // Do not include "Date", it is already included. 
+            // Example = ["HeaderOne", "HeaderTwo"]
+            var overwriteHeaders;
+            // Example = [
+            //     [1, 1], 
+            //     [32, 60],
+            //     [80, 100000]
+            // ];
+            var rowRanges;
+            FormatLinkWithVectors("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
+            
             function FinishedLink(link)
             {
                 console.log("Building Chart.");
-                SetupLineChart('myChart', link, 2, 4);
+                SetupLineChart('myChart', link, 3);
             }
         }
         else
         {
-            //var link = FormatLink("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434!A:B", "36100434!C:C")
-            var link = FormatLink("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434!A1:B32", "36100434!C1:C32", "36100434!A33:B1000", "36100434!C33:C1000")
+            //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:B", "C:C")
+            var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A1:B32", "C1:C32", "A33:B1000", "C33:C1000")
 
             SetupLineChart('myChart', link, 2);
         }

@@ -1,4 +1,10 @@
-// Do not count from zero for xAxis
+/**
+ * Creates a Line Chart using the Chart.js library
+ * @param {String} chartName Chart ID name to be called by html <canvas>
+ * @param {String} link The link/URL to the JSON
+ * @param {Number} xAxis Choose which dataset should be places on the x axis, do NOT count from 0
+ * @param {Boolean} swapYAxisData Swap Y axis if two Y axes are present
+ */
 function SetupScatterChart(chartName, link, xAxis = 1, swapYAxisData = false) 
 {
     console.log("Fetching JSON from link");
@@ -155,7 +161,7 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
     }
 
 
-    // End of Line / Dataset Formatting
+    // End of chart specific Line / Dataset Formatting
 
     // var chart = new Chart(document.getElementById(chartName), {
     //     type: 'scatter',

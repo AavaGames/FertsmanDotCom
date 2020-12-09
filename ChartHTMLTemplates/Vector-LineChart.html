@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <title>Fertsman.com LineChart</title>
+    
+    <!-- Chart js bundle min -->
+    <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+
+    <!-- Jquery EXCLUDE FROM SITE WIDE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+    <!-- Open Sans Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Fertsman.com Chart Script -->
+    <script src="FertsmanCharts.js"></script>
+    <script src="LineChart.js"></script>
+</header>
+
+<body>
+    <div style="height:100%">
+        <canvas id="myChart"></canvas>
+    </div>
+
+
+    <script>
+        //  If not using keep variables EMPTY
+
+        // Do not include "Date", it is already included. 
+        // Example = ["HeaderOne", "HeaderTwo"]
+        var overwriteHeaders;
+        // Example = [
+        //     [1, 1], 
+        //     [32, 60],
+        //     [80, 100000]
+        // ];
+        var rowRanges;
+        FormatLinkWithVectors("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
+        
+        function FinishedLink(link)
+        {
+            SetupLineChart('myChart', link, 3);
+        }       
+    </script>
+</body>
+
+</html>

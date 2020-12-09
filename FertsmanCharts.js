@@ -1,7 +1,9 @@
+'use strict';
+
 var sheets_api_key = "AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM";
 //var sheets_api_key = "AIzaSyA83UIfNAZQ0Lm1a_cBhOtznSiNf8oWrdw";
 
-'use strict';
+// #region Chart Options
 
 var lineOptions = {
     colors: ["rgba(255, 255, 255, 1)",
@@ -16,11 +18,38 @@ var lineOptions = {
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
 var chartFontFamily = "Open Sans";
 
-// Magical Lambda to convert column num to letter
+// #endregion
+
+// #region  FUNCTIONS
+
+// Magical lambda to convert column number to letter
 ColumnNumToLetter = (n) => (a=Math.floor(n/26)) >= 0 ? ColumnNumToLetter(a-1) + String.fromCharCode(65+(n%26)) : '';
 
-// Requires FinishedLink(link) where calling this function
-function FormatLinkForVectors(spreadSheetID, sheetID, ...vectors)
+/**
+ * Formats link to pull VECTORS from specific spreadsheet and sheet.
+ * 
+ * Where this function is called:
+ *   - REQUIRED FinishedLink(link) function, place all subsequent code in this function
+ * 
+ *   - var overWriteHeaders;
+ *     Do not include "Date", it is already included.
+ *     This variable overwrites the headers if included.
+ *     Example = ["HeaderOne", "HeaderTwo"]
+ * 
+ *   - var rowRanges;
+ *     This variable add row ranges to all vector columns
+ *     Example = [
+ *         [1, 1], 
+ *         [32, 60],
+ *         [80, 100000]
+ *      ];
+ * 
+ * @param {String} spreadSheetID The spreadsheet ID
+ * @param {String} sheetName The sheet name
+ * @param {Number} vector Vectors to pull from sheet
+ *                        Examples: "v12093102, vå39210901, v231090"
+ */
+function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
 {
     const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
     const forceRows = "&majorDimension=ROWS"
@@ -28,9 +57,9 @@ function FormatLinkForVectors(spreadSheetID, sheetID, ...vectors)
     const apiKey = "&key=" + sheets_api_key;
 
     // Pull first row
-    const range = "/values:batchGet?ranges=" + sheetID + "!1:1";
+    const linkRanges = "/values:batchGet?ranges=" + sheetName + "!1:1";
 
-    var link = startOfLink + spreadSheetID + range + forceRows + apiKey;
+    var link = startOfLink + spreadSheetID + linkRanges + forceRows + apiKey;
 
     var vectorColumns = [];
     var firstRow = [];
@@ -66,75 +95,88 @@ function FormatLinkForVectors(spreadSheetID, sheetID, ...vectors)
             ranges.push(ColumnNumToLetter(e));
         });
 
-        // Get Date
-        var range = "/values:batchGet?ranges=" + sheetID + "!A:A";
-        // Get Columns
-        ranges.forEach(element => {
-            range = range + "&ranges=" + sheetID + "!" + element + ":" + element;
-        });
-    
+        var linkRanges = "/values:batchGet?ranges=";
+        if (typeof rowRanges == 'undefined')
+        {
+            console.log("Not adding rows to ranges");
+
+            // Get Date
+            linkRanges = "/values:batchGet?ranges=" + sheetName + "!A:A";
+            // Get Columns
+            ranges.forEach(element => {
+                linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element + ":" + element;
+            });
+        }
+        else
+        {
+            console.log("Adding rows to ranges");
+            console.log(ranges);
+            // First entry format exception of date
+            linkRanges += sheetName + "!A" + rowRanges[0][0] + ":A" + rowRanges[0][1];
+            for (var j = 0; j < rowRanges.length; j++)
+            {
+                var date = true;
+                for (var i = 0; i < ranges.length; i++)
+                {
+                    // Get Date unless exception
+                    if (j != 0 & date)
+                    {
+                        linkRanges += "&ranges=" + sheetName + "!A" + rowRanges[j][0] + ":A" + rowRanges[j][1];
+                        date = false;
+                        i--;
+                    }
+                    // Get Columns
+                    else
+                    {
+                        linkRanges += "&ranges=" + sheetName + "!" + ranges[i] + rowRanges[j][0] + ":" + ranges[i] + rowRanges[j][1];
+                    }
+                    console.log(ranges[i]);
+                }
+            }
+        }
         const forceColumns = "&majorDimension=COLUMNS";
 
-        link = startOfLink + spreadSheetID + range + forceColumns + apiKey;
+        link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
+
+        console.log(link);
 
         //Callback function
         FinishedLink(link)
     });
 }
 
-// EXAMPLE - AddRangesToVectorLink(FormatLinkForVectors(...), 1, 32, 50, 100000)
-//     Formats the link to pull from row 1 to 32 then skip until 50 to 100000
-function AddRangesToVectorLink(link, ...startCommaEnd)
-{
-    // Sort rows for use
-    var rows = [[]];
-    var start = true;
-    var set = 0;
-    var nextSet = false;
-    for (var i = 0; i < startCommaEnd.length; i++)
-    {
-        value = startCommaEnd[i];
-        if (start)
-        {
-            if (nextSet)
-            {
-                rows.push(new Array());
-                set++;
-            }
-            rows[set][0] = value;
-        }
-        else
-        {
-            rows[set][1] = value;          
-        }
-        start = !start;
-    }
-
-    // Add rows to link ranges
-}
-
-// Add SHEETID and shorten ranges to "C:C", "D:E"
-function FormatLinkWithRanges(spreadSheetID, ...ranges) {
+/**
+ * Formats link to pull A1 notation from specific spreadsheet and sheet.
+ * @param {String} spreadSheetID The spreadsheet ID
+ * @param {String} sheetName The sheet name
+ * @param {Number} ranges A1 ranges to pull from sheet
+ *                        Example: "A:A", "A1:D50", "MV1:ZE800"
+ */
+function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
     var link;
     const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
     const forceColumns = "&majorDimension=COLUMNS"
     const apiKey = "&key=" + sheets_api_key;
 
-    var range = "";
+    var linkRanges = "";
     ranges.forEach(element => {
-        if (range == "") {
-            range = "/values:batchGet?ranges=" + element;
+        if (linkRanges == "") {
+            linkRanges = "/values:batchGet?ranges=" + sheetName + "!" + element;
         }
         else {
-            range = range + "&ranges=" + element;
+            linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element;
         }
     });
 
-    link = startOfLink + spreadSheetID + range + forceColumns + apiKey;
+    link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 
     return link;
 }
 
+/**
+ * Sorts Google Sheets v4 API json into headers and values that can be utilized by Chart.js
+ * @param {2D Array} json JSON to be sorted
+ */
 function SortJSONintoHeadersAndValues(json) {
 
     var dataHeaders = [];
@@ -154,35 +196,28 @@ function SortJSONintoHeadersAndValues(json) {
 
             var header = values[0];
             var isHeader = false;
-
             // it is a header if it contains the word "Date" or the first letter is "v"
             if (header.includes("Date"))
                 isHeader = true;
             else if (header.charAt(0) == 'v')
                 isHeader = true;
 
-            console.log(header, isHeader);
             // If header is not a number, add a new dataset
             if (isHeader)
             {
                 currentSortedColumn++;
                 data[currentSortedColumn] = new Array();
 
-                // Add to headers
                 dataHeaders[currentSortedColumn] = values[0];
-                // Add to values
                 for (var row = 1; row < amountOfRows; row++)
                 {
                     value = values[row];
                     data[currentSortedColumn].push(value);
                 }
-                console.log("Adding new dataset " + data.length);
-
             }
             // Add to an established dataset
             else
             {
-                console.log("Adding new values to established dataset");
                 currentSortedColumn++;
                 currentSortedColumn = LoopIndex(currentSortedColumn, data.length);
 
@@ -214,3 +249,5 @@ function LoopIndex(index, arrayLength)
     var looped = (index % arrayLength + arrayLength) % arrayLength;
     return looped;
 }
+
+// #endregion
