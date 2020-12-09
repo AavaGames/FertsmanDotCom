@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<header>
-    <meta charset="utf-8">
-    <title>Fertsman.com LineChart</title>
-    
+<!-- Necessary Script Includes -->
+
     <!-- Chart js bundle min -->
     <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
 
@@ -15,11 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
     <!-- Fertsman.com Chart Script -->
-    <script src="FertsmanCharts.js"></script>
-    <script src="LineChart.js"></script>
-</header>
+    <script src="../FertsmanCharts.js"></script>
+    <script src="../LineChart.js"></script>
 
-<body>
+
+<!-- Widget Code -->
+
     <div style="height:100%">
         <canvas id="myChart"></canvas>
     </div>
@@ -31,6 +28,3 @@
 
         SetupLineChart('myChart', link, 2);    
     </script>
-</body>
-
-</html>

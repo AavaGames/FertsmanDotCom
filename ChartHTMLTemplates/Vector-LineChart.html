@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<header>
-    <meta charset="utf-8">
-    <title>Fertsman.com LineChart</title>
-    
+<!-- Necessary Script Includes -->
+
     <!-- Chart js bundle min -->
     <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
 
@@ -17,17 +13,18 @@
     <!-- Fertsman.com Chart Script -->
     <script src="FertsmanCharts.js"></script>
     <script src="LineChart.js"></script>
-</header>
 
-<body>
+
+<!-- Widget Code -->
+
     <div style="height:100%">
         <canvas id="myChart"></canvas>
     </div>
 
 
     <script>
-        //  If not using keep variables EMPTY
-
+        //  If not using variables keep EMPTY
+        
         // Do not include "Date", it is already included. 
         // Example = ["HeaderOne", "HeaderTwo"]
         var overwriteHeaders;
@@ -44,6 +41,3 @@
             SetupLineChart('myChart', link, 3);
         }       
     </script>
-</body>
-
-</html>

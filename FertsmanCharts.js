@@ -1,5 +1,3 @@
-'use strict';
-
 var sheets_api_key = "AIzaSyBCKARaVh3Ho0f5NEdAfvzTi5_U-UgkNLM";
 //var sheets_api_key = "AIzaSyA83UIfNAZQ0Lm1a_cBhOtznSiNf8oWrdw";
 
@@ -23,7 +21,7 @@ var chartFontFamily = "Open Sans";
 // #region  FUNCTIONS
 
 // Magical lambda to convert column number to letter
-ColumnNumToLetter = (n) => (a=Math.floor(n/26)) >= 0 ? ColumnNumToLetter(a-1) + String.fromCharCode(65+(n%26)) : '';
+ColumnNumToLetter = (n) => (a = Math.floor(n/26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
 
 /**
  * Formats link to pull VECTORS from specific spreadsheet and sheet.
@@ -46,7 +44,7 @@ ColumnNumToLetter = (n) => (a=Math.floor(n/26)) >= 0 ? ColumnNumToLetter(a-1) + 
  * 
  * @param {String} spreadSheetID The spreadsheet ID
  * @param {String} sheetName The sheet name
- * @param {Number} vector Vectors to pull from sheet
+ * @param {Number} vectors Vectors to pull from sheet
  *                        Examples: "v12093102, vå39210901, v231090"
  */
 function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
@@ -70,12 +68,12 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
         // cycle through vectors, find in row, add to array, remove from array
         for (var i = 0; i < vectors.length; i++)
         {
-            vector = vectors[i];
-            
+            var vector = vectors[i];
+        
             var vectorFound = false;
             for (var j = 0; j < firstRow.length; j++)
             {
-                value = firstRow[j];
+                var value = firstRow[j];
 
                 if (value == vector)
                 {
