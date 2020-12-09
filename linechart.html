@@ -28,8 +28,30 @@
 
 
     <script>
-        var link = FormatLink("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet2!A:E")
-        SetupLineChart('myChart', link, 2);
+        var vectorBased = true;
+
+        if (vectorBased)
+        {
+            var overwriteHeaders = ["Boom", "Big Shaq"];
+            FormatLinkForVectors("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
+            
+            //link = AddRangesToVectorLink(link, "1:1", "80:100000");
+
+            function FinishedLink(link)
+            {
+                console.log("Building Chart.");
+                SetupLineChart('myChart', link, 2, 4);
+            }
+        }
+        else
+        {
+            //var link = FormatLink("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434!A:B", "36100434!C:C")
+            var link = FormatLink("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434!A1:B32", "36100434!C1:C32", "36100434!A33:B1000", "36100434!C33:C1000")
+
+            SetupLineChart('myChart', link, 2);
+        }
+        
+                
     </script>
 </body>
 

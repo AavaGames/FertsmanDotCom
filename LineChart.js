@@ -1,42 +1,11 @@
-
 function SetupLineChart(chartName, link, ...rightAxis) 
 {
     $.getJSON(link, json => {
-        const size = json.valueRanges[0].values.length;
 
-        var data = [];
-        var dataHeaders = new Array(size);
+        var sortedData = SortJSONintoHeadersAndValues(json)
 
-        for (var i = 0; i < size; i++) {
-            data[i] = new Array();
-        }
-
-        var firstValueRange = true;
-
-        // Iterate all VALUE RANGES
-        json.valueRanges.forEach(valueRange => {
-
-            var amountOfColumns = valueRange.values.length;
-
-            // Iterate all VALUES arrays
-            for (var column = 0; column < amountOfColumns; column++) {
-                var values = valueRange.values[column];
-
-                var amountOfRows = values.length;
-
-                for (var row = 0; row < amountOfRows; row++) {
-                    var value = values[row];
-
-                    if (firstValueRange & row == 0) {
-                        dataHeaders[column] = value;
-                        continue;
-                    }
-
-                    data[column].push(value);
-                }
-            }
-            firstValueRange = false;
-        });
+        var dataHeaders = sortedData[0];
+        var data = sortedData[1];
 
         // End of JSON formatting
 
@@ -46,7 +15,7 @@ function SetupLineChart(chartName, link, ...rightAxis)
 
         var _datasets = [];
         var axisLabels = ["", ""];
-        for (var i = 1; i < size; i++) {
+        for (var i = 1; i < data.length; i++) {
             var isRightAxis = false;
 
             var axis = 'y-axis-1';
@@ -84,78 +53,78 @@ function SetupLineChart(chartName, link, ...rightAxis)
         // End of Line / Dataset Formatting
 
         var isDualAxisChart = rightAxis.length > 0;
-        new Chart(document.getElementById(chartName),
-            {
-                type: 'line',
-                data: {
-                    labels: data[0],
-                    datasets: _datasets
+        new Chart(document.getElementById(chartName), 
+        {
+            type: 'line',
+            data: {
+                labels: data[0],
+                datasets: _datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: false,
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    title: {
-                        display: false,
-                    },
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: false,
-                                //labelString: dataHeaders[0]
-                            },
-                            gridLines: {
-                                borderDash: [2, 2]
-                            },
-                            ticks: {
-                                // autoSkip: true,
-                                // maxTicksLimit: 10,
-                                //maxRotation: 0
-                            }
-                        }],
-                        yAxes: [{
-                            display: true,
-                            position: 'left',
-                            id: 'y-axis-1',
-                            scaleLabel: {
-                                display: true,
-                                labelString: axisLabels[0]
-                            },
-                            gridLines: {
-                                borderDash: [2, 2]
-                            }
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: false,
+                            //labelString: dataHeaders[0]
                         },
-                        {
-                            display: isDualAxisChart,
-                            position: 'right',
-                            id: 'y-axis-2',
-                            scaleLabel: {
-                                display: true,
-                                labelString: axisLabels[1]
-                            },
-                            gridLines: {
-                                display: false,
-                                borderDash: [2, 2]
-                            }
-                        }]
-                    },
-                    elements: {
-                        point: {
-                            radius: 0
+                        gridLines: {
+                            borderDash: [2, 2]
                         },
+                        ticks: {
+                            // autoSkip: true,
+                            // maxTicksLimit: 10,
+                            //maxRotation: 0
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        position: 'left',
+                        id: 'y-axis-1',
+                        scaleLabel: {
+                            display: true,
+                            labelString: axisLabels[0]
+                        },
+                        gridLines: {
+                            borderDash: [2, 2]
+                        }
                     },
-                    legend: {
-                        display: false
-                    }
+                    {
+                        display: isDualAxisChart,
+                        position: 'right',
+                        id: 'y-axis-2',
+                        scaleLabel: {
+                            display: true,
+                            labelString: axisLabels[1]
+                        },
+                        gridLines: {
+                            display: false,
+                            borderDash: [2, 2]
+                        }
+                    }]
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    },
+                },
+                legend: {
+                    display: false
                 }
-            });
+            }
+        });
     });
 }
