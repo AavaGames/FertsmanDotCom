@@ -14,26 +14,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
-    <!-- Fertsman.com Chart Script -->
-    <script src="../FertsmanCharts.js"></script>
-    <script src="../ScatterChart.js"></script>
-
     <!-- Regression.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
 
+    <!-- Fertsman.com Chart Script -->
+    <script src="../FertsmanCharts.js"></script>
+    <script src="../SingleScatterChart.js"></script>
 </header>
 
 <body>
-    <div style="height:50vh">
+    <div style="height:75vh">
         <canvas id="myChart"></canvas>
     </div>
 
     <script>
-        var link = FormatLinkWithA1("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet3", "B:C", "G:G")
+        var overwriteHeaders = [["Header1"], ["Header2"]];
+
+        var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C")
         console.log(link);
         SetupScatterChart('myChart', link);
-        // Dual Scatter Chart
-        //SetupScatterChart('myChart', link, 2);
     </script>
 </body>
 </html>

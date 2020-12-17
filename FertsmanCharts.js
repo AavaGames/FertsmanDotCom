@@ -175,7 +175,7 @@ function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
  * Sorts Google Sheets v4 API json into headers and values that can be utilized by Chart.js
  * @param {2D Array} json JSON to be sorted
  */
-function SortJSONintoHeadersAndValues(json) {
+function SortJSONintoHeadersAndValues(json, addDate = true) {
 
     var dataHeaders = [];
     var data = [];
@@ -230,10 +230,15 @@ function SortJSONintoHeadersAndValues(json) {
     // Overwrite headers if variable exists
     if (typeof overwriteHeaders !== 'undefined')
     {
-        console.log("Overwriting headers" + overwriteHeaders)
+        console.log("Overwriting headers " + overwriteHeaders)
 
         dataHeaders = [];
-        dataHeaders.push("Date");
+
+        if (addDate)
+        {
+            dataHeaders.push("Date");
+        }
+
         overwriteHeaders.forEach(element => {
             dataHeaders.push(element);
         });
