@@ -1,4 +1,10 @@
-function SetupScatterChart(chartName, link, ...rightAxis) 
+/**
+ * Creates a Line Chart using the Chart.js library
+ * @param {String} chartName Chart ID name to be called by html <canvas>
+ * @param {String} link The link/URL to the JSON
+ * @param {String} swapDataAxis Swaps the axis of the data
+ */
+function SetupScatterChart(chartName, link, swapDataAxis = false) 
 {
     console.log("Fetching JSON from link");
     $.getJSON(link, json => {
@@ -8,6 +14,14 @@ function SetupScatterChart(chartName, link, ...rightAxis)
 
         var dataHeaders = sortedData[0];
         var data = sortedData[1];
+
+        if (swapDataAxis)
+        {
+            var tempData = [];
+            tempData[0] = data[1];
+            tempData[1] = data[0];
+            data = tempData;
+        }
 
         // End of JSON formatting
 
@@ -19,28 +33,11 @@ function SetupScatterChart(chartName, link, ...rightAxis)
 
         var axisLabels = ["", ""];
         for (var i = 0; i < data.length; i++) {
-            var isRightAxis = false;
-
             var axis = 'y-axis-1';
-            for (var j = 0; j < rightAxis.length; j++) {
-                if (rightAxis[j] == i + 1) {
-                    axis = 'y-axis-2'
-                    isRightAxis = true;
-                    break;
-                }
-            }
-
             var axisLabel = dataHeaders[i]
-            if (isRightAxis) {
-                if (!axisLabels[1] == "")
-                    axisLabels[1] = axisLabels[1] + ", ";
-                axisLabels[1] = axisLabels[1] + axisLabel;
-            }
-            else {
-                if (!axisLabels[0] == "")
+            if (!axisLabels[0] == "")
                     axisLabels[0] = axisLabels[0] + ", ";
                 axisLabels[0] = axisLabels[0] + axisLabel;
-            }
         }
 
         var pointData = [];
