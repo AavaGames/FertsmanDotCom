@@ -1,5 +1,5 @@
 /**
- * Creates a Line Chart using the Chart.js library
+ * Creates a Scatter Chart using the Chart.js library
  * @param {String} chartName Chart ID name to be called by html <canvas>
  * @param {String} link The link/URL to the JSON
  * @param {String} swapDataAxis Swaps the axis of the data
