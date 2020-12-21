@@ -50,7 +50,7 @@ function SetupLineChart(chartName, link, ...rightAxis)
                 label: dataHeaders[i],
                 //For Bar Chart
                 //backgroundColor: "rgba(0, 175, 181, 1)",
-                borderColor: lineOptions.colors[i],
+                borderColor: lineOptions.GetColor(i),
                 data: data[i],
                 fill: false,
                 yAxisID: axis,

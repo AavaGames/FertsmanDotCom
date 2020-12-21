@@ -8,6 +8,11 @@ var lineOptions = {
         "rgba(0, 71, 119, 1)",
         "rgba(239, 210, 141, 1)"],
     trendLine: "rgba(255, 150, 0, 1)",
+    GetColor : function(i)
+    {
+        // Loops color list automatically
+        return this.colors[LoopIndex(i, this.colors.length)];
+    }
 }
 
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
