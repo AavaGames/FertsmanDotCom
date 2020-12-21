@@ -16,7 +16,7 @@ function SafeSortStatsCanData(oldData) {
         else if (cell.includes('VALUE'))
             valueCol = i;
 
-        if (dateCol != -1 & vectorCol != -1 & valueCol != -1)
+        if (dateCol != -1 && vectorCol != -1 && valueCol != -1)
             break;
     }
     console.log("Date, Vector, Value columns: " + dateCol, vectorCol, valueCol);
@@ -98,7 +98,7 @@ function DangerSortStatsCanData(oldData) {
         else if (cell.includes('VALUE'))
             valueCol = i;
 
-        if (dateCol != -1 & vectorCol != -1 & valueCol != -1)
+        if (dateCol != -1 && vectorCol != -1 && valueCol != -1)
             break;
     }
     console.log("Date, Vector, Value columns: " + dateCol, vectorCol, valueCol);
