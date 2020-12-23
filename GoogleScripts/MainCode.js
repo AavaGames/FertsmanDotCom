@@ -55,7 +55,7 @@ function ImportCsvFromUrl(tableID = "", yoy = false) {
 
     var location = table;
     if (yoy)
-        location += "_YoY";
+        location += " - YoY";
 
     //console.log(data);
 
