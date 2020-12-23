@@ -1,37 +1,49 @@
-function ConvertValuesToYoY(data) {
+function ConvertValuesToYoY(oldData) {
     // Data Structure
     // oldData[columns][rows] 
     // newData[columns][rows]
-    const oldData = data;
-    var newData = oldData;
-
-    // YoY % = (This Year - Last Year) / Last Year
-
-    var lastDatesIndexs = [];
-    var currentDatesIndexs = [];
-
+    var newData = oldData.map(function(column) {
+        return column.slice();
+    });
+    
     var amountOfColumns = oldData.length;
     var amountOfRows = oldData[0].length;
 
     for (var column = 1; column < amountOfColumns; column++)
     {
         // Skip first year of data
-        for (var row = 14; row < amountOfRows; row++)
+        for (var row = 13; row < amountOfRows; row++)
         {
+            var yoy;
             // Count to 12 then reset for dates
-            var lastValue = oldData[column][row - 12];
-            var currentValue = oldData[column][row];
-            var yoy = Number((currentValue - lastValue) / lastValue);
-            // rounds value
-            yoy = +yoy.toFixed(5);
+            var lastValue = Number(oldData[column][row - 12]);
+            var currentValue = Number(oldData[column][row]);
+            
+            if (isNaN(lastValue) || isNaN(currentValue) || lastValue == 0 || currentValue == 0)
+            {
+                yoy = '';
+            }
+            else
+            {
+                // YoY % = (This Year - Last Year) / Last Year
+                yoy = (currentValue - lastValue) / lastValue;
+                // rounds value
+                yoy = yoy.toFixed(2);
+                yoy = Number(yoy);
+    
+                if (isNaN(yoy) || !isFinite(yoy))
+                {
+                    yoy = '';
+                }
+            }
+                
             newData[column][row] = yoy;
-
-            console.log(lastValue, currentValue, yoy);
         }
-        break;
         // remove first 12 data rows
+        newData[column].splice(1, 12);
     }
-    //console.log(newData);
+    // remove dates first 12 rows
+    newData[0].splice(1, 12);
 
     return newData;
 }

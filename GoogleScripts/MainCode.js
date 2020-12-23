@@ -25,7 +25,7 @@ function PromptUserForLocation(promptText) {
 }
 
 // Imports a CSV file from a URL, sorts it, then imports it into the Google Sheet using API v4
-function ImportCsvFromUrl(tableID = "") {
+function ImportCsvFromUrl(tableID = "", yoy = false) {
     var table;
 
     if (tableID == "")
@@ -45,13 +45,20 @@ function ImportCsvFromUrl(tableID = "") {
     log("Parsing");
     var contents = Utilities.parseCsv(unzipstr);
 
-    //contents = LimitRows(contents, 80);
+    //contents = LimitRows(contents, 300);
 
     log("Sorting");
     var data = SafeSortStatsCanData(contents);
-  
-    var location = table;
     
+    if (yoy)
+        data = ConvertValuesToYoY(data);
+
+    var location = table;
+    if (yoy)
+        location += "_YoY";
+
+    //console.log(data);
+
     //log("Clearing Sheet");
     //ClearEntireSheet(location);
 
