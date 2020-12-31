@@ -33,6 +33,17 @@ function ImportCsvFromUrl(tableID = "", yoy = false) {
     else
         table = tableID;
 
+    var location = table;
+    if (yoy)
+        location += " - YoY";
+
+    var ss = SpreadsheetApp.getActive();
+    if (!ss.getSheetByName(location))
+    {
+        log("Couldn't find: " + location + ". Adding new sheet.");
+        ss.insertSheet(location);
+    }
+
     var url = ("https://www150.statcan.gc.ca/n1/tbl/csv/" + table + "-eng.zip");
 
     log("Fetching");
@@ -52,10 +63,6 @@ function ImportCsvFromUrl(tableID = "", yoy = false) {
     
     if (yoy)
         data = ConvertValuesToYoY(data);
-
-    var location = table;
-    if (yoy)
-        location += " - YoY";
 
     //console.log(data);
 

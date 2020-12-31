@@ -21,6 +21,10 @@
     <script src="../SheetsAPIKey.js"></script>
     <script src="../FertsmanCharts.js"></script>
     <script src="../DonutChart.js"></script>
+
+    <!-- Chartjs Label Plugin -->
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
 </header>
 
 <body>
@@ -29,9 +33,10 @@
     </div>
 
     <script>
-        var link = FormatLinkWithA1("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "donut", "A1:B16")
+        var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:I")
         console.log(link);
-        SetupDonutChart('myChart', link);
+        //SetupDonutChart('myChart', link);
+        SetupDonutChart('myChart', link, 0, false, '2020-09', '2020-05', '2019-01');
     </script>
 </body>
 </html>

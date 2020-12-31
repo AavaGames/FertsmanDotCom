@@ -50,20 +50,16 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
             }
         }
 
-        _datasets[0] = 
-        {
+        _datasets[0] = {
             label: axisLabels[0],
-            //For Bar Chart
-            backgroundColor: lineOptions.colors[3],
-            borderColor: lineOptions.colors[1],
+            backgroundColor: lineOptions.GetColor(3),
+            borderColor: lineOptions.GetColor(1),
             data: pointData,
             //fill: true,
             yAxisID: axis,
         }
 
         // End of Line / Dataset Formatting
-
-        //console.log(_datasets);
 
         var chart = new Chart(document.getElementById(chartName), {
             type: 'scatter',

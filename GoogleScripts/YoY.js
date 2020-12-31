@@ -28,6 +28,7 @@ function ConvertValuesToYoY(oldData) {
                 // YoY % = (This Year - Last Year) / Last Year
                 yoy = (currentValue - lastValue) / lastValue;
                 // rounds value
+                yoy *= 100;
                 yoy = yoy.toFixed(2);
                 yoy = Number(yoy);
     
@@ -47,4 +48,3 @@ function ConvertValuesToYoY(oldData) {
 
     return newData;
 }
-
