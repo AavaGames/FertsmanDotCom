@@ -75,6 +75,37 @@ function ImportCsvFromUrl(tableID = "", yoy = false) {
     log("The CSV file was successfully fetched and imported");
 }
 
+function ImportCovidCSV() {
+    var location = "Covid";
+
+    var ss = SpreadsheetApp.getActive();
+    if (!ss.getSheetByName(location)) {
+        log("Couldn't find: " + location + ". Adding new sheet.");
+        ss.insertSheet(location);
+    }
+
+    var url = "https://health-infobase.canada.ca/src/data/covidLive/covid19-download.csv";
+
+    log("Fetching");
+    var csv = UrlFetchApp.fetch(url);
+
+    log("Parsing");
+    var contents = Utilities.parseCsv(csv);
+
+    //contents = LimitRows(contents, 300);
+
+    log("Sorting");
+    var data = SortCovidData(contents);
+
+    //log("Clearing Sheet");
+    //ClearEntireSheet(location);
+
+    log("Writing to sheet");
+    WriteDataToSheet(data, location);
+
+    log("The CSV file was successfully fetched and imported");
+}
+
 // Writes a 2D array of data into existing sheet
 function WriteDataToSheet(_data, location, startRow = 1) {
     var spreadSheetName = location;
@@ -94,17 +125,6 @@ function WriteDataToSheet(_data, location, startRow = 1) {
 }
 
 function ClearEntireSheet(location) {
-    var spreadSheetName = location;
-    var request = {
-        'valueInputOption': 'USER_ENTERED',
-        'data': [
-            {
-                'range': spreadSheetName,
-                'majorDimension': 'ROWS',
-            }]
-    };
-    Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
-
     var spreadSheetName = location;
     var ss = SpreadsheetApp.getActive();
     var sheet = ss.getSheetByName(spreadSheetName);
@@ -151,8 +171,4 @@ function LimitRows(data, rows) {
     }
 
     return newData;
-}
-
-function GetMaxRowLength(array) {
-    
 }
