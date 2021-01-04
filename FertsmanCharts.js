@@ -6,24 +6,36 @@ var lineOptions = {
         "rgba(255, 119, 0, 1)",
         "rgba(163, 0, 0, 1)",
         "rgba(0, 71, 119, 1)",
-        "rgba(239, 210, 141, 1)"],
+        "rgba(239, 210, 141, 1)"
+    ],
     trendLine: "rgba(255, 150, 0, 1)",
-    GetColor : function(i)
-    {
+    GetColor: function(i) {
         // Loops color list automatically
         return this.colors[LoopIndex(i, this.colors.length)];
     }
 }
 
+var globalLoadingSymbolClass = 'lds-dual-ring'
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
 var chartFontFamily = "Open Sans";
+
+var chartTitleOptions = {
+    position: "top",
+    fontFamily: chartFontFamily,
+    fontColor: "#000000",
+    fontStyle: 'bold'
+};
+
+Chart.defaults.global.defaultColor = chartDefaultColor;
+Chart.defaults.global.defaultFontFamily = chartFontFamily;
+
 
 // #endregion
 
 // #region  FUNCTIONS
 
 // Magical lambda to convert column number to letter
-ColumnNumToLetter = (n) => (a = Math.floor(n/26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
+ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
 
 /**
  * Formats link to pull VECTORS from specific spreadsheet and sheet.
@@ -49,11 +61,10 @@ ColumnNumToLetter = (n) => (a = Math.floor(n/26)) >= 0 ? ColumnNumToLetter(a - 1
  * @param {Number} vectors Vectors to pull from sheet
  *                        Examples: "v12093102, vå39210901, v231090"
  */
-function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
-{
+function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors) {
     const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
     const forceRows = "&majorDimension=ROWS"
-    
+
     const apiKey = "&key=" + sheets_api_key;
 
     // Pull first row
@@ -68,17 +79,14 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
         firstRow = json.valueRanges[0].values[0];
 
         // cycle through vectors, find in row, add to array, remove from array
-        for (var i = 0; i < vectors.length; i++)
-        {
+        for (var i = 0; i < vectors.length; i++) {
             var vector = vectors[i];
-        
+
             var vectorFound = false;
-            for (var j = 0; j < firstRow.length; j++)
-            {
+            for (var j = 0; j < firstRow.length; j++) {
                 var value = firstRow[j];
 
-                if (value == vector)
-                {
+                if (value == vector) {
                     vectorColumns.push(j);
                     vectorFound = true;
                     break;
@@ -96,8 +104,7 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
         });
 
         var linkRanges = "/values:batchGet?ranges=";
-        if (typeof rowRanges == 'undefined')
-        {
+        if (typeof rowRanges == 'undefined') {
             console.log("Not adding rows to ranges");
 
             // Get Date
@@ -106,28 +113,22 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors)
             ranges.forEach(element => {
                 linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element + ":" + element;
             });
-        }
-        else
-        {
+        } else {
             console.log("Adding rows to ranges");
             console.log(ranges);
             // First entry format exception of date
             linkRanges += sheetName + "!A" + rowRanges[0][0] + ":A" + rowRanges[0][1];
-            for (var j = 0; j < rowRanges.length; j++)
-            {
+            for (var j = 0; j < rowRanges.length; j++) {
                 var date = true;
-                for (var i = 0; i < ranges.length; i++)
-                {
+                for (var i = 0; i < ranges.length; i++) {
                     // Get Date unless exception
-                    if (j != 0 & date)
-                    {
+                    if (j != 0 & date) {
                         linkRanges += "&ranges=" + sheetName + "!A" + rowRanges[j][0] + ":A" + rowRanges[j][1];
                         date = false;
                         i--;
                     }
                     // Get Columns
-                    else
-                    {
+                    else {
                         linkRanges += "&ranges=" + sheetName + "!" + ranges[i] + rowRanges[j][0] + ":" + ranges[i] + rowRanges[j][1];
                     }
                     console.log(ranges[i]);
@@ -162,8 +163,7 @@ function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
     ranges.forEach(element => {
         if (linkRanges == "") {
             linkRanges = "/values:batchGet?ranges=" + sheetName + "!" + element;
-        }
-        else {
+        } else {
             linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element;
         }
     });
@@ -203,21 +203,18 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
                 isHeader = true;
 
             // If header is not a number, add a new dataset
-            if (isHeader)
-            {
+            if (isHeader) {
                 currentSortedColumn++;
                 data[currentSortedColumn] = new Array();
 
                 dataHeaders[currentSortedColumn] = values[0];
-                for (var row = 1; row < amountOfRows; row++)
-                {
+                for (var row = 1; row < amountOfRows; row++) {
                     value = values[row];
                     data[currentSortedColumn].push(value);
                 }
             }
             // Add to an established dataset
-            else
-            {
+            else {
                 currentSortedColumn++;
                 currentSortedColumn = LoopIndex(currentSortedColumn, data.length);
 
@@ -230,14 +227,12 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
     });
 
     // Overwrite headers if variable exists
-    if (typeof overwriteHeaders !== 'undefined')
-    {
+    if (typeof overwriteHeaders !== 'undefined') {
         console.log("Overwriting headers " + overwriteHeaders)
 
         dataHeaders = [];
 
-        if (addDate)
-        {
+        if (addDate) {
             dataHeaders.push("Date");
         }
 
@@ -249,8 +244,7 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
     return [dataHeaders, data];
 }
 
-function LoopIndex(index, arrayLength)
-{
+function LoopIndex(index, arrayLength) {
     var looped = (index % arrayLength + arrayLength) % arrayLength;
     return looped;
 }

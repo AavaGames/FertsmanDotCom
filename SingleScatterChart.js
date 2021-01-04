@@ -4,8 +4,10 @@
  * @param {String} link The link/URL to the JSON
  * @param {String} swapDataAxis Swaps the axis of the data
  */
-function SetupScatterChart(chartName, link, swapDataAxis = false) 
-{
+function SetupScatterChart(chartName, link, swapDataAxis = false) {
+    var loadingSymbol = document.getElementById('loadingSymbol');
+    loadingSymbol.className = globalLoadingSymbolClass;
+
     console.log("Fetching JSON from link");
     $.getJSON(link, json => {
         console.log("JSON Acquired");
@@ -15,8 +17,7 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
         var dataHeaders = sortedData[0];
         var data = sortedData[1];
 
-        if (swapDataAxis)
-        {
+        if (swapDataAxis) {
             var tempData = [];
             tempData[0] = data[1];
             tempData[1] = data[0];
@@ -25,10 +26,6 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
 
         // End of JSON formatting
 
-        Chart.defaults.global.defaultColor = chartDefaultColor;
-
-        Chart.defaults.global.defaultFontFamily = chartFontFamily;
-
         var _datasets = [];
 
         var axisLabels = ["", ""];
@@ -36,14 +33,13 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
             var axis = 'y-axis-1';
             var axisLabel = dataHeaders[i]
             if (!axisLabels[0] == "")
-                    axisLabels[0] = axisLabels[0] + ", ";
-                axisLabels[0] = axisLabels[0] + axisLabel;
+                axisLabels[0] = axisLabels[0] + ", ";
+            axisLabels[0] = axisLabels[0] + axisLabel;
         }
 
         var pointData = [];
-        
-        for (var i = 0; i < data[0].length; i++)
-        {
+
+        for (var i = 0; i < data[0].length; i++) {
             pointData[i] = {
                 x: Number(data[0][i]),
                 y: Number(data[1][i])
@@ -61,6 +57,8 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
 
         // End of Line / Dataset Formatting
 
+        loadingSymbol.classList.remove('lds-dual-ring');
+
         var chart = new Chart(document.getElementById(chartName), {
             type: 'scatter',
             data: {
@@ -72,6 +70,12 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
                         type: 'linear',
                         position: 'bottom'
                     }]
+                },
+                title: {
+                    display: false,
+                },
+                legend: {
+                    display: false
                 }
             }
         });
@@ -80,17 +84,17 @@ function SetupScatterChart(chartName, link, swapDataAxis = false)
     });
 }
 
-function CalculateTrendLine(chart) 
-{
+function CalculateTrendLine(chart) {
     var dataPoints = chart.data.datasets[0].data;
 
     var lowestAndHighest = GetLowestAndHighestNumberInArray(dataPoints)
     var lowestX = lowestAndHighest[0];
     var highestX = lowestAndHighest[1];
-    
-    var regressionData = [[]];
-    for (var i = 0; i < dataPoints.length; i++)
-    {
+
+    var regressionData = [
+        []
+    ];
+    for (var i = 0; i < dataPoints.length; i++) {
         regressionData[i] = [dataPoints[i].x, dataPoints[i].y]
     }
 
@@ -112,23 +116,27 @@ function CalculateTrendLine(chart)
     var r2 = String(result.r2.toPrecision(2));
 
     chart.data.datasets.push({
-        label: "Equation: " + equation + ", R2 = " + r2,
+        //label: "Equation: " + equation + ", R2 = " + r2,
         data: [startPoint, endPoint],
         showLine: true,
         pointRadius: 0,
         fill: false,
         borderColor: lineOptions.trendLine
     })
+    chart.options.title = {
+        display: true,
+        text: "Equation: " + equation + ", R2 = " + r2,
+        fontStyle: 'normal',
+        fontSize: 14
+    }
     chart.update();
 }
 
-function GetLowestAndHighestNumberInArray(array)
-{
+function GetLowestAndHighestNumberInArray(array) {
     var lowestX = array[0].x;
     var highestX = array[0].x;
 
-    for(var i = 0; i < array.length; i++)
-    {
+    for (var i = 0; i < array.length; i++) {
         lowestX = lowestX > array[i].x ? array[i].x : lowestX;
         highestX = highestX < array[i].x ? array[i].x : highestX;
     }

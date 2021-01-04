@@ -2,8 +2,8 @@
 <html>
 <header>
     <meta charset="utf-8">
-    <title>Fertsman.com LineChart</title>
-    
+    <title>Fertsman.com Donut Chart</title>
+
     <!-- Chart js bundle min -->
     <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
 
@@ -16,6 +16,9 @@
 
     <!-- Regression.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
+
+    <!-- Fertsman.com CSS Stylesheet -->
+    <link rel="stylesheet" href="../Fertsman.css">
 
     <!-- Fertsman.com Chart Script -->
     <script src="../SheetsAPIKey.js"></script>
@@ -30,13 +33,15 @@
 <body>
     <div style="height:75vh">
         <canvas id="myChart"></canvas>
+        <div id="loadingSymbol"></div>
     </div>
 
     <script>
         var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:I")
         console.log(link);
         //SetupDonutChart('myChart', link);
-        SetupDonutChart('myChart', link, 0, false, '2020-09', '2020-05', '2019-01');
+        SetupDonutChart('myChart', link);
     </script>
 </body>
+
 </html>

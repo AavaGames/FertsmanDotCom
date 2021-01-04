@@ -5,8 +5,11 @@
  * @param {Number} rightAxis Rest syntax for all columns put on the right axis, count from 1.
  *                           leave EMPTY if no right axis is desired.
  */
-function SetupLineChart(chartName, link, ...rightAxis) 
-{
+function SetupLineChart(chartName, link, ...rightAxis) {
+
+    var loadingSymbol = document.getElementById('loadingSymbol');
+    loadingSymbol.className = globalLoadingSymbolClass;
+
     $.getJSON(link, json => {
 
         var sortedData = SortJSONintoHeadersAndValues(json)
@@ -39,8 +42,7 @@ function SetupLineChart(chartName, link, ...rightAxis)
                 if (!axisLabels[1] == "")
                     axisLabels[1] = axisLabels[1] + ", ";
                 axisLabels[1] = axisLabels[1] + axisLabel;
-            }
-            else {
+            } else {
                 if (!axisLabels[0] == "")
                     axisLabels[0] = axisLabels[0] + ", ";
                 axisLabels[0] = axisLabels[0] + axisLabel;
@@ -59,9 +61,10 @@ function SetupLineChart(chartName, link, ...rightAxis)
 
         // End of chart specific Line / Dataset Formatting
 
+        loadingSymbol.classList.remove('lds-dual-ring');
+
         var isDualAxisChart = rightAxis.length > 0;
-        new Chart(document.getElementById(chartName), 
-        {
+        new Chart(document.getElementById(chartName), {
             type: 'line',
             data: {
                 labels: data[0],
@@ -98,30 +101,31 @@ function SetupLineChart(chartName, link, ...rightAxis)
                         }
                     }],
                     yAxes: [{
-                        display: true,
-                        position: 'left',
-                        id: 'y-axis-1',
-                        scaleLabel: {
                             display: true,
-                            labelString: axisLabels[0]
+                            position: 'left',
+                            id: 'y-axis-1',
+                            scaleLabel: {
+                                display: true,
+                                labelString: axisLabels[0]
+                            },
+                            gridLines: {
+                                borderDash: [2, 2]
+                            }
                         },
-                        gridLines: {
-                            borderDash: [2, 2]
+                        {
+                            display: isDualAxisChart,
+                            position: 'right',
+                            id: 'y-axis-2',
+                            scaleLabel: {
+                                display: true,
+                                labelString: axisLabels[1]
+                            },
+                            gridLines: {
+                                display: false,
+                                borderDash: [2, 2]
+                            }
                         }
-                    },
-                    {
-                        display: isDualAxisChart,
-                        position: 'right',
-                        id: 'y-axis-2',
-                        scaleLabel: {
-                            display: true,
-                            labelString: axisLabels[1]
-                        },
-                        gridLines: {
-                            display: false,
-                            borderDash: [2, 2]
-                        }
-                    }]
+                    ]
                 },
                 elements: {
                     point: {

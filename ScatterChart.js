@@ -5,8 +5,10 @@
  * @param {Number} xAxis Choose which dataset should be places on the x axis, do NOT count from 0
  * @param {Boolean} swapYAxisData Swap Y axis if two Y axes are present
  */
-function SetupScatterChart(chartName, link, xAxis = 1, swapYAxisData = false) 
-{
+function SetupScatterChart(chartName, link, xAxis = 1, swapYAxisData = false) {
+    var loadingSymbol = document.getElementById('loadingSymbol');
+    loadingSymbol.className = globalLoadingSymbolClass;
+
     console.log("Fetching JSON from link");
     $.getJSON(link, json => {
         console.log("JSON Acquired");
@@ -15,8 +17,7 @@ function SetupScatterChart(chartName, link, xAxis = 1, swapYAxisData = false)
     });
 }
 
-function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
-{
+function CreateScatterChart(json, chartName, xAxis, swapYAxisData) {
     console.log(json);
     const size = json.valueRanges[0].values.length;
 
@@ -73,20 +74,16 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
     var leftYAxis = -1;
     var rightYAxis = -1;
 
-    for (var i = 0; i < data.length; i++)
-    {
+    for (var i = 0; i < data.length; i++) {
         if (i == xAxis)
             continue;
 
-        if (!swapYAxisData)
-        {
+        if (!swapYAxisData) {
             if (leftYAxis == -1)
                 leftYAxis = i;
             else
                 rightYAxis = i
-        }
-        else
-        {
+        } else {
             if (rightYAxis == -1)
                 rightYAxis = i;
             else
@@ -103,53 +100,48 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
 
 
     var pointData;
-    
-    if (multiAxis)
-    {
-        for (var i = 0; i < data[0].length; i++)
-        {
+
+    if (multiAxis) {
+        for (var i = 0; i < data[0].length; i++) {
             pointData[i] = [{
-                x: Number(data[xAxis][i]),
-                y: Number(data[1][i])
-            },
-            {
-                x: Number(data[xAxis][i]),
-                y: Number(data[2][i])
-            }];
+                    x: Number(data[xAxis][i]),
+                    y: Number(data[1][i])
+                },
+                {
+                    x: Number(data[xAxis][i]),
+                    y: Number(data[2][i])
+                }
+            ];
         }
 
-        _datasets = 
-        [{
-            label: leftYAxisLabel,
-            //For Bar Chart
-            backgroundColor: lineOptions.colors[3],
-            borderColor: lineOptions.colors[1],
-            data: pointData[0],
-            //fill: true,
-            yAxisID: 'y-axis-1',
-        },
-        {
-            label: rightYAxisLabel,
-            //For Bar Chart
-            backgroundColor: lineOptions.colors[3],
-            borderColor: lineOptions.colors[1],
-            data: pointData[1],
-            //fill: true,
-            yAxisID: 'y-axis-2',
-        }];
-    }
-    else
-    {
-        for (var i = 0; i < data[0].length; i++)
-        {
+        _datasets = [{
+                label: leftYAxisLabel,
+                //For Bar Chart
+                backgroundColor: lineOptions.colors[3],
+                borderColor: lineOptions.colors[1],
+                data: pointData[0],
+                //fill: true,
+                yAxisID: 'y-axis-1',
+            },
+            {
+                label: rightYAxisLabel,
+                //For Bar Chart
+                backgroundColor: lineOptions.colors[3],
+                borderColor: lineOptions.colors[1],
+                data: pointData[1],
+                //fill: true,
+                yAxisID: 'y-axis-2',
+            }
+        ];
+    } else {
+        for (var i = 0; i < data[0].length; i++) {
             pointData[i] = {
                 x: Number(data[0][i]),
                 y: Number(data[1][i])
             }
         }
 
-        _datasets[0] = 
-        {
+        _datasets[0] = {
             label: leftYAxisLabel,
             //For Bar Chart
             backgroundColor: lineOptions.colors[3],
@@ -177,9 +169,11 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
     //         }
     //     }
     // });
+
+    loadingSymbol.classList.remove('lds-dual-ring');
+
     var isDualAxisChart = rightAxis.length > 0;
-    var chart = new Chart(document.getElementById(chartName),
-    {
+    var chart = new Chart(document.getElementById(chartName), {
         type: 'scatter',
         data: {
             labels: xAxisLabel,
@@ -217,30 +211,30 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
                     }
                 }],
                 yAxes: [{
-                    display: true,
-                    position: 'left',
-                    id: 'y-axis-1',
-                    scaleLabel: {
                         display: true,
-                        labelString: axisLabels[0]
-                    },
-                    gridLines: {
-                        borderDash: [2, 2]
-                    }
-                }]
-                // {
-                //     display: isDualAxisChart,
-                //     position: 'right',
-                //     id: 'y-axis-2',
-                //     scaleLabel: {
-                //         display: true,
-                //         labelString: axisLabels[1]
-                //     },
-                //     gridLines: {
-                //         display: false,
-                //         borderDash: [2, 2]
-                //     }
-                // }]
+                        position: 'left',
+                        id: 'y-axis-1',
+                        scaleLabel: {
+                            display: true,
+                            labelString: axisLabels[0]
+                        },
+                        gridLines: {
+                            borderDash: [2, 2]
+                        }
+                    }]
+                    // {
+                    //     display: isDualAxisChart,
+                    //     position: 'right',
+                    //     id: 'y-axis-2',
+                    //     scaleLabel: {
+                    //         display: true,
+                    //         labelString: axisLabels[1]
+                    //     },
+                    //     gridLines: {
+                    //         display: false,
+                    //         borderDash: [2, 2]
+                    //     }
+                    // }]
             }
             // elements: {
             //     point: {
@@ -258,15 +252,15 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData)
         CalculateTrendLine(chart.data.datasets[1].data);
 }
 
-function CalculateTrendLine(dataPoints) 
-{
+function CalculateTrendLine(dataPoints) {
     var lowestAndHighest = GetLowestAndHighestNumberInArray(dataPoints)
     var lowestX = lowestAndHighest[0];
     var highestX = lowestAndHighest[1];
-    
-    var regressionData = [[]];
-    for (var i = 0; i < dataPoints.length; i++)
-    {
+
+    var regressionData = [
+        []
+    ];
+    for (var i = 0; i < dataPoints.length; i++) {
         regressionData[i] = [dataPoints[i].x, dataPoints[i].y]
     }
 
@@ -298,13 +292,11 @@ function CalculateTrendLine(dataPoints)
     chart.update();
 }
 
-function GetLowestAndHighestNumberInArray(array)
-{
+function GetLowestAndHighestNumberInArray(array) {
     var lowestX = array[0].x;
     var highestX = array[0].x;
 
-    for(var i = 0; i < array.length; i++)
-    {
+    for (var i = 0; i < array.length; i++) {
         lowestX = lowestX > array[i].x ? array[i].x : lowestX;
         highestX = highestX < array[i].x ? array[i].x : highestX;
     }

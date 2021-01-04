@@ -3,7 +3,7 @@
 <header>
     <meta charset="utf-8">
     <title>Fertsman.com LineChart</title>
-    
+
     <!-- Chart js bundle min -->
     <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
 
@@ -14,26 +14,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
+    <!-- Fertsman.com CSS Stylesheet -->
+    <link rel="stylesheet" href="../Fertsman.css">
+
     <!-- Fertsman.com Chart Script -->
     <script src="../SheetsAPIKey.js"></script>
     <script src="../FertsmanCharts.js"></script>
     <script src="../SingleScatterChart.js"></script>
-    
+
     <!-- Regression.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
-    
+
 </header>
 
 <body>
     <div style="height:75vh">
         <canvas id="myChart"></canvas>
+        <div id="loadingSymbol"></div>
     </div>
 
     <script>
-        var overwriteHeaders = [["Header1"], ["Header2"]];
+        var overwriteHeaders = [
+            ["Header1"],
+            ["Header2"]
+        ];
 
         var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C")
         SetupScatterChart('myChart', link, false);
     </script>
 </body>
+
 </html>
