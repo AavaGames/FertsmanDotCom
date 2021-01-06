@@ -1,4 +1,4 @@
-// Statistics Canada Data Import Program for FertsmanDotCom
+// Data Importing & Sorting Program for Fertsman.com
 
 function onOpen(e) {
     var ui = SpreadsheetApp.getUi();
@@ -8,6 +8,14 @@ function onOpen(e) {
 function log(message) {
     SpreadsheetApp.getActive().toast(message, "⚠️ Alert");
     console.log("Alert: " + message);
+}
+
+function PromptUserForSortingMethod(promptText) {
+    // Drop down menu?
+    var ui = SpreadsheetApp.getUi();
+    var prompt = ui.prompt(promptText);
+    var response = prompt.getResponseText();
+    return response;
 }
 
 function PromptUserForTable(promptText) {
@@ -24,47 +32,95 @@ function PromptUserForLocation(promptText) {
     return response;
 }
 
+const SortingMethodEnum = Object.freeze({"Undefined":1, "StatsCan":2, "Covid":3, "Teranet":4})
+
 // Imports a CSV file from a URL, sorts it, then imports it into the Google Sheet using API v4
-function ImportCsvFromUrl(tableID = "", yoy = false) {
-    var table;
+function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID = "", yoy = false) {
+    var location;
+    var url;
 
-    if (tableID == "")
-        table = PromptUserForTable("Please enter table number");
-    else
-        table = tableID;
+    if (sortingMethod == SortingMethodEnum.Undefined)
+        sortingMethod = PromptUserForSortingMethod("Enter sorting method (SortingMethodEnum.?)");
 
-    var location = table;
+    log("Using Sorting Method " + sortingMethod);
+    // Form URL and location to place CSV
+    switch(sortingMethod)
+    {
+        case SortingMethodEnum.StatsCan:
+            if (tableID == "")
+                tableID = PromptUserForTable("Please enter table number");
+        
+            location = tableID;
+
+            url = ("https://www150.statcan.gc.ca/n1/tbl/csv/" + tableID + "-eng.zip");
+            break;
+
+        case SortingMethodEnum.Covid:
+            location = "Covid";
+            url = "https://health-infobase.canada.ca/src/data/covidLive/covid19-download.csv";
+            break;
+
+        case SortingMethodEnum.Teranet:
+            location = "Teranet";
+            url = "https://housepriceindex.ca/_data/House_Price_Index.csv";
+            break;
+
+        default:
+            log("ERROR: No sorting method was specified.");
+            return;
+    }
+
     if (yoy)
         location += " - YoY";
 
-    var ss = SpreadsheetApp.getActive();
-    if (!ss.getSheetByName(location))
-    {
-        log("Couldn't find: " + location + ". Adding new sheet.");
-        ss.insertSheet(location);
-    }
-
-    var url = ("https://www150.statcan.gc.ca/n1/tbl/csv/" + table + "-eng.zip");
+    DoesSheetExist(location);
 
     log("Fetching");
-    var zipblob = UrlFetchApp.fetch(url).getBlob();
+    var fetched = UrlFetchApp.fetch(url);
+    var csv;
+    
+    switch(sortingMethod)
+    {
+        case SortingMethodEnum.StatsCan:
+            log("Unzipping");
+            var unzipblob = Utilities.unzip(fetched.getBlob());
+            csv = unzipblob[0].getDataAsString();
+            break;
 
-    log("Unzipping");
-    var unzipblob = Utilities.unzip(zipblob);
-    var unzipstr = unzipblob[0].getDataAsString();
+        case SortingMethodEnum.Covid:
+            csv = fetched;
+            break;
+
+        case SortingMethodEnum.Teranet:
+            csv = fetched;
+            break;
+    }
 
     log("Parsing");
-    var contents = Utilities.parseCsv(unzipstr);
+    var contents = Utilities.parseCsv(csv);
 
     //contents = LimitRows(contents, 300);
 
+    var data;
+
     log("Sorting");
-    var data = SafeSortStatsCanData(contents);
+    switch(sortingMethod)
+    {
+        case SortingMethodEnum.StatsCan:
+            data = SafeSortStatsCanData(contents);
+            break;
+
+        case SortingMethodEnum.Covid:
+            data = SortCovidData(contents);
+            break;
+
+        case SortingMethodEnum.Teranet:
+            data = SortTeranetData(contents);
+            break;
+    }
     
     if (yoy)
         data = ConvertValuesToYoY(data);
-
-    //console.log(data);
 
     //log("Clearing Sheet");
     //ClearEntireSheet(location);
@@ -75,35 +131,14 @@ function ImportCsvFromUrl(tableID = "", yoy = false) {
     log("The CSV file was successfully fetched and imported");
 }
 
-function ImportCovidCSV() {
-    var location = "Covid";
-
+function DoesSheetExist(location)
+{
     var ss = SpreadsheetApp.getActive();
-    if (!ss.getSheetByName(location)) {
+    if (!ss.getSheetByName(location))
+    {
         log("Couldn't find: " + location + ". Adding new sheet.");
         ss.insertSheet(location);
     }
-
-    var url = "https://health-infobase.canada.ca/src/data/covidLive/covid19-download.csv";
-
-    log("Fetching");
-    var csv = UrlFetchApp.fetch(url);
-
-    log("Parsing");
-    var contents = Utilities.parseCsv(csv);
-
-    //contents = LimitRows(contents, 300);
-
-    log("Sorting");
-    var data = SortCovidData(contents);
-
-    //log("Clearing Sheet");
-    //ClearEntireSheet(location);
-
-    log("Writing to sheet");
-    WriteDataToSheet(data, location);
-
-    log("The CSV file was successfully fetched and imported");
 }
 
 // Writes a 2D array of data into existing sheet
@@ -172,3 +207,4 @@ function LimitRows(data, rows) {
 
     return newData;
 }
+

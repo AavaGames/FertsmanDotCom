@@ -102,7 +102,7 @@ function MoveColumnContainingToStart(array, containing)
     });
 
     // + 1 is added because index was 1 too early
-    var endIndex = containingCol[canadaCol.length - 1] + 1;
+    var endIndex = containingCol[containingCol.length - 1] + 1;
     var amountToMove = containingCol.length;
 
     for (var i = 0; i < amountToMove; i++)
