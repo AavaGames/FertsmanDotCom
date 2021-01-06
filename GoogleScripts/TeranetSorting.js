@@ -37,7 +37,6 @@ function SortTeranetData(oldData) {
 
         //for (var row = 0; row < oldData[0].length; row++) {}
     }
-    console.log(newData);
 
     return newData;
 }
