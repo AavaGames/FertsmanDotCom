@@ -25,8 +25,6 @@ function SortCovidData(oldData) {
     //Data headers start after date
     dataStartCol = dateCol + 1;
 
-    console.log(provinceCol, dateCol, dataStartCol);
-
     // End of setup 
 
     newData[0][0] = "Date";
@@ -84,42 +82,33 @@ function SortCovidData(oldData) {
         }
     }
 
+    // Allows sorting by header containing
+    MoveColumnContainingToStart(newData, "Canada");
 
-    // first Canada_numconf
-    // last Canada_avgratedeaths_last7
-    
-    // Move Canada columns to be first
-    var canadaCol = [];
+    return newData;
+}
+
+function MoveColumnContainingToStart(array, containing)
+{
+    // Move Canada columns to the start
+    var containingCol = [];
 
     var colCount = 0;
-    newData.forEach(column => {
+    array.forEach(column => {
         var header = column[0];
-
-        if (colCount < 120)
-            console.log(header);
-
-        if (header.includes("Canada"))
-        {
-            canadaCol.push(colCount);
-            console.log("Added");
-        }
+        if (header.includes(String(containing)))
+        containingCol.push(colCount);
         colCount++;
     });
 
-    var startIndex = canadaCol[0];
-    var endIndex = canadaCol[canadaCol.length - 1];
-    var amountToMove = canadaCol.length;
-
-    console.log(amountToMove);
+    // + 1 is added because index was 1 too early
+    var endIndex = containingCol[canadaCol.length - 1] + 1;
+    var amountToMove = containingCol.length;
 
     for (var i = 0; i < amountToMove; i++)
     {
-        ArrayMove(newData, endIndex, 1);
+        ArrayMove(array, endIndex, 1);
     }
-
-    console.log(canadaCol);
-    
-    return newData;
 }
 
 function ArrayMove(arr, fromIndex, toIndex) {
