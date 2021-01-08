@@ -1,0 +1,132 @@
+/**
+ * Creates a Donut / Doughnut Chart using the Chart.js library
+ * @param {String} chartName Chart ID name to be called by html <canvas>
+ * @param {String} link The link/URL to the JSON
+ * @param {Integer} additionalDates Number of additional dates to grab
+ * @param {Boolean} movingBackwards Dates grabbed moving backward or forward
+ * @param {String} datesToFind "2019-12" if empty default to starting at latest
+ */
+function SetupDonutChart(chartName, link, additionalDates = 0, movingBackwards = true, ...dates) {
+
+    var loadingSymbol = document.getElementById('loadingSymbol');
+    loadingSymbol.className = globalLoadingSymbolClass;
+
+    $.getJSON(link, json => {
+        // sortedData[0] = catagories
+        // sortedData[1...] = data
+
+        var sortedData = SortJSONintoHeadersAndValues(json)
+
+        var randomData = false;
+
+        var dataHeaders = sortedData[0];
+        var data;
+        console.log(sortedData);
+
+        var startingAtLatestDate = dates.length == 0;
+        var searchingForAdditionalDates = additionalDates > 0;
+
+        var dataHeaders = sortedData[0];
+        var data = sortedData[1];
+
+        var newDatasets = [
+            []
+        ];
+
+        var dateRows = [];
+
+        if (startingAtLatestDate) {
+            // Get latest row
+            dateRows[0] = data[0].length - 1;
+        } else {
+            // find dates
+            for (var row = 0; row < data[0].length; row++) {
+                for (var i = 0; i < dates.length; i++) {
+                    if (data[0][row] == dates[i]) {
+                        dateRows.push(row);
+                        // remove found date
+                        dates.splice(i, 1);
+                        continue;
+                    }
+                }
+            }
+        }
+        
+        // remove date from data
+        dataHeaders.splice(0, 1);
+        data.splice(0, 1);
+
+        for (var i = 0; i < dateRows.length; i++) {
+            if (dateRows.length == 1 && searchingForAdditionalDates) {
+                // move back / forward through the data and add it
+            }
+            newDatasets[i] = new Array();
+            data.forEach(columnData => {
+                newDatasets[i].push(columnData[dateRows[i]]);
+            });
+        }
+
+        var data = [sortedData[0]]
+        newDatasets.forEach(e => {
+            data.push(e);
+        });
+
+        // End of JSON formatting
+
+        var bgColors = [];
+        for (var i = 0; i < data[0].length; i++) {
+            bgColors[i] = lineOptions.GetColor(i);
+        }
+        var _borderColor = "rgba(0, 0, 0, 0.3)";
+
+        var _datasets = [];
+        for (var i = 1; i < data.length; i++) {
+            _datasets[i - 1] = {
+                borderColor: _borderColor,
+                data: data[i],
+                backgroundColor: bgColors,
+            }
+        }
+
+        // End of chart specific Line / Dataset Formatting
+
+        loadingSymbol.classList.remove('lds-dual-ring');
+
+        new Chart(document.getElementById(chartName), {
+            type: 'doughnut',
+            data: {
+                labels: data[0],
+                datasets: _datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                cutoutPercentage: 35,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+
+                title: {
+                    display: false,
+                },
+                legend: {
+                    display: false,
+                    position: 'top',
+                    align: 'center' // 'start'
+                },
+                plugins: {
+                    labels: {
+                        // display: true,
+                        render: 'label',
+                        fontColor: '#000',
+                        arc: true,
+                        overlap: false
+                        // position: 'outside'
+                    }
+                }
+            }
+        });
+    });
+}

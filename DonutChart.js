@@ -99,8 +99,8 @@ function SetupDonutChart(chartName, link, additionalDates = 0, movingBackwards =
         var _datasets = [];
         for (var i = 1; i < data.length; i++) {
             _datasets[i - 1] = {
-                // remove ?
-                label: dataHeaders[i],
+                // remove in multiset
+                //label: data[0],
                 borderColor: _borderColor,
                 data: data[i],
                 backgroundColor: bgColors,
@@ -117,7 +117,7 @@ function SetupDonutChart(chartName, link, additionalDates = 0, movingBackwards =
         new Chart(document.getElementById(chartName), {
             type: 'doughnut',
             data: {
-                //labels: data[0],
+                labels: data[0],
                 datasets: _datasets
             },
             options: {
@@ -145,7 +145,7 @@ function SetupDonutChart(chartName, link, additionalDates = 0, movingBackwards =
                         fontColor: '#000',
                         arc: true,
                         overlap: false
-                            // position: 'outside'
+                        // position: 'outside'
                     }
                 }
             }
