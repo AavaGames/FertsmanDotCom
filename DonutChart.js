@@ -123,7 +123,6 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-
                 cutoutPercentage: 35,
                 animation: {
                     animateScale: true,

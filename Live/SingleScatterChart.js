@@ -65,6 +65,8 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
                 datasets: _datasets
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     xAxes: [{
                         type: 'linear',
