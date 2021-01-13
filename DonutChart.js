@@ -6,9 +6,9 @@
  * @param {Boolean} movingBackwards Dates grabbed moving backward or forward
  * @param {String} datesToFind "2019-12" if empty default to starting at latest
  */
-function SetupDonutChart(chartName, link, additionalDates = 0, movingBackwards = true, ...dates) {
+function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0, movingBackwards = true, ...dates) {
 
-    var loadingSymbol = document.getElementById('loadingSymbol');
+    var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
     console.log("Fetching JSON from link");
@@ -112,7 +112,7 @@ function SetupDonutChart(chartName, link, additionalDates = 0, movingBackwards =
 
         // End of chart specific Line / Dataset Formatting
 
-        loadingSymbol.classList.remove('lds-dual-ring');
+        loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
         new Chart(document.getElementById(chartName), {
             type: 'doughnut',

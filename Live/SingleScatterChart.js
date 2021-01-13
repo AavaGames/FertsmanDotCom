@@ -4,11 +4,14 @@
  * @param {String} link The link/URL to the JSON
  * @param {String} swapDataAxis Swaps the axis of the data
  */
-function SetupScatterChart(chartName, link, swapDataAxis = false) {
-    var loadingSymbol = document.getElementById('loadingSymbol');
+function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = false) {
+    var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
+    console.log("Fetching JSON from link");
     $.getJSON(link, json => {
+        console.log("JSON Acquired");
+
         var sortedData = SortJSONintoHeadersAndValues(json, false)
 
         var dataHeaders = sortedData[0];
@@ -54,7 +57,7 @@ function SetupScatterChart(chartName, link, swapDataAxis = false) {
 
         // End of Line / Dataset Formatting
 
-        loadingSymbol.classList.remove('lds-dual-ring');
+        loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
         var chart = new Chart(document.getElementById(chartName), {
             type: 'scatter',

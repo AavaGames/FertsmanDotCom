@@ -30,12 +30,13 @@
 <body>
     <div style="height:75vh">
         <canvas id="myChart"></canvas>
+        <div id="myLoadingSymbol"></div>
     </div>
 
     <script>
         var link = FormatLinkWithA1("1nXewUdMlnsuKIGhVxP-Pk36aJwXFbS14jTc7mocK2FU", "Sheet3", "B:C", "G:G")
         console.log(link);
-        SetupScatterChart('myChart', link);
+        SetupScatterChart('myChart', 'myLoadingSymbol', link);
         // Dual Scatter Chart
         //SetupScatterChart('myChart', link, 2);
     </script>

@@ -5,8 +5,8 @@
  * @param {Number} xAxis Choose which dataset should be places on the x axis, do NOT count from 0
  * @param {Boolean} swapYAxisData Swap Y axis if two Y axes are present
  */
-function SetupScatterChart(chartName, link, xAxis = 1, swapYAxisData = false) {
-    var loadingSymbol = document.getElementById('loadingSymbol');
+function SetupScatterChart(chartName, loadingSymbolName, link, xAxis = 1, swapYAxisData = false) {
+    var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
     console.log("Fetching JSON from link");
@@ -170,7 +170,7 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData) {
     //     }
     // });
 
-    loadingSymbol.classList.remove('lds-dual-ring');
+    loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
     var isDualAxisChart = rightAxis.length > 0;
     var chart = new Chart(document.getElementById(chartName), {

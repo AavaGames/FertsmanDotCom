@@ -15,7 +15,7 @@ var lineOptions = {
     }
 }
 
-var globalLoadingSymbolClass = 'lds-dual-ring'
+var globalLoadingSymbolClass = 'lds-dual-ring';
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
 var chartFontFamily = "Open Sans";
 
