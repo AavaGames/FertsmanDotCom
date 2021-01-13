@@ -78,6 +78,51 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
                 },
                 legend: {
                     display: false
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            callback: function(value) {
+                                var ranges = [
+                                    { divider: 1e12, suffix: 'T' },
+                                    { divider: 1e9, suffix: 'B' },
+                                    { divider: 1e6, suffix: 'M' },
+                                    { divider: 1e3, suffix: 'k' }
+                                ];
+                                function AbbreviateNumber(n) {
+                                    for (var i = 0; i < ranges.length; i++) {
+                                        if (Math.abs(n) >= ranges[i].divider) {
+                                            return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                                        }
+                                    }
+                                    return n;
+                                }
+                                return AbbreviateNumber(value);
+                            } 
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                           callback: function(value) {
+                            
+                                var ranges = [
+                                    { divider: 1e12, suffix: 'T' },
+                                    { divider: 1e9, suffix: 'B' },
+                                    { divider: 1e6, suffix: 'M' },
+                                    { divider: 1e3, suffix: 'k' }
+                                ];
+                                function AbbreviateNumber(n) {
+                                    for (var i = 0; i < ranges.length; i++) {
+                                        if (Math.abs(n) >= ranges[i].divider) {
+                                            return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                                        }
+                                    }
+                                    return n;
+                                }
+                                return AbbreviateNumber(value);
+                           }
+                        }
+                    }]
                 }
             }
         });
@@ -128,8 +173,8 @@ function CalculateTrendLine(chart) {
     chart.options.title = {
         display: true,
         text: "Equation: " + equation + ", R2 = " + r2,
-        fontStyle: 'normal',
-        fontSize: 14
+        fontStyle: 'bolder',
+        fontSize: 12
     }
     chart.update();
 }

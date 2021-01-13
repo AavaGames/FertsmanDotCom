@@ -110,6 +110,28 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                             },
                             gridLines: {
                                 borderDash: [2, 2]
+                            },
+                            ticks: {
+                                // autoSkip: true,
+                                // maxTicksLimit: 10,
+                                //maxRotation: 0
+                                callback: function(value) {
+                                    var ranges = [
+                                        { divider: 1e12, suffix: 'T' },
+                                        { divider: 1e9, suffix: 'B' },
+                                        { divider: 1e6, suffix: 'M' },
+                                        { divider: 1e3, suffix: 'k' }
+                                    ];
+                                    function AbbreviateNumber(n) {
+                                        for (var i = 0; i < ranges.length; i++) {
+                                            if (Math.abs(n) >= ranges[i].divider) {
+                                                return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                                            }
+                                        }
+                                        return n;
+                                    }
+                                    return AbbreviateNumber(value);
+                                } 
                             }
                         },
                         {
@@ -123,6 +145,28 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                             gridLines: {
                                 display: false,
                                 borderDash: [2, 2]
+                            },
+                            ticks: {
+                                // autoSkip: true,
+                                // maxTicksLimit: 10,
+                                //maxRotation: 0
+                                callback: function(value) {
+                                    var ranges = [
+                                        { divider: 1e12, suffix: 'T' },
+                                        { divider: 1e9, suffix: 'B' },
+                                        { divider: 1e6, suffix: 'M' },
+                                        { divider: 1e3, suffix: 'k' }
+                                    ];
+                                    function AbbreviateNumber(n) {
+                                        for (var i = 0; i < ranges.length; i++) {
+                                            if (Math.abs(n) >= ranges[i].divider) {
+                                                return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                                            }
+                                        }
+                                        return n;
+                                    }
+                                    return AbbreviateNumber(value);
+                                } 
                             }
                         }
                     ]
