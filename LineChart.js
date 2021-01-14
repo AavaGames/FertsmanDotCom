@@ -52,7 +52,7 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                 label: dataHeaders[i],
                 //For Bar Chart
                 //backgroundColor: "rgba(0, 175, 181, 1)",
-                borderColor: lineOptions.GetColor(i),
+                borderColor: lineOptions.GetColor(i - 1),
                 data: data[i],
                 fill: false,
                 yAxisID: axis,
@@ -112,26 +112,12 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                                 borderDash: [2, 2]
                             },
                             ticks: {
-                                // autoSkip: true,
-                                // maxTicksLimit: 10,
+                                //autoSkip: true,
+                                //maxTicksLimit: 10,
                                 //maxRotation: 0
-                                callback: function(value) {
-                                    var ranges = [
-                                        { divider: 1e12, suffix: 'T' },
-                                        { divider: 1e9, suffix: 'B' },
-                                        { divider: 1e6, suffix: 'M' },
-                                        { divider: 1e3, suffix: 'k' }
-                                    ];
-                                    function AbbreviateNumber(n) {
-                                        for (var i = 0; i < ranges.length; i++) {
-                                            if (Math.abs(n) >= ranges[i].divider) {
-                                                return (n / ranges[i].divider).toString() + ranges[i].suffix;
-                                            }
-                                        }
-                                        return n;
-                                    }
-                                    return AbbreviateNumber(value);
-                                } 
+                                // callback: function(value) {
+                                //     return AbbreviateNumber(value);
+                                // } 
                             }
                         },
                         {
@@ -151,20 +137,6 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                                 // maxTicksLimit: 10,
                                 //maxRotation: 0
                                 callback: function(value) {
-                                    var ranges = [
-                                        { divider: 1e12, suffix: 'T' },
-                                        { divider: 1e9, suffix: 'B' },
-                                        { divider: 1e6, suffix: 'M' },
-                                        { divider: 1e3, suffix: 'k' }
-                                    ];
-                                    function AbbreviateNumber(n) {
-                                        for (var i = 0; i < ranges.length; i++) {
-                                            if (Math.abs(n) >= ranges[i].divider) {
-                                                return (n / ranges[i].divider).toString() + ranges[i].suffix;
-                                            }
-                                        }
-                                        return n;
-                                    }
                                     return AbbreviateNumber(value);
                                 } 
                             }

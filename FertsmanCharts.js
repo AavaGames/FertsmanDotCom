@@ -1,18 +1,26 @@
 // #region Chart Options
 
 var lineOptions = {
-    colors: ["rgba(255, 255, 255, 1)",
+    colors: [
         "rgba(0, 175, 181, 1)",
         "rgba(255, 119, 0, 1)",
         "rgba(163, 0, 0, 1)",
         "rgba(0, 71, 119, 1)",
         "rgba(239, 210, 141, 1)"
     ],
-    trendLine: "rgba(255, 150, 0, 1)",
+    colorWhite: "rgba(255, 255, 255, 1)",
+    trendLine: "rgba(0, 0, 0, 1)",
     GetColor: function(i) {
         // Loops color list automatically
         return this.colors[LoopIndex(i, this.colors.length)];
+    },
+    GetRandomColor: function(i) {
+        return this.colors[RandomInt(this.colors.length)];
     }
+}
+
+function RandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
 }
 
 var globalLoadingSymbolClass = 'lds-dual-ring';
@@ -247,6 +255,22 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
 function LoopIndex(index, arrayLength) {
     var looped = (index % arrayLength + arrayLength) % arrayLength;
     return looped;
+}
+
+function AbbreviateNumber(n) {
+    var ranges = [
+        { divider: 1e12, suffix: 'T' },
+        { divider: 1e9, suffix: 'B' },
+        { divider: 1e6, suffix: 'M' },
+        { divider: 1e3, suffix: 'k' }
+    ];
+
+    for (var i = 0; i < ranges.length; i++) {
+        if (Math.abs(n) >= ranges[i].divider) {
+            return (n / ranges[i].divider).toString() + ranges[i].suffix;
+        }
+    }
+    return n;
 }
 
 // #endregion

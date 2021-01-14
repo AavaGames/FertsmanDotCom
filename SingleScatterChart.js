@@ -48,8 +48,8 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
 
         _datasets[0] = {
             label: axisLabels[0],
-            backgroundColor: lineOptions.GetColor(3),
-            borderColor: lineOptions.GetColor(1),
+            backgroundColor: "rgba(0, 175, 181, 1)",
+            //orderColor: lineOptions.GetRandomColor(),
             data: pointData,
             //fill: true,
             yAxisID: axis,
@@ -81,44 +81,21 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
                 },
                 scales: {
                     xAxes: [{
+                        gridLines: {
+                            borderDash: [2, 2]
+                        },
                         ticks: {
                             callback: function(value) {
-                                var ranges = [
-                                    { divider: 1e12, suffix: 'T' },
-                                    { divider: 1e9, suffix: 'B' },
-                                    { divider: 1e6, suffix: 'M' },
-                                    { divider: 1e3, suffix: 'k' }
-                                ];
-                                function AbbreviateNumber(n) {
-                                    for (var i = 0; i < ranges.length; i++) {
-                                        if (Math.abs(n) >= ranges[i].divider) {
-                                            return (n / ranges[i].divider).toString() + ranges[i].suffix;
-                                        }
-                                    }
-                                    return n;
-                                }
                                 return AbbreviateNumber(value);
                             } 
                         }
                     }],
                     yAxes: [{
+                        gridLines: {
+                            borderDash: [2, 2]
+                        },
                         ticks: {
                            callback: function(value) {
-                            
-                                var ranges = [
-                                    { divider: 1e12, suffix: 'T' },
-                                    { divider: 1e9, suffix: 'B' },
-                                    { divider: 1e6, suffix: 'M' },
-                                    { divider: 1e3, suffix: 'k' }
-                                ];
-                                function AbbreviateNumber(n) {
-                                    for (var i = 0; i < ranges.length; i++) {
-                                        if (Math.abs(n) >= ranges[i].divider) {
-                                            return (n / ranges[i].divider).toString() + ranges[i].suffix;
-                                        }
-                                    }
-                                    return n;
-                                }
                                 return AbbreviateNumber(value);
                            }
                         }
@@ -161,15 +138,17 @@ function CalculateTrendLine(chart) {
 
     var equation = result.string;
     var r2 = String(result.r2.toPrecision(2));
-
-    chart.data.datasets.push({
+    // Place line of best fit in front of scatter points
+    var tempData = chart.data.datasets[0];
+    chart.data.datasets[0] = ({
         //label: "Equation: " + equation + ", R2 = " + r2,
         data: [startPoint, endPoint],
         showLine: true,
         pointRadius: 0,
         fill: false,
         borderColor: lineOptions.trendLine
-    })
+    });
+    chart.data.datasets.push(tempData);
     chart.options.title = {
         display: true,
         text: "Equation: " + equation + ", R2 = " + r2,
