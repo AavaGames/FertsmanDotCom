@@ -133,20 +133,30 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
                     display: false,
                 },
                 legend: {
-                    display: false,
+                    display: true,
                     position: 'top',
                     align: 'center' // 'start'
                 },
                 plugins: {
-                    labels: {
-                        // display: true,
+                    labels: [{
                         render: 'label',
                         fontColor: '#000',
-                        fontStyle: 'bolder',    
-                        arc: true,
-                        overlap: false
-                        // position: 'outside'
-                    }
+                        fontStyle: 'bolder',
+                        position: 'outside',
+                        outsidePadding: 2,    
+                        arc: false,
+                        overlap: true, 
+                        textMargin: 6
+                    },
+                    {
+                        render: 'percentage',
+                        fontColor: '#000',
+                        fontStyle: 'bolder',   
+                        position: 'border', 
+                        arc: false,
+                        overlap: false,     
+                        textMargin: 6
+                    }]
                 }
             }
         });
@@ -158,15 +168,14 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
 
 // Unused, integrated into chart function because of variables
 function SortDataForDonutOrPie(sortedData, additionalDates = 0, movingBackwards = true, ...dates) {
+
     var startingAtLatestDate = dates.length == 0;
     var searchingForAdditionalDates = additionalDates > 0;
 
     var dataHeaders = sortedData[0];
     var data = sortedData[1];
 
-    var newDatasets = [
-        []
-    ];
+    var newDatasets = [[]];
 
     var dateRows = [];
 
