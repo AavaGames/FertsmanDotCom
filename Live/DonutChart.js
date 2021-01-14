@@ -94,7 +94,7 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
         for (var i = 0; i < data[0].length; i++) {
             bgColors[i] = lineOptions.GetColor(i);
         }
-        var _borderColor = "rgba(0, 0, 0, 0.3)";
+        var _borderColor = "rgba(255, 255, 255, 1)";
 
         var _datasets = [];
         for (var i = 1; i < data.length; i++) {
@@ -105,6 +105,7 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
                 data: data[i],
                 backgroundColor: bgColors,
                 //fill: true
+                borderWidth: 5
             }
         }
 
@@ -128,7 +129,6 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
                     animateScale: true,
                     animateRotate: true
                 },
-
                 title: {
                     display: false,
                 },
@@ -142,6 +142,7 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
                         // display: true,
                         render: 'label',
                         fontColor: '#000',
+                        fontStyle: 'bolder',    
                         arc: true,
                         overlap: false
                         // position: 'outside'
