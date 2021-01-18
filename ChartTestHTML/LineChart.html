@@ -30,8 +30,31 @@
         <div id="myLoadingSymbol"></div>
     </div>
 
+    <a id="myDownload" download="" href="" target="_blank" class="btn btn-primary float-right bg-flat-color-1">
+        <p>DOWNLOAD</p>
+        <!-- Download Icon -->
+        <!-- <i class="fa fa-download"></i> -->
+    </a>
 
     <script>
+        var chartID = 'myChart';
+        var loadingID = 'myLoadingSymbol';
+        var downloadID = 'myDownload';
+        var downloadName = chartID + ".jpg";
+        //document.getElementById(downloadID).addEventListener('click', DownloadChart(chartID, downloadID));
+
+        document.getElementById(downloadID).addEventListener('click', function() {
+            /*Get image of canvas element*/
+            var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
+            /*get download button (tag: <a></a>) */
+            var a =  document.getElementById(downloadID);
+            /*insert chart image url to download button (tag: <a></a>) */
+            a.href = url_base64jp;
+            a.download = downloadName;
+        });
+
+        // End of Download
+
         var vectorBased = false;
 
         if (vectorBased) {
@@ -50,15 +73,16 @@
 
             function FinishedLink(link) {
                 console.log("Building Chart.");
-                SetupLineChart('myChart', "myLoadingSymbol", link, 3);
+                SetupLineChart(chartID, loadingID, link, 3);
             }
-        } else {
+        } 
+        else {
             //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:B", "C:C")
             var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A1:B32", "C1:C32", "A33:B1000", "C33:C1000")
 
             //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "10100109_YoY", "A:A", "CJ:CJ")
 
-            SetupLineChart('myChart', "myLoadingSymbol", link, 2);
+            SetupLineChart(chartID, loadingID, link, 2);
         }
     </script>
 </body>
