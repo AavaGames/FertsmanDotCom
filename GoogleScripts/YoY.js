@@ -1,4 +1,4 @@
-function ConvertValuesToYoY(oldData) {
+function ConvertValuesToYoY(oldData, deleteEmptyFirstYear = true) {
     // Data Structure
     // oldData[columns][rows] 
     // newData[columns][rows]
@@ -41,10 +41,12 @@ function ConvertValuesToYoY(oldData) {
             newData[column][row] = yoy;
         }
         // remove first 12 data rows
-        newData[column].splice(1, 12);
+        if (deleteEmptyFirstYear)
+            newData[column].splice(1, 12);
     }
     // remove dates first 12 rows
-    newData[0].splice(1, 12);
+    if (deleteEmptyFirstYear)
+        newData[0].splice(1, 12);
 
     return newData;
 }

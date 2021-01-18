@@ -208,3 +208,18 @@ function LimitRows(data, rows) {
     return newData;
 }
 
+function Transpose(array) {
+    var tempArray = [];
+    for (var i = 0; i < array.length; ++i) 
+    {
+        for (var j = 0; j < array[i].length; ++j) 
+        {
+            // could cause a problem with sheets fill range
+            if (array[i][j] === undefined) continue;
+
+            if (tempArray[j] === undefined) tempArray[j] = [];
+            tempArray[j][i] = array[i][j];
+        }
+    }
+    return tempArray;
+}

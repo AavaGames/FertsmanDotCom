@@ -40,20 +40,3 @@ function SortTeranetData(oldData) {
 
     return newData;
 }
-
-function Transpose(array) {
-    var tempArray = [];
-    for (var i = 0; i < array.length; ++i) {
-        for (var j = 0; j < array[i].length; ++j) {
-
-            // skip undefined values to preserve sparse array
-            if (array[i][j] === undefined) continue;
-
-            // create row if it doesn't exist yet
-            if (tempArray[j] === undefined) tempArray[j] = [];
-            // swap the x and y coords for the tempArray
-            tempArray[j][i] = array[i][j];
-        }
-    }
-    return tempArray;
-}
