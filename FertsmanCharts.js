@@ -5,8 +5,7 @@ var lineOptions = {
         "rgba(0, 175, 181, 1)",
         "rgba(255, 119, 0, 1)",
         "rgba(163, 0, 0, 1)",
-        "rgba(0, 71, 119, 1)",
-        "rgba(239, 210, 141, 1)"
+        "rgba(0, 71, 119, 1)"
     ],
     colorWhite: "rgba(255, 255, 255, 1)",
     trendLine: "rgba(0, 0, 0, 1)",
@@ -154,6 +153,46 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors) {
     });
 }
 
+// Add 
+function AddRowRangesToVectorLink(link, ...rows)
+{
+    var linkRanges = "/values:batchGet?ranges=";
+    if (typeof rowRanges == 'undefined') {
+        console.log("Not adding rows to ranges");
+
+        // Get Date
+        linkRanges = "/values:batchGet?ranges=" + sheetName + "!A:A";
+        // Get Columns
+        ranges.forEach(element => {
+            linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element + ":" + element;
+        });
+    } else {
+        console.log("Adding rows to ranges");
+        console.log(ranges);
+        // First entry format exception of date
+        linkRanges += sheetName + "!A" + rowRanges[0][0] + ":A" + rowRanges[0][1];
+        for (var j = 0; j < rowRanges.length; j++) {
+            var date = true;
+            for (var i = 0; i < ranges.length; i++) {
+                // Get Date unless exception
+                if (j != 0 & date) {
+                    linkRanges += "&ranges=" + sheetName + "!A" + rowRanges[j][0] + ":A" + rowRanges[j][1];
+                    date = false;
+                    i--;
+                }
+                // Get Columns
+                else {
+                    linkRanges += "&ranges=" + sheetName + "!" + ranges[i] + rowRanges[j][0] + ":" + ranges[i] + rowRanges[j][1];
+                }
+                console.log(ranges[i]);
+            }
+        }
+    }
+    const forceColumns = "&majorDimension=COLUMNS";
+
+    link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
+}
+
 /**
  * Formats link to pull A1 notation from specific spreadsheet and sheet.
  * @param {String} spreadSheetID The spreadsheet ID
@@ -179,6 +218,12 @@ function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
     link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 
     return link;
+}
+
+// Manipulate charts dataset's headers
+function OverwriteChartHeader(chartID, ...headers)
+{
+
 }
 
 /**
@@ -271,6 +316,15 @@ function AbbreviateNumber(n) {
         }
     }
     return n;
+}
+
+function DownloadChart(chartID, downloadID)
+{
+    /*Get image of canvas element*/
+    var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
+    /*get download button (tag: <a></a>) */
+    document.getElementById(downloadID).href = url_base64jp;
+    /*insert chart image url to download button (tag: <a></a>) */
 }
 
 // #endregion
