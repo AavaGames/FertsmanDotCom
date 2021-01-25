@@ -1,3 +1,5 @@
+// Add Typescript ?
+
 const SheetFunctionTypes = Object.freeze({
     "Add": 1, 
     "Subtract": 2, 

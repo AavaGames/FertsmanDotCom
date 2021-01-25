@@ -11,7 +11,14 @@ var lineOptions = {
     trendLine: "rgba(0, 0, 0, 1)",
     GetColor: function(i) {
         // Loops color list automatically
-        return this.colors[LoopIndex(i, this.colors.length)];
+        //return this.colors[LoopIndex(i, this.colors.length)];
+        var baseGrey = 85;
+        var increment = 10;
+        var loopAt = (255 - baseGrey) / increment + 1;
+
+        var grey = baseGrey + (increment * LoopIndex(i, loopAt));
+
+        return `rgba(${grey}, ${grey}, ${grey}, 0.5)`
     },
     GetRandomColor: function(i) {
         return this.colors[RandomInt(this.colors.length)];

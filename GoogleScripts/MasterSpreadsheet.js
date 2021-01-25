@@ -12,6 +12,8 @@ function PullDataForSheet(sheet) {
     var headers = [];
     var funcParameters = [];
 
+    var sheetHeadersToGet = [];
+
     var data = [[]];
 
     while (true)
@@ -34,7 +36,10 @@ function PullDataForSheet(sheet) {
         // once gotten add to sheet in appropriate date row
         //   get earliest date of spreadsheet, find date in new spreadsheet, splice into that row
 
-        var sheetData = await PullDataFromSheet();
+        sheetHeadersToGet; // ADD SHEET HEADERS HERE 
+        var sheetData = await PullDataFromSheet();        
+        // Remove excess data, only leave headers
+        sheetData = FindHeadersInSheet(sheetData);
         var headerData = [[]];
         // Find headers in sheet
 
@@ -53,9 +58,76 @@ function PullDataForSheet(sheet) {
     WriteDataToSheet(data, sheet + "_Data");
 }
 
-function PullDataFromSheet(spreadsheetID, sheetName, ...headers)
-{
-    var sheetData = [[]];
+async function f2() {
+    const thenable = {
+        then: function(resolve, _reject) {
+            
+            resolve('resolved!')
+        }
+    };
+}
 
-    return sheetData;
+// Uses sheetHeadersToGet global variable to know what headers to grab
+function PullDataFromSheet(spreadsheetID, sheetName)
+{
+    new Promise(resolve => {
+        var sheetData = [[]];
+
+        return sheetData;
+    });
+}
+
+
+
+function PullDataFromSheet(spreadsheetID, sheetName) {
+    // Get Spreadsheet
+    var ss = SpreadsheetApp.openById(spreadsheetID);
+    var sheet = ss.getSheetByName(sheetName);
+
+    var lastRow = sheet.getLastRow();
+    var lastColumn = sheet.getLastColumn();
+
+    var allRanges = sheet.getRange(1, 1, lastRow, lastColumn);
+
+    var params = {
+        spreadsheetId: spreadsheetID,
+        ranges: allRanges,
+        // True if grid data should be returned.
+        // This parameter is ignored if a field mask was set in the request.
+        includeGridData: false,
+    };
+    //Sheets.Spreadsheets.Values.get(request, SpreadsheetApp.getActiveSpreadsheet().getId());
+    return Sheets.Spreadsheets.Values.get(params);
+}
+
+function FindHeadersInSheet(data)
+{
+    var newData = [];
+
+    var headerColumns = [];
+    for (var i = 0; i < sheetHeadersToGet.length; i++) {
+        var header = sheetHeadersToGet[i];
+
+        var headerFound = false;
+        for (var j = 0; j < firstRow.length; j++) {
+            var value = firstRow[j];
+
+            if (value == header) {
+                headerColumns.push(j);
+                headerFound = true;
+                break;
+            }
+        }
+
+        if (!headerFound)
+            console.log("ERROR: Header not found - " + header);
+    }
+
+    // Add all headerColumns to newData
+    for (var i = 0; i < headerColumns.length; i++)
+    {
+        newData.push(data[headerColumns[i]]);
+    }
+
+    return newData;
 }
