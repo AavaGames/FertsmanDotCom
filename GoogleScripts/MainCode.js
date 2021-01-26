@@ -156,7 +156,7 @@ function WriteDataToSheet(_data, location, startRow = 1) {
                 'values': _data
             }]
     };
-    Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
+    Sheets.Spreadsheets.Values.batchUpdate(request, ss.getId());
 }
 
 function ClearEntireSheet(location) {
@@ -173,7 +173,7 @@ function ClearEntireSheet(location) {
                 'values': "userEnteredData"
             }]
     };
-    Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
+    Sheets.Spreadsheets.Values.batchUpdate(request, ss.getId());
 }
 
 function FillOutArray(array, fillItem) {
