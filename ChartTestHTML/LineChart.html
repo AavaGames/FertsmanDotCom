@@ -78,11 +78,16 @@
         } 
         else {
             //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:B", "C:C")
-            var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A1:B32", "C1:C32", "A33:B1000", "C33:C1000")
+
+            //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A1:B32", "C1:C32", "A33:B1000", "C33:C1000")
+           
+            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "StatsCan_Data", "A:H")
 
             //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "10100109_YoY", "A:A", "CJ:CJ")
 
-            SetupLineChart(chartID, loadingID, link, 2);
+            console.log(link);
+            
+            SetupLineChart(chartID, loadingID, link, 2, 3);
         }
     </script>
 </body>

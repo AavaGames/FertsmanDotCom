@@ -19,10 +19,6 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
 
         // End of JSON formatting
 
-        Chart.defaults.global.defaultColor = chartDefaultColor;
-
-        Chart.defaults.global.defaultFontFamily = chartFontFamily;
-
         var _datasets = [];
         var axisLabels = ["", ""];
         for (var i = 1; i < data.length; i++) {

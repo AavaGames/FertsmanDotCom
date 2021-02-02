@@ -42,6 +42,8 @@ var chartTitleOptions = {
 
 Chart.defaults.global.defaultColor = chartDefaultColor;
 Chart.defaults.global.defaultFontFamily = chartFontFamily;
+// Skips null or "" points in line / radar charts
+Chart.defaults.global.spanGaps = false;
 
 
 // #endregion
@@ -256,14 +258,13 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
 
             var header = values[0];
             var isHeader = false;
-            // it is a header if it contains the word "Date" or the first letter is "v"
-            if (header.includes("Date"))
-                isHeader = true;
-            else if (header.charAt(0) == 'v')
-                isHeader = true;
+            // If the whole header is not a number & the first letter is not a number (it is a date), it must be a header
+            if (isNaN(header) && isNaN(header[0]))
+                isHeader = true;     
 
             // If header is not a number, add a new dataset
-            if (isHeader) {
+            if (isHeader) 
+            {
                 currentSortedColumn++;
                 data[currentSortedColumn] = new Array();
 
@@ -274,10 +275,16 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
                 }
             }
             // Add to an established dataset
-            else {
+            else
+             {
+                if (data.length == 0)
+                {
+                    console.error("LINK ERROR: You forgot to grab headers! (Example: \"A1:H1\")");
+                }
+
                 currentSortedColumn++;
                 currentSortedColumn = LoopIndex(currentSortedColumn, data.length);
-
+                
                 for (var row = 0; row < amountOfRows; row++) {
                     var value = values[row];
                     data[currentSortedColumn].push(value);
@@ -301,7 +308,56 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
         });
     }
 
+    data = RemoveEmptyRowsAndValues(data);
+
     return [dataHeaders, data];
+}
+
+function RemoveEmptyRowsAndValues(data)
+{
+    data = Transpose(data);
+
+    // Removes empty rows
+    for (var row = 0; row < data.length; row++)
+    {
+        var noData = true;
+
+        for (var col = 1; col < data[0].length; col++)
+        {
+            var value = data[row][col];
+            if (String(value).length > 0 || value == null)
+            {
+                noData = false;
+                break;
+            }
+        }
+
+        // No data in this row, remove it
+        if (noData)
+        {
+            console.log("no data in row" + row);
+            data.splice(row, 1);
+            row--;
+        }  
+    }
+
+    data = Transpose(data);
+
+    // Removes empty values
+    for (var col = 0; col < data.length; col++)
+    {
+        for (var row = 0; row < data[0].length; row++)
+        {
+            var value = data[col][row];
+
+            if (String(value).length == 0)
+                value = null;
+
+            data[col][row] = value;
+        }
+    }
+
+    return data;
 }
 
 function LoopIndex(index, arrayLength) {
@@ -332,6 +388,22 @@ function DownloadChart(chartID, downloadID)
     /*get download button (tag: <a></a>) */
     document.getElementById(downloadID).href = url_base64jp;
     /*insert chart image url to download button (tag: <a></a>) */
+}
+
+function Transpose(array) {
+    var tempArray = [];
+    for (var i = 0; i < array.length; ++i) 
+    {
+        for (var j = 0; j < array[i].length; ++j) 
+        {
+            // could cause a problem with sheets fill range
+            if (array[i][j] === undefined) continue;
+
+            if (tempArray[j] === undefined) tempArray[j] = [];
+            tempArray[j][i] = array[i][j];
+        }
+    }
+    return tempArray;
 }
 
 // #endregion

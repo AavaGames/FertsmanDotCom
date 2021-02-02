@@ -82,9 +82,14 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
 
                 console.log("running function - NOT IMPLEMENTED");
 
+                // TODO implement sheet function system
+                
                 //Get function header too
-                //GetFuncParameters(inputRow);
-                //UseSheetFunction(sheetName, header[0], funcParameters);
+                //funcHeader = String(inputData[inputRow][headerCol]);
+                //funcParameters = GetFuncParameters(inputRow);
+                //var funcColumn = UseSheetFunction(sheetName, header[0], funcParameters);
+                //data.push(funcColumn);
+                //continue;
             }
             else
             {
@@ -208,15 +213,17 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
     
     function GetFuncParameters(inputRow)
     {
+        var params = []
         // Get the rest of function parameters
         for (var col = funcParametersStartCol; col < inputData[inputRow].length; col++)
         {
             var value = String(inputData[inputRow][col]);
 
-            funcParameters.push(value);
+            params.push(value);
         }
 
-        console.log("func param [0] = " + funcParameters[0]);
+        console.log("func param [0] = " + params[0]);
+        return params;
     }
 }
 
