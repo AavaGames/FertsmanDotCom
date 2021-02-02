@@ -1,12 +1,18 @@
+function fus()
+{
+  PullDataForMasterSheet("StatsCan", DateTypeEnum.Monthly, false)
+}
+
+const DateTypeEnum = Object.freeze({"Undefined":0, "Daily":1, "Monthly":2, "Quarterly":3, "Yearly":4})
+
 // Give sheet name
-function PullDataForMasterSheet(sheet, cleanPull = false) {
+function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanPull = false) {
     // inputData[rows][columns]
 
-    // masterSheetData[columns][rows]
+    // dataToAlignTo[columns][rows]
     // data[columns][rows]
 
     // pulledData[rows][columns]
-
 
     // Pull data from sheet_Input
     var inputData = [];
@@ -18,12 +24,22 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
     // if clean pull, wipe sheet_Data and grab dates
     // if not then grab whole sheet for later
 
-    // Pull first column from sheet_Data for dates
-    var masterSheetData = GetDataFromSheet(sheet + "_Data", false);
-    // TODO if new month hasn't been added yet, add it.
+    // Pull date template sheet from separate Master Data Templates spreadsheet
+    var dateTypes = []
+    for (var enumMember in DateTypeEnum)
+        dateTypes.push(enumMember);
 
-    var failedToPullData = false;
+    if (dateType == DateTypeEnum.Daily)
+        console.error("WARNING: Daily template sheet is not finished");
 
+    var dateSheet = dateTypes[dateType];
+
+    var dataSpreadsheetID = "16kfOjEefC5KgIkTuguyVQMc7wjE-WzHmohQIogE6m2Y";
+    // Promise ? Perhaps with daily, where it will take a long time
+    var dataToAlignTo = GetDataFromSpreadsheetID(dataSpreadsheetID, dateSheet, false);
+    
+    if (dataToAlignTo.length == 0)
+      console.error("Failed to get Date Alignment sheet");
 
     const spreadSheetIDCol = 0;
     const sheetNameCol = 1;
@@ -36,10 +52,9 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
     var headers = [];
     var funcParameters = [];
 
-    // Used in FindHeadersInSheet()
-    var sheetHeadersToGet = [];
-
     var data = [];
+    // Push date column
+    data.push(Transpose(dataToAlignTo)[0]);
 
     for (var inputRow = 0; inputRow < inputData.length; inputRow++)
     {
@@ -106,6 +121,9 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
         }
     }
 
+    console.log("Removing empty rows")
+    data = RemoveEmptyRows(data);
+
     console.log("Writing to sheet");
 
     var tempArray = data;
@@ -116,6 +134,8 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
 
     // Write data to sheet
     WriteDataToSheet(data, sheet);
+
+
 
     // START of nested functions
 
@@ -137,78 +157,57 @@ function PullDataForMasterSheet(sheet, cleanPull = false) {
     {
         var sheetData;
 
-        //console.log("Starting Promise");
+        var failedToPullData = false;
 
         var promisePullData = new Promise(function(resolve, reject) {
             // returns [row][col] array
             sheetData = GetDataFromSpreadsheetID(spreadsheetID, sheetName, true);
             
+            if (sheetData == null || sheetData.length == 0)
+            {
+                failedToPullData = true;
+                reject("ERROR: Failed to receive data from sheet: " + sheetName + " ID: " + spreadsheetID);
+            }
+
             resolve(sheetData);
         });
-
-        // grab data from spreadsheet
-        // look for headers in spreadsheet
-        // once gotten add to sheet in appropriate date row
-        //   get earliest date of spreadsheet, find date in new spreadsheet, splice into that row
-
-        sheetHeadersToGet = headers;
 
         //console.log("ID = " + spreadsheetID);
         //console.log("Name = " + sheetName);
         //console.log("First Header = " + headers[0])
         //console.log("Last Header = " + headers[headers.length - 1]);
-
-        // promisePullData.then(
-        //     // If successfully pulled data continue
-        //     result => {
-        //         // pulledData[col][row]
-        //         console.log("Success = " + sheetData[0][1]);
-        //         sheetData = result;
-        //     },
-        //     error => {
-        //         console.log("Failed to get data from sheet " + sheetName + " with error: " + error);
-        //         failedToPullData = true;
-        //     }
-        // );
-
-        //console.log("Finished Promise");
         
         if (!failedToPullData)
         {
             // Removes excess data, finds headers and keeps date col
-            sheetData = FindHeadersInSheet(sheetData, sheetHeadersToGet);
+            sheetData = FindHeadersInSheet(sheetData, headers);
 
             // Transposing array sheetData[col][row] -> [row][col]
             sheetData = Transpose(sheetData);
 
             console.log("Aligning Dates");
             // Align dates properly
-            sheetData = AlignDates(masterSheetData, sheetData);
+            sheetData = AlignDates(dataToAlignTo, sheetData);
 
             // Transposing array sheetData[row][col] -> [col][row]
             sheetData = Transpose(sheetData);
 
             // Remove date column
             sheetData.splice(0, 1);
-
-            // Add sheetData to data
-            for (var i = 0; i < sheetData.length; i++)
-            {
-                data.push(sheetData[i]);
-            }
-
-            console.log("Added to data - cols = " + data.length + " last row = " + data[data.length - 1].length);
         }
         else
         {
+            console.log("add empty rows here");
             // add empty rows to data
         }
 
-        // // Add sheetData to data
-        // for (var i = 0; i < sheetData.length; i++)
-        // {
-        //     data.push(sheetData[i]);
-        // }
+        // Add sheetData to data
+        for (var i = 0; i < sheetData.length; i++)
+        {
+            data.push(sheetData[i]);
+        }
+
+        console.log("Added to data - cols = " + data.length + " last row = " + data[data.length - 1].length);
     }
     
     function GetFuncParameters(inputRow)
@@ -270,7 +269,7 @@ function FindHeadersInSheet(data, headersToGet)
 }
 
 
-function AlignDates(masterSheetData, data)
+function AlignDates(dataToAlignTo, data)
 {
     // TODO implement error system when date formats do not match up
 
@@ -278,7 +277,7 @@ function AlignDates(masterSheetData, data)
     // data[row][column]
 
     // iterate through data rows and find matching date and place it there
-    var masterRow = 1;
+    var alignRow = 1;
 
     // Create an empty row at the same size of all other rows, for filling in
     var emptyRow = []
@@ -298,22 +297,25 @@ function AlignDates(masterSheetData, data)
         counter ++;
         var date = String(data[i][0]);
 
-        for (masterRow; masterRow < masterSheetData.length; masterRow++)
-        {
-            masterDate = String(masterSheetData[masterRow][0]);
+        var foundDate = false;
 
-            if (date == masterDate)
+        for (alignRow; alignRow < dataToAlignTo.length; alignRow++)
+        {
+            alignDate = String(dataToAlignTo[alignRow][0]);
+
+            if (date == alignDate)
             {
+                foundDate = true;
                 // fill before data[i] with empty spaces
 
                 // DOUBLE CHECK THIS
                 var startIndex = i;
-                var endIndex = masterRow;
+                var endIndex = alignRow;
                 var amountToAdd = endIndex - startIndex;
                 if (amountToAdd <= 0)
                   break;
 
-                console.log("i = " + i + " startIndex = " +  startIndex + " endIndex = " + masterRow + " amountToAdd = " + amountToAdd);
+                console.log("i = " + i + " startIndex = " +  startIndex + " endIndex = " + alignRow + " amountToAdd = " + amountToAdd);
                 
                 var amountAdded = 0;
 
@@ -327,11 +329,16 @@ function AlignDates(masterSheetData, data)
                 break;
             }
         }
+        if (!foundDate)
+        {
+            console.error("ERROR: Date mismatch! Make sure date formats are the same. "
+                            + date + " should be formatted like " + dataToAlignTo[1][0]);
+        }
     }
 
     // fill out the rest
     var startIndex = data.length;
-    var endIndex = masterSheetData.length -1;
+    var endIndex = dataToAlignTo.length -1;
     var amountToAdd = endIndex - startIndex;
     var fillEndOfArray = true;
     if (amountToAdd <= 0)
@@ -349,7 +356,7 @@ function AlignDates(masterSheetData, data)
 
     //console.log("Shoulda have ran " +  startLength + " times and ran " + counter + " times");
     console.log("Start length = " +  startLength + " and length = " + data.length);
-    console.log("Goal length = " +  masterSheetData.length + " and length = " + data.length);
+    console.log("Goal length = " +  dataToAlignTo.length + " and length = " + data.length);
     return data;
 }
 
@@ -367,6 +374,35 @@ function Transpose(array) {
         }
     }
     return tempArray;
+}
+
+function RemoveEmptyRows(data)
+{
+    // [col][row] -> [row][col]
+    data = Transpose(data);
+
+    // Removes empty rows
+    for (var row = 0; row < data.length; row++)
+    {
+        var noData = true;
+
+        for (var col = 1; col < data[0].length; col++)
+        {
+            var value = data[row][col];
+            if (String(value).length > 0 || value == null)
+            {
+                noData = false;
+                break;
+            }
+        }
+        // No data in this row, remove it
+        if (noData)
+        {
+            data.splice(row, 1);
+            row--;
+        }  
+    }
+    return Transpose(data);
 }
 
 function GetDataFromSheet(sheetName, majorDimensionColumns = true)
@@ -414,8 +450,7 @@ function WriteDataToSheet(data, location) {
     var spreadSheetName = location + "_Data";
     var ss = SpreadsheetApp.getActive();
     var sheet = ss.getSheetByName(spreadSheetName);
-    // Start second column to not overwrite dates
-    var ranges = sheet.getRange(1, 2, data[0].length, data.length);
+    var ranges = sheet.getRange(1, 1, data[0].length, data.length);
     console.log(ranges.getA1Notation());
     var request = {
         'valueInputOption': 'USER_ENTERED',

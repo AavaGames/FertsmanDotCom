@@ -315,6 +315,7 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
 
 function RemoveEmptyRowsAndValues(data)
 {
+    // [col][row] -> [row][col]
     data = Transpose(data);
 
     // Removes empty rows
@@ -335,7 +336,6 @@ function RemoveEmptyRowsAndValues(data)
         // No data in this row, remove it
         if (noData)
         {
-            console.log("no data in row" + row);
             data.splice(row, 1);
             row--;
         }  
