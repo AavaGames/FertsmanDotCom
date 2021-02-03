@@ -72,12 +72,13 @@ ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a -
  *         [80, 100000]
  *      ];
  * 
+ * @param {Function} functionCallback Function called when line chart is ready
  * @param {String} spreadSheetID The spreadsheet ID
  * @param {String} sheetName The sheet name
  * @param {Number} vectors Vectors to pull from sheet
  *                        Examples: "v12093102, vå39210901, v231090"
  */
-function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors) {
+function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...vectors) {
     const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
     const forceRows = "&majorDimension=ROWS"
 
@@ -110,7 +111,7 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors) {
             }
 
             if (!vectorFound)
-                console.log("ERROR: Vector not found - " + vector);
+                console.error("ERROR: Vector not found - " + vector);
         }
 
         // Convert to A1
@@ -158,7 +159,7 @@ function FormatLinkWithVectors(spreadSheetID, sheetName, ...vectors) {
         console.log(link);
 
         //Callback function
-        FinishedLink(link)
+        functionCallback(link);
     });
 }
 
