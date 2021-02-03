@@ -30,17 +30,19 @@
         <div id="myLoadingSymbol"></div>
     </div>
 
-    <a id="myDownload" download="" href="" target="_blank" class="btn btn-primary float-right bg-flat-color-1">
+    <a id="myDownload" download="" href="" target="_blank" class="">
         <p>DOWNLOAD</p>
         <!-- Download Icon -->
         <!-- <i class="fa fa-download"></i> -->
     </a>
 
     <script>
-        var chartID = 'myChart';
-        var loadingID = 'myLoadingSymbol';
-        var downloadID = 'myDownload';
-        var downloadName = chartID + ".jpg";
+
+        // This declaration will cause a problem when using this script in multiple places use let instead ?
+        let chartID = 'myChart';
+        let loadingID = 'myLoadingSymbol';
+        let downloadID = 'myDownload';
+        let downloadName = chartID + ".jpg";
         //document.getElementById(downloadID).addEventListener('click', DownloadChart(chartID, downloadID));
 
         document.getElementById(downloadID).addEventListener('click', function() {
