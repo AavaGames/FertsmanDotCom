@@ -156,8 +156,6 @@ function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...ve
 
         link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 
-        console.log(link);
-
         //Callback function
         functionCallback(link);
     });
@@ -389,6 +387,14 @@ function DownloadChart(chartID, downloadID)
     /*get download button (tag: <a></a>) */
     document.getElementById(downloadID).href = url_base64jp;
     /*insert chart image url to download button (tag: <a></a>) */
+
+    /*Get image of canvas element*/
+    var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
+    /*get download button (tag: <a></a>) */
+    var a =  document.getElementById(downloadID);
+    /*insert chart image url to download button (tag: <a></a>) */
+    a.href = url_base64jp;
+    a.download = downloadName;
 }
 
 function Transpose(array) {

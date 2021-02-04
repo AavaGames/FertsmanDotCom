@@ -34,6 +34,21 @@ function PromptUserForLocation(promptText) {
 
 const SortingMethodEnum = Object.freeze({"Undefined":0, "StatsCan":1, "Covid":2, "Teranet":3})
 
+function ImportStatsCan(tableID = "", yoy = false)
+{
+    ImportCsvFromUrl(SortingMethodEnum.StatsCan, tableID, yoy);
+}
+
+function ImportCovid(yoy = false)
+{
+    ImportCsvFromUrl(SortingMethodEnum.Covid, "", yoy);
+}
+
+function ImportTeranet(yoy = false)
+{
+    ImportCsvFromUrl(SortingMethodEnum.Teranet, "", yoy);
+}
+
 // Imports a CSV file from a URL, sorts it, then imports it into the Google Sheet using API v4
 function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID = "", yoy = false) {
     var location;

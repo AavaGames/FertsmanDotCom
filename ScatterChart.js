@@ -144,8 +144,8 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData) {
         _datasets[0] = {
             label: leftYAxisLabel,
             //For Bar Chart
-            backgroundColor: lineOptions.colors[3],
-            borderColor: lineOptions.colors[1],
+            backgroundColor: lineOptions.GetColor(3),
+            borderColor: lineOptions.GetColor(1),
             data: pointData,
             //fill: true,
             yAxisID: 'y-axis-1',

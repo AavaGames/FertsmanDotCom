@@ -156,8 +156,6 @@ function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...ve
 
         link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 
-        console.log(link);
-
         //Callback function
         functionCallback(link);
     });

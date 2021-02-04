@@ -43,8 +43,9 @@
         let loadingID = 'myLoadingSymbol';
         let downloadID = 'myDownload';
         let downloadName = chartID + ".jpg";
-        //document.getElementById(downloadID).addEventListener('click', DownloadChart(chartID, downloadID));
 
+        // document.getElementById(downloadID).addEventListener('click', DownloadChart(chartID, downloadID));
+        // Move to fertsman charts
         document.getElementById(downloadID).addEventListener('click', function() {
             /*Get image of canvas element*/
             var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
@@ -60,20 +61,19 @@
         var vectorBased = true;
 
         if (vectorBased) {
-            //  If not using keep variables EMPTY
+            // Optional Function Adjustments
 
+            // Adds row ranges to FormatLinkWithVectors, call after link is formed
+            // AddRowRangesToVectorLink(link, ...rows)
+            // Example = (link, [1, 1], [32, 60], [80, 100000])
+
+            // Overwrite chart headers, call after chart is created
             // Do not include "Date", it is already included. 
-            // Example = ["HeaderOne", "HeaderTwo"]
-            //var overwriteHeaders;
-            // Example = [
-            //     [1, 1], 
-            //     [32, 60],
-            //     [80, 100000]
-            // ];
-            //var rowRanges;
-            //FormatLinkWithVectors(FinishedLink, "1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
+            // OverwriteChartHeader(chartID, ...headers)
+            // Example = (chartID, "HeaderOne", "HeaderTwo")
 
-            FormatLinkWithVectors(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "StatsCan_Data", "A:H");
+            FormatLinkWithVectors(FinishedLink, "1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
+            //FormatLinkWithVectors(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "StatsCan_Data", "A:H");
 
             function FinishedLink(link) {
                 console.log("Building Chart.");

@@ -48,8 +48,8 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
 
         _datasets[0] = {
             label: axisLabels[0],
-            backgroundColor: "rgba(0, 175, 181, 1)",
-            //orderColor: lineOptions.GetRandomColor(),
+            backgroundColor: lineOptions.GetColor(0),
+            //borderColor: lineOptions.GetRandomColor(),
             data: pointData,
             //fill: true,
             yAxisID: axis,
