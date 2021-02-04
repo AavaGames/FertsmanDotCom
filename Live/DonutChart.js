@@ -2,11 +2,12 @@
  * Creates a Donut / Doughnut Chart using the Chart.js library
  * @param {String} chartName Chart ID name to be called by html <canvas>
  * @param {String} link The link/URL to the JSON
+ * @param {Boolean} legendActive Shows the legend or not
  * @param {Integer} additionalDates Number of additional dates to grab
  * @param {Boolean} movingBackwards Dates grabbed moving backward or forward
  * @param {String} datesToFind "2019-12" if empty default to starting at latest
  */
-function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0, movingBackwards = true, ...dates) {
+function SetupDonutChart(chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
@@ -133,28 +134,19 @@ function SetupDonutChart(chartName, loadingSymbolName, link, additionalDates = 0
                     display: false,
                 },
                 legend: {
-                    display: true,
+                    display: legendActive,
                     position: 'top',
                     align: 'center' // 'start'
                 },
                 plugins: {
                     labels: [{
-                        render: 'label',
-                        fontColor: '#000',
+                        render: 'percentage',
+                        fontColor: "rgba(255, 255, 255, 1)",
                         fontStyle: 'bolder',
-                        position: 'outside',
+                        position: 'border',
                         outsidePadding: 2,    
                         arc: false,
                         overlap: true, 
-                        textMargin: 6
-                    },
-                    {
-                        render: 'percentage',
-                        fontColor: '#000',
-                        fontStyle: 'bolder',   
-                        position: 'border', 
-                        arc: false,
-                        overlap: false,     
                         textMargin: 6
                     }]
                 }
