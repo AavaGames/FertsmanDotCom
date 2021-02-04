@@ -1,4 +1,5 @@
-function ConvertValuesToYoY(oldData, deleteEmptyFirstYear = true) {
+function ConvertValuesToYoY(oldData) {
+    log("Converting to YoY");
     // Data Structure
     // oldData[columns][rows] 
     // newData[columns][rows]
@@ -25,7 +26,7 @@ function ConvertValuesToYoY(oldData, deleteEmptyFirstYear = true) {
             }
             else
             {
-                // YoY % = (This Year - Last Year) / Last Year
+                // YoY % = (current date - same period the previous year) / same period the previous year
                 yoy = (currentValue - lastValue) / lastValue;
                 // rounds value
                 yoy *= 100;
@@ -41,12 +42,10 @@ function ConvertValuesToYoY(oldData, deleteEmptyFirstYear = true) {
             newData[column][row] = yoy;
         }
         // remove first 12 data rows
-        if (deleteEmptyFirstYear)
-            newData[column].splice(1, 12);
+        newData[column].splice(1, 12);
     }
     // remove dates first 12 rows
-    if (deleteEmptyFirstYear)
-        newData[0].splice(1, 12);
+    newData[0].splice(1, 12);
 
     return newData;
 }

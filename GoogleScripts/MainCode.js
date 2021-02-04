@@ -32,25 +32,28 @@ function PromptUserForLocation(promptText) {
     return response;
 }
 
+function ImportStatsCan(tableID = "", nominalMethod = "")
+{
+    ImportCsvFromUrl(SortingMethodEnum.StatsCan, tableID, nominalMethod);
+}
+
+function ImportCovid(nominalMethod = "")
+{
+    ImportCsvFromUrl(SortingMethodEnum.Covid, "", nominalMethod);
+}
+
+function ImportTeranet(nominalMethod = "")
+{
+    ImportCsvFromUrl(SortingMethodEnum.Teranet, "", nominalMethod);
+}
+
 const SortingMethodEnum = Object.freeze({"Undefined":0, "StatsCan":1, "Covid":2, "Teranet":3})
 
-function ImportStatsCan(tableID = "", yoy = false)
-{
-    ImportCsvFromUrl(SortingMethodEnum.StatsCan, tableID, yoy);
-}
-
-function ImportCovid(yoy = false)
-{
-    ImportCsvFromUrl(SortingMethodEnum.Covid, "", yoy);
-}
-
-function ImportTeranet(yoy = false)
-{
-    ImportCsvFromUrl(SortingMethodEnum.Teranet, "", yoy);
-}
+// Nominal Method can = "YoY", "WoW", "QoQ"
 
 // Imports a CSV file from a URL, sorts it, then imports it into the Google Sheet using API v4
-function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID = "", yoy = false) {
+function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID = "", nominalMethod = "") 
+ {
     var location;
     var url;
 
@@ -85,8 +88,18 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
             return;
     }
 
-    if (yoy)
+    switch(nominalMethod)
+    {
+      case "YoY":
         location += " - YoY";
+        break;
+      case "WoW":
+        location += " - WoW";
+        break;
+      case "QoQ":
+        location += " - QoQ";
+        break;
+    }
 
     DoesSheetExist(location);
 
@@ -134,8 +147,18 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
             break;
     }
     
-    if (yoy)
+    switch(nominalMethod)
+    {
+      case "YoY":
         data = ConvertValuesToYoY(data);
+        break;
+      case "WoW":
+        data = ConvertValuesToWoW(data);
+        break;
+      case "QoQ":
+        data = ConvertValuesToWoW(data);
+        break;
+    }
 
     //log("Clearing Sheet");
     //ClearEntireSheet(location);
@@ -188,7 +211,7 @@ function ClearEntireSheet(location) {
                 'values': "userEnteredData"
             }]
     };
-    Sheets.Spreadsheets.Values.batchUpdate(request, ss.getId());
+    Sheets.Spreadsheets.Values.batchUpdate(request, SpreadsheetApp.getActiveSpreadsheet().getId());
 }
 
 function FillOutArray(array, fillItem) {
@@ -223,18 +246,3 @@ function LimitRows(data, rows) {
     return newData;
 }
 
-function Transpose(array) {
-    var tempArray = [];
-    for (var i = 0; i < array.length; ++i) 
-    {
-        for (var j = 0; j < array[i].length; ++j) 
-        {
-            // could cause a problem with sheets fill range
-            if (array[i][j] === undefined) continue;
-
-            if (tempArray[j] === undefined) tempArray[j] = [];
-            tempArray[j][i] = array[i][j];
-        }
-    }
-    return tempArray;
-}

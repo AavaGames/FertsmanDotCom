@@ -161,18 +161,17 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
 
         var failedToPullData = false;
 
-        var promisePullData = new Promise(function(resolve, reject) {
+        var promisePullData = new Promise(function(resolve) {
             // returns [row][col] array
             sheetData = GetDataFromSpreadsheetID(spreadsheetID, sheetName, true);
-            
-            if (sheetData == null || sheetData.length == 0)
-            {
-                failedToPullData = true;
-                reject("ERROR: Failed to receive data from sheet: " + sheetName + " ID: " + spreadsheetID);
-            }
-
             resolve(sheetData);
         });
+
+        if (sheetData == undefined || sheetData.length == 0)
+        {
+            failedToPullData = true;
+            console.error("ERROR: Failed to receive data from sheet: " + sheetName + "\nID: " + spreadsheetID);
+        }
 
         //console.log("ID = " + spreadsheetID);
         //console.log("Name = " + sheetName);
@@ -196,6 +195,17 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
 
             // Remove date column
             sheetData.splice(0, 1);
+
+            // Add YoY to headers if its apart of a YoY sheet
+            sheetData = AddHeaderSuffix(sheetData, sheetName);
+
+            // Add sheetData to data
+            for (var i = 0; i < sheetData.length; i++)
+            {
+                data.push(sheetData[i]);
+            }
+
+            console.log("Added to data - cols = " + data.length + " last row = " + data[data.length - 1].length);
         }
         else
         {
@@ -203,13 +213,7 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
             // add empty rows to data
         }
 
-        // Add sheetData to data
-        for (var i = 0; i < sheetData.length; i++)
-        {
-            data.push(sheetData[i]);
-        }
 
-        console.log("Added to data - cols = " + data.length + " last row = " + data[data.length - 1].length);
     }
     
     function GetFuncParameters(inputRow)
@@ -391,7 +395,12 @@ function RemoveEmptyRows(data)
         for (var col = 1; col < data[0].length; col++)
         {
             var value = data[row][col];
-            if (String(value).length > 0 || value == null)
+
+            // Has only date, breaks out and deletes row
+            if (data[row].length == 1)
+                break;
+
+            if (String(value).length > 0 || value == null || value == undefined)
             {
                 noData = false;
                 break;
@@ -476,3 +485,23 @@ function WriteDataToSheet(data, location) {
     Sheets.Spreadsheets.Values.batchUpdate(request, ss.getId());
 }
 
+function AddHeaderSuffix(sheetData, sheetName)
+{
+    var suffix = "";
+    if (String(sheetName).includes("YoY"))
+    {
+        suffix = " - YoY"
+    }
+    else if (String(sheetName).includes("WoW"))
+    {
+        suffix = " - WoW"
+    }
+
+    //Add suffix to all headers
+    for (var col = 0; col < sheetData.length; col++)
+    {
+        sheetData[col][0] += suffix;
+    }
+
+    return sheetData;
+}

@@ -325,6 +325,11 @@ function RemoveEmptyRowsAndValues(data)
         for (var col = 1; col < data[0].length; col++)
         {
             var value = data[row][col];
+
+            // Has only date, breaks out and deletes row
+            if (data[row].length == 1)
+                break;
+
             if (String(value).length > 0 || value == null)
             {
                 noData = false;

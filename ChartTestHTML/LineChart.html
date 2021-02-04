@@ -25,8 +25,8 @@
 </header>
 
 <body>
-    <div style="height:100%">
-    <!-- <div style="height:75vh"> -->
+    <!-- <div style="height:100%"> -->
+    <div style="height:75vh">
         <canvas id="myChart"></canvas>
         <div id="myLoadingSymbol"></div>
     </div>
@@ -59,7 +59,7 @@
 
         // End of Download
 
-        var vectorBased = true;
+        var vectorBased = false;
 
         if (vectorBased) {
             // Optional Function Adjustments
@@ -86,13 +86,15 @@
 
             //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A1:B32", "C1:C32", "A33:B1000", "C33:C1000")
            
-            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "StatsCan_Data", "A:H")
+            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:H")
 
             //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "10100109_YoY", "A:A", "CJ:CJ")
 
             console.log(link);
             
-            SetupLineChart(chartID, loadingID, link, 2, 3);
+            SetupLineChart(chartID, loadingID, link, 5,6,7);
+
+            //OverwriteChartHeader(chartID, ...headers);
         }
     </script>
 </body>
