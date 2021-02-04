@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <title>Fertsman.com Donut Chart</title>
+
+    <!-- Chart js bundle min -->
+    <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+
+    <!-- Jquery EXCLUDE FROM SITE WIDE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Open Sans Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Regression.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
+
+    <!-- Fertsman.com CSS Stylesheet -->
+    <link rel="stylesheet" href="../Fertsman.css">
+
+    <!-- Fertsman.com Chart Script -->
+    <script src="../SheetsAPIKey.js"></script>
+    <script src="../FertsmanCharts.js"></script>
+    <script src="../BarChart.js"></script>
+</header>
+
+<body>
+    <div style="height:75vh">
+        <canvas id="myChart"></canvas>
+        <div id="loading_myChart"></div>
+    </div>
+
+    <script>
+
+        // Function Name & chartID MUST be unique
+        Bar();
+        function Bar()
+        {
+            let chartID = 'myChart';
+            let loadingID = 'loading_' + chartID;
+
+            //var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:H")
+
+            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
+
+            SetupBarChart(chartID, loadingID, link, true, "2020-07");
+        };
+    </script>
+</body>
+
+</html>
