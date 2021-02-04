@@ -30,7 +30,7 @@ function SortCovidData(oldData) {
     newData[0][0] = "Date";
     newDataHeaders[0] = "Date";
 
-    var newColumn = 1;
+    var newColumn = 0;
     var newRow = 0;
 
     for (var oldRow = 1; oldRow < oldData.length; oldRow++)
