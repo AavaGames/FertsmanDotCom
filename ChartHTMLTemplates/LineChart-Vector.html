@@ -19,27 +19,34 @@
 <!-- Widget Code -->
 
     <div style="height:100%">
-        <canvas id="myChart"></canvas>
-        <div id="loadingSymbol"></div>
+        <canvas id="lineChart"></canvas>
+        <div id="loading_lineChart"></div>
     </div>
 
-
     <script>
-        //  If not using variables keep EMPTY
-        
+        // Optional Function Adjustments
+
+        // Adds row ranges to FormatLinkWithVectors, call after link is formed
+        // AddRowRangesToVectorLink(link, ...rows)
+        // Example = (link, [1, 1], [32, 60], [80, 100000])
+
+        // Overwrite chart headers, call after chart is created
         // Do not include "Date", it is already included. 
-        // Example = ["HeaderOne", "HeaderTwo"]
-        var overwriteHeaders;
-        // Example = [
-        //     [1, 1], 
-        //     [32, 60],
-        //     [80, 100000]
-        // ];
-        var rowRanges;
-        FormatLinkWithVectors("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
-        
-        function FinishedLink(link)
+        // OverwriteChartHeader(chartID, ...headers)
+        // Example = (chartID, "HeaderOne", "HeaderTwo")
+
+        // Function Name & chartID MUST be unique
+        Line();
+        function Line()
         {
-            SetupLineChart('myChart', 'loadingSymbol', link, 3);
-        }       
+            let chartID = 'lineChart';
+            let loadingID = 'loading_' + chartID;
+            let link = FormatLinkWithVectors(FinishedLink, "1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "18100205", "v111955442", "v111955460")
+            // TEST FUNCTION
+            //AddRowRangesToVectorLink(FinishedLink, link, ...rows);
+            function FinishedLink(link) {
+                SetupLineChart(chartID, loadingID, link, 3);
+                //OverwriteChartHeader(chartID, ...headers);
+            }
+        };
     </script>

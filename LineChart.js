@@ -111,6 +111,7 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                                 //autoSkip: true,
                                 //maxTicksLimit: 10,
                                 //maxRotation: 0
+                                //padding: 20,
                                 callback: function(value) {
                                     return AbbreviateNumber(value);
                                 } 

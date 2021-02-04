@@ -1,6 +1,6 @@
 function fus()
 {
-  PullDataForMasterSheet("StatsCan", DateTypeEnum.Monthly, false)
+  PullDataForMasterSheet("Monthly", DateTypeEnum.Monthly, false)
 }
 
 const DateTypeEnum = Object.freeze({"Undefined":0, "Daily":1, "Monthly":2, "Quarterly":3, "Yearly":4})
@@ -20,8 +20,10 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
     // Delete first / header row
     inputData.splice(0, 1);
 
+    DoesSheetExist(sheet);
+
     // Promise to wipe sheet
-    // if clean pull, wipe sheet_Data and grab dates
+    // if clean pull, wipe sheet_Output and grab dates
     // if not then grab whole sheet for later
 
     // Pull date template sheet from separate Master Data Templates spreadsheet
@@ -444,10 +446,20 @@ function GetDataFromSpreadsheetID(spreadsheetID, sheetName, majorDimensionColumn
     return response.values;
 }
 
+function DoesSheetExist(location)
+{
+    location += "_Output";
+    var ss = SpreadsheetApp.getActive();
+    if (!ss.getSheetByName(location))
+    {
+        log("Couldn't find: " + location + ". Adding new sheet.");
+        ss.insertSheet(location);
+    }
+}
 
 // Writes a 2D array of data into existing sheet
 function WriteDataToSheet(data, location) {
-    var spreadSheetName = location + "_Data";
+    var spreadSheetName = location + "_Output";
     var ss = SpreadsheetApp.getActive();
     var sheet = ss.getSheetByName(spreadSheetName);
     var ranges = sheet.getRange(1, 1, data[0].length, data.length);
