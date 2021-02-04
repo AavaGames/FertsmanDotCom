@@ -2,6 +2,7 @@ function SortCovidData(oldData) {
     // Data Structure
     // oldData[rows][columns] 
     // newData[columns][rows]
+    
     var newData = [[]];
     var newDataHeaders = [];
 
