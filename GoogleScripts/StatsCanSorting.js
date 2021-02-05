@@ -77,7 +77,7 @@ function SafeSortStatsCanData(oldData) {
             newData[newColumn][newRow] = value;
         }
     }
-    console.log("END columns " + newData.length + " - row " + newData[0].length);
+    console.log("END columns " + newData.length + " - row " + newData[0].length + " - estimated cells " + (newData.length * newData[0].length));
 
     return newData;
 }

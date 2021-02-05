@@ -101,7 +101,7 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
         break;
     }
 
-    DoesSheetExist(location);
+    //DoesSheetExist(location);
 
     log("Fetching");
     var fetched = UrlFetchApp.fetch(url);
@@ -160,12 +160,43 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
         break;
     }
 
-    //log("Clearing Sheet");
-    //ClearEntireSheet(location);
+    const MAXCOLUMNS = 5000;
+    // amount of sheets = total COLUMN / max sheet COLUMNS rounded to the next int (2.3 -> 3)
+    var amountOfSheets = Math.trunc((data.length / MAXCOLUMNS) + 1);
+    console.log("Amount of Sheets " + MAXCOLUMNS);
 
-    log("Writing to sheet");
-    WriteDataToSheet(data, location);
+    var startCol = 1;
+    for (var i = 1; i <= amountOfSheets; i++)
+    {
+        var sheetName = location;
+        if (amountOfSheets > 1)
+            sheetName += " - " + String(i);
 
+        DoesSheetExist(sheetName);
+
+        var sheetData = [];
+        // Add date column
+        sheetData.push(data[0]);
+
+        // date + 1 - 4999
+        // date + 5000 - 9999
+        // date + 10000 - 14998
+        var endCol = startCol + MAXCOLUMNS - 1;
+        for (var j = startCol; j < endCol; j++)
+        {
+            sheetData.push(data[j]);
+        }
+
+        console.log("sheet length " + sheetData.length + " - startCol " + startCol + " - endCol " + endCol);
+
+        startCol = endCol;
+        //log("Clearing Sheet");
+        //ClearEntireSheet(location);
+
+        log("Writing to sheet " + i);
+        WriteDataToSheet(sheetData, sheetName);
+    }
+    
     log("The CSV file was successfully fetched and imported");
 }
 
@@ -175,7 +206,11 @@ function DoesSheetExist(location)
     if (!ss.getSheetByName(location))
     {
         log("Couldn't find: " + location + ". Adding new sheet.");
-        ss.insertSheet(location);
+        // Template sheet
+        var sheetTemplate = ss.getSheetByName("Template");
+        if (!sheetTemplate)
+            log("ERROR: Please add Template sheet");
+        ss.insertSheet(location, {template: sheetTemplate});
     }
 }
 
