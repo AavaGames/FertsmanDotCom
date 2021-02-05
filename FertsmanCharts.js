@@ -161,7 +161,7 @@ function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...ve
     });
 }
 
-// Add 
+// TODO unfinished function, remove this section out of other function and rename to HEADERS
 function AddRowRangesToVectorLink(link, ...rows)
 {
     var linkRanges = "/values:batchGet?ranges=";
@@ -229,9 +229,63 @@ function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
 }
 
 // Manipulate charts dataset's headers
-function OverwriteChartHeader(chartID, ...headers)
+function OverwriteChartHeader(chart, ...headers)
 {
+    var currentHeader = 0;
 
+    // Hide Y axes labels
+    if (headers.length == 0)
+    {
+        for (var axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+        {
+            chart.options.scales.yAxes[axes].scaleLabel.display = false;
+        }
+    }
+    else
+    {
+        for (var axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+        {
+            chart.options.scales.yAxes[axes].scaleLabel.display = true;
+            
+            const separator = ", ";
+            // var label = String(chart.data.datasets[set].label);
+    
+            var label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
+    
+            var labels = label.split(", ");
+    
+            console.log(label);
+            console.log(labels);
+            
+            for (var i = 0; i < labels.length; i++)
+            {
+                labels[i] = headers[currentHeader];
+                currentHeader++;
+    
+                // break and write if no headers left
+                if (currentHeader >= headers.length)
+                    break;
+            }
+    
+            label = ""
+            for (var i = 0; i < labels.length; i++)
+            {
+                if (i != 0)
+                    label += ", "
+                label += labels[i];
+            }
+    
+            console.log(label);
+    
+            chart.options.scales.yAxes[axes].scaleLabel.labelString = label
+    
+            // Leave the function if no more headers left
+            if (currentHeader >= headers.length)
+                break;
+        }
+    }
+
+    chart.update();
 }
 
 /**

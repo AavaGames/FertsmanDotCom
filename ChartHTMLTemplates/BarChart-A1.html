@@ -28,11 +28,18 @@
         Bar();
         function Bar()
         {
-            let chartID = 'myChart';
+            let chartID = 'chart';
             let loadingID = 'loading_' + chartID;
             var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
-            //Dates param not functioning at the moment, leave blank
-            //SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
-            SetupBarChart(chartID, loadingID, link, true);
+            // Dates param not functioning at the moment, leave blank
+            // SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
+            SetupBarChart(BuiltChart, chartID, loadingID, link, true);
+
+            function BuiltChart(chart)
+            {
+                // OverwriteChartHeader(chart, ...headers);
+                // Leave empty to disable headers
+                // Example = (chart, "HeaderOne", "HeaderTwo")
+            }
         };
     </script>

@@ -32,15 +32,29 @@
 
 <body>
     <div style="height:75vh">
-        <canvas id="myChart"></canvas>
-        <div id="myLoadingSymbol"></div>
+        <canvas id="chart"></canvas>
+        <div id="loading_chart"></div>
     </div>
 
-    <script>
-        var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "A:H")
-        console.log(link);
-        //SetupDonutChart('myChart', 'myLoadingSymbol', link);
-        SetupDonutChart('myChart', 'myLoadingSymbol', link, true);
+   <script>
+        // Function Name & chartID MUST be unique
+        Donut();
+        function Donut()
+        {
+            let chartID = 'chart';
+            let loadingID = 'loading_' + chartID;
+            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
+            //Dates param not functioning at the moment, leave blank
+            // SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
+            SetupDonutChart(BuiltChart, chartID, loadingID, link, true);
+
+            function BuiltChart(chart)
+            {
+                // OverwriteChartHeader(chart, ...headers);
+                // Leave empty to disable headers
+                // Example = (chart, "HeaderOne", "HeaderTwo")
+            }
+        };
     </script>
 </body>
 

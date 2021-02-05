@@ -29,18 +29,28 @@
 
 <body>
     <div style="height:75vh">
-        <canvas id="myChart"></canvas>
-        <div id="myLoadingSymbol"></div>
+        <canvas id="chart"></canvas>
+        <div id="loading_chart"></div>
     </div>
-    
-    <script>
-        var overwriteHeaders = [
-            ["Header1"],
-            ["Header2"]
-        ];
 
-        var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C")
-        SetupScatterChart('myChart', 'myLoadingSymbol', link, false);
+    <script>
+        // Function Name & chartID MUST be unique
+        Scatter();
+        function Scatter()
+        {
+            let chartID = 'chart';
+            let loadingID = 'loading_' + chartID;
+
+            var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C");
+            SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
+
+            function BuiltChart(chart)
+            {
+                //OverwriteChartHeader(chart, "");
+                // Leave empty to disable headers
+                // Example = (chart, "HeaderOne", "HeaderTwo")
+            }
+        };
     </script>
 </body>
 

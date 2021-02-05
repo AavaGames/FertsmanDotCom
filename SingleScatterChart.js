@@ -4,7 +4,7 @@
  * @param {String} link The link/URL to the JSON
  * @param {String} swapDataAxis Swaps the axis of the data
  */
-function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = false) {
+function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
@@ -59,7 +59,7 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
 
         loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
-        var chart = new Chart(document.getElementById(chartName), {
+        let chart = new Chart(document.getElementById(chartName), {
             type: 'scatter',
             data: {
                 datasets: _datasets
@@ -105,6 +105,8 @@ function SetupScatterChart(chartName, loadingSymbolName, link, swapDataAxis = fa
         });
 
         CalculateTrendLine(chart);
+
+        ChartBuiltCallback(chart);
     });
 }
 

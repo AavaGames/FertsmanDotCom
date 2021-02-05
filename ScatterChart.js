@@ -5,7 +5,7 @@
  * @param {Number} xAxis Choose which dataset should be places on the x axis, do NOT count from 0
  * @param {Boolean} swapYAxisData Swap Y axis if two Y axes are present
  */
-function SetupScatterChart(chartName, loadingSymbolName, link, xAxis = 1, swapYAxisData = false) {
+function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, xAxis = 1, swapYAxisData = false) {
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
@@ -173,7 +173,7 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData) {
     loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
     var isDualAxisChart = rightAxis.length > 0;
-    var chart = new Chart(document.getElementById(chartName), {
+    let chart = new Chart(document.getElementById(chartName), {
         type: 'scatter',
         data: {
             labels: xAxisLabel,
@@ -258,6 +258,8 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData) {
     CalculateTrendLine(chart.data.datasets[0].data);
     if (multiAxis)
         CalculateTrendLine(chart.data.datasets[1].data);
+
+    ChartBuiltCallback(chart);
 }
 
 function CalculateTrendLine(dataPoints) {

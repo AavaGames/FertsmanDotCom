@@ -5,7 +5,7 @@
  * @param {String} link The link/URL to the JSON
  * @param {String} date "2019-12" Format depends on data's date format, if left blank defaults to latest date
  */
-function SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "") {
+function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, link, verticalBar = true, dates = "") {
 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
@@ -111,7 +111,7 @@ function SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, d
         loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
         var barType = verticalBar ? 'bar' : 'horizontalBar'
-        new Chart(document.getElementById(chartName), {
+        let chart = new Chart(document.getElementById(chartName), {
             type: barType,
             data: {
                 labels: data[0],
@@ -130,6 +130,8 @@ function SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, d
                 }
             }
         });
+
+        ChartBuiltCallback(chart);
     });
 }
 

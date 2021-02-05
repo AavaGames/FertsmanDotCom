@@ -7,7 +7,7 @@
  * @param {Boolean} movingBackwards Dates grabbed moving backward or forward
  * @param {String} datesToFind "2019-12" if empty default to starting at latest
  */
-function SetupDonutChart(chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
+function SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
@@ -116,7 +116,7 @@ function SetupDonutChart(chartName, loadingSymbolName, link, legendActive = fals
 
         loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
-        new Chart(document.getElementById(chartName), {
+        let chart = new Chart(document.getElementById(chartName), {
             type: 'doughnut',
             data: {
                 labels: data[0],
@@ -152,6 +152,8 @@ function SetupDonutChart(chartName, loadingSymbolName, link, legendActive = fals
                 }
             }
         });
+
+        ChartBuiltCallback(chart);
     });
 }
 
