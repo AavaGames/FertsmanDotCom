@@ -5,7 +5,7 @@
  * @param {Number} rightAxis Rest syntax for all columns put on the right axis, count from 1.
  *                           leave EMPTY if no right axis is desired.
  */
-function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
+function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, ...rightAxis) {
 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
@@ -60,7 +60,7 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
         loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
         var isDualAxisChart = rightAxis.length > 0;
-        new Chart(document.getElementById(chartName), {
+        let chart = new Chart(document.getElementById(chartName), {
             type: 'line',
             data: {
                 labels: data[0],
@@ -111,6 +111,7 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                                 //autoSkip: true,
                                 //maxTicksLimit: 10,
                                 //maxRotation: 0
+                                //padding: 20,
                                 callback: function(value) {
                                     return AbbreviateNumber(value);
                                 } 
@@ -149,5 +150,7 @@ function SetupLineChart(chartName, loadingSymbolName, link, ...rightAxis) {
                 }
             }
         });
+        
+        ChartBuiltCallback(chart);
     });
 }

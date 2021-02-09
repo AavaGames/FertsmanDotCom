@@ -161,7 +161,7 @@ function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...ve
     });
 }
 
-// Add 
+// TODO unfinished function, remove this section out of other function and rename to HEADERS
 function AddRowRangesToVectorLink(link, ...rows)
 {
     var linkRanges = "/values:batchGet?ranges=";
@@ -229,9 +229,63 @@ function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
 }
 
 // Manipulate charts dataset's headers
-function OverwriteChartHeader(chartID, ...headers)
+function OverwriteChartHeader(chart, ...headers)
 {
+    var currentHeader = 0;
 
+    // Hide Y axes labels
+    if (headers.length == 0)
+    {
+        for (var axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+        {
+            chart.options.scales.yAxes[axes].scaleLabel.display = false;
+        }
+    }
+    else
+    {
+        for (var axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+        {
+            chart.options.scales.yAxes[axes].scaleLabel.display = true;
+            
+            const separator = ", ";
+            // var label = String(chart.data.datasets[set].label);
+    
+            var label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
+    
+            var labels = label.split(", ");
+    
+            console.log(label);
+            console.log(labels);
+            
+            for (var i = 0; i < labels.length; i++)
+            {
+                labels[i] = headers[currentHeader];
+                currentHeader++;
+    
+                // break and write if no headers left
+                if (currentHeader >= headers.length)
+                    break;
+            }
+    
+            label = ""
+            for (var i = 0; i < labels.length; i++)
+            {
+                if (i != 0)
+                    label += ", "
+                label += labels[i];
+            }
+    
+            console.log(label);
+    
+            chart.options.scales.yAxes[axes].scaleLabel.labelString = label
+    
+            // Leave the function if no more headers left
+            if (currentHeader >= headers.length)
+                break;
+        }
+    }
+
+    chart.update();
 }
 
 /**
@@ -325,6 +379,11 @@ function RemoveEmptyRowsAndValues(data)
         for (var col = 1; col < data[0].length; col++)
         {
             var value = data[row][col];
+
+            // Has only date, breaks out and deletes row
+            if (data[row].length == 1)
+                break;
+
             if (String(value).length > 0 || value == null)
             {
                 noData = false;
@@ -387,6 +446,14 @@ function DownloadChart(chartID, downloadID)
     /*get download button (tag: <a></a>) */
     document.getElementById(downloadID).href = url_base64jp;
     /*insert chart image url to download button (tag: <a></a>) */
+
+    /*Get image of canvas element*/
+    var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
+    /*get download button (tag: <a></a>) */
+    var a =  document.getElementById(downloadID);
+    /*insert chart image url to download button (tag: <a></a>) */
+    a.href = url_base64jp;
+    a.download = downloadName;
 }
 
 function Transpose(array) {
