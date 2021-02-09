@@ -14,6 +14,8 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
 
         var sortedData = SortJSONintoHeadersAndValues(json, false)
 
+        console.log(sortedData);
+        
         var dataHeaders = sortedData[0];
         var data = sortedData[1];
 
@@ -107,6 +109,8 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
         CalculateTrendLine(chart);
 
         ChartBuiltCallback(chart);
+    }).fail( function(textStatus) {
+        console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
     });
 }
 

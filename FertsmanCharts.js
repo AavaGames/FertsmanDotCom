@@ -45,32 +45,117 @@ Chart.defaults.global.defaultFontFamily = chartFontFamily;
 // Skips null or "" points in line / radar charts
 Chart.defaults.global.spanGaps = false;
 
-
 // #endregion
+
 
 // #region  FUNCTIONS
 
 // Magical lambda to convert column number to letter
 ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
 
+
+/**
+ * 
+ * @param {String} startDate Must follow data format. (Example: "2013-01", "2020-06-05")
+ * @param {*} endDate Must follow data format. (Example: "2013", "2020-12-25")
+ */
+function SetDateRangeToChart(chart, startDate, endDate = "")
+{
+    let dates = chart.data.labels;
+    let startRow = -1;
+    let endRow = -1;
+
+    // Starts at the end of dates and moves back
+    for (let i = dates.length - 1; i > -1; i--)
+    {
+        let date = dates[i];
+
+        if (date == startDate)
+        {
+            startRow = i;
+            break;
+        }
+    }
+
+    if (endDate != "")
+    {
+        for (let i = dates.length - 1; i > -1; i--)
+        {
+            let date = dates[i];
+
+            if (date == endDate)
+            {
+                endRow = i;
+                break;
+            }
+        }
+    }
+
+    let datasets = chart.data.datasets;
+
+    // remove all rows before 
+    // start at end row and remove all rows after that
+    if (startRow != -1)
+    {
+        let amountToRemoveFromFront = startRow;
+        dates.splice(0, amountToRemoveFromFront);
+
+        datasets.forEach(set => {
+            set.data.splice(0, amountToRemoveFromFront);
+        });
+    }
+    else
+        console.error("Chart ERROR: Failed to find start row");
+
+    if (endRow != -1)
+    {
+        let amountToRemoveFromBack = dates.length - endRow;
+        dates.splice(endRow + 1, amountToRemoveFromBack);
+
+        datasets.forEach(set => {
+            set.data.splice(endRow + 1, amountToRemoveFromBack);
+        });
+    }
+
+    console.log(dates[0]);
+    console.log(dates[dates.length - 1])
+
+    chart.update();
+}
+
+/**
+ * Formats link to pull A1 notation from specific spreadsheet and sheet.
+ * 
+ * @param {String} spreadSheetID The spreadsheet ID
+ * @param {String} sheetName The sheet name
+ * @param {Number} ranges A1 ranges to pull from sheet
+ *                        Example: "A:A", "A1:D50", "MV1:ZE800"
+ */
+function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
+    var link;
+    const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
+    const forceColumns = "&majorDimension=COLUMNS"
+    const apiKey = "&key=" + sheets_api_key;
+
+    var linkRanges = "";
+    ranges.forEach(element => {
+        if (linkRanges == "") {
+            linkRanges = "/values:batchGet?ranges=" + sheetName + "!" + element;
+        } else {
+            linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element;
+        }
+    });
+
+    link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
+
+    return link;
+}
+
 /**
  * Formats link to pull HEADERS from specific spreadsheet and sheet.
  * 
  * Where this function is called:
- *   - REQUIRED FinishedLink(link) function, place all subsequent code in this function
- * 
- *   - var overWriteHeaders;
- *     Do not include "Date", it is already included.
- *     This variable overwrites the headers if included.
- *     Example = ["HeaderOne", "HeaderTwo"]
- * 
- *   - var rowRanges;
- *     This variable add row ranges to all header columns
- *     Example = [
- *         [1, 1], 
- *         [32, 60],
- *         [80, 100000]
- *      ];
+ *   - REQUIRED callback function(link), place all subsequent code in this function
  * 
  * @param {Function} functionCallback Function called when line chart is ready
  * @param {String} spreadSheetID The spreadsheet ID
@@ -121,43 +206,21 @@ function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...he
         });
 
         var linkRanges = "/values:batchGet?ranges=";
-        if (typeof rowRanges == 'undefined') {
-            console.log("Not adding rows to ranges");
+        // Get Date
+        linkRanges = "/values:batchGet?ranges=" + sheetName + "!A:A";
+        // Get Columns
+        ranges.forEach(element => {
+            linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element + ":" + element;
+        });
 
-            // Get Date
-            linkRanges = "/values:batchGet?ranges=" + sheetName + "!A:A";
-            // Get Columns
-            ranges.forEach(element => {
-                linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element + ":" + element;
-            });
-        } else {
-            console.log("Adding rows to ranges");
-            console.log(ranges);
-            // First entry format exception of date
-            linkRanges += sheetName + "!A" + rowRanges[0][0] + ":A" + rowRanges[0][1];
-            for (var j = 0; j < rowRanges.length; j++) {
-                var date = true;
-                for (var i = 0; i < ranges.length; i++) {
-                    // Get Date unless exception
-                    if (j != 0 & date) {
-                        linkRanges += "&ranges=" + sheetName + "!A" + rowRanges[j][0] + ":A" + rowRanges[j][1];
-                        date = false;
-                        i--;
-                    }
-                    // Get Columns
-                    else {
-                        linkRanges += "&ranges=" + sheetName + "!" + ranges[i] + rowRanges[j][0] + ":" + ranges[i] + rowRanges[j][1];
-                    }
-                    console.log(ranges[i]);
-                }
-            }
-        }
         const forceColumns = "&majorDimension=COLUMNS";
 
         link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 
         //Callback function
         functionCallback(link);
+    }).fail( function(textStatus) {
+        console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
     });
 }
 
@@ -202,33 +265,11 @@ function AddRowRangesToHeaderLink(link, ...rows)
 }
 
 /**
- * Formats link to pull A1 notation from specific spreadsheet and sheet.
- * @param {String} spreadSheetID The spreadsheet ID
- * @param {String} sheetName The sheet name
- * @param {Number} ranges A1 ranges to pull from sheet
- *                        Example: "A:A", "A1:D50", "MV1:ZE800"
+ * Overwrites any charts headers must be called after the chart is created
+ * 
+ * @param {Chart.js} chart The chart to adjust
+ * @param  {...String} headers The headers to change to. Example: "Header 1", "Header 2"
  */
-function FormatLinkWithA1(spreadSheetID, sheetName, ...ranges) {
-    var link;
-    const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
-    const forceColumns = "&majorDimension=COLUMNS"
-    const apiKey = "&key=" + sheets_api_key;
-
-    var linkRanges = "";
-    ranges.forEach(element => {
-        if (linkRanges == "") {
-            linkRanges = "/values:batchGet?ranges=" + sheetName + "!" + element;
-        } else {
-            linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element;
-        }
-    });
-
-    link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
-
-    return link;
-}
-
-// Manipulate charts dataset's headers
 function OverwriteChartHeader(chart, ...headers)
 {
     var currentHeader = 0;
@@ -253,9 +294,6 @@ function OverwriteChartHeader(chart, ...headers)
             var label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
     
             var labels = label.split(", ");
-    
-            console.log(label);
-            console.log(labels);
             
             for (var i = 0; i < labels.length; i++)
             {
@@ -274,9 +312,7 @@ function OverwriteChartHeader(chart, ...headers)
                     label += ", "
                 label += labels[i];
             }
-    
-            console.log(label);
-    
+
             chart.options.scales.yAxes[axes].scaleLabel.labelString = label
     
             // Leave the function if no more headers left
@@ -291,9 +327,10 @@ function OverwriteChartHeader(chart, ...headers)
 /**
  * Sorts Google Sheets v4 API json into headers and values that can be utilized by Chart.js
  * @param {2D Array} json JSON to be sorted
+ * @param {Boolean} addDate keeps date in headers & values
  */
-function SortJSONintoHeadersAndValues(json, addDate = true) {
-
+function SortJSONintoHeadersAndValues(json, addDate = true)
+{
     var dataHeaders = [];
     var data = [];
 
@@ -331,9 +368,7 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
             else
              {
                 if (data.length == 0)
-                {
                     console.error("LINK ERROR: You forgot to grab headers! (Example: \"A1:H1\")");
-                }
 
                 currentSortedColumn++;
                 currentSortedColumn = LoopIndex(currentSortedColumn, data.length);
@@ -346,19 +381,10 @@ function SortJSONintoHeadersAndValues(json, addDate = true) {
         }
     });
 
-    // Overwrite headers if variable exists
-    if (typeof overwriteHeaders !== 'undefined') {
-        console.log("Overwriting headers " + overwriteHeaders)
-
-        dataHeaders = [];
-
-        if (addDate) {
-            dataHeaders.push("Date");
-        }
-
-        overwriteHeaders.forEach(element => {
-            dataHeaders.push(element);
-        });
+    if (!addDate && String(dataHeaders[0]).toLowerCase().includes("date"))
+    {
+        dataHeaders.splice(0,1);
+        data.splice(0,1);
     }
 
     data = RemoveEmptyRowsAndValues(data);
@@ -439,6 +465,22 @@ function AbbreviateNumber(n) {
     return n;
 }
 
+function Transpose(array) {
+    var tempArray = [];
+    for (var i = 0; i < array.length; ++i) 
+    {
+        for (var j = 0; j < array[i].length; ++j) 
+        {
+            // could cause a problem with sheets fill range
+            if (array[i][j] === undefined) continue;
+
+            if (tempArray[j] === undefined) tempArray[j] = [];
+            tempArray[j][i] = array[i][j];
+        }
+    }
+    return tempArray;
+}
+
 function DownloadChart(chartID, downloadID)
 {
     /*Get image of canvas element*/
@@ -454,22 +496,6 @@ function DownloadChart(chartID, downloadID)
     /*insert chart image url to download button (tag: <a></a>) */
     a.href = url_base64jp;
     a.download = downloadName;
-}
-
-function Transpose(array) {
-    var tempArray = [];
-    for (var i = 0; i < array.length; ++i) 
-    {
-        for (var j = 0; j < array[i].length; ++j) 
-        {
-            // could cause a problem with sheets fill range
-            if (array[i][j] === undefined) continue;
-
-            if (tempArray[j] === undefined) tempArray[j] = [];
-            tempArray[j][i] = array[i][j];
-        }
-    }
-    return tempArray;
 }
 
 // #endregion

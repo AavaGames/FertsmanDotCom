@@ -132,6 +132,8 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, link, v
         });
 
         ChartBuiltCallback(chart);
+    }).fail( function(textStatus) {
+        console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
     });
 }
 

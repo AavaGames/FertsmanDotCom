@@ -28,40 +28,37 @@
 </header>
 
 <body>
-    <div style="height:75vh">
-        <canvas id="chart"></canvas>
-        <div id="loading_chart"></div>
-    </div>
-
-    <script>
+    <div style="height:100%">
+        <canvas id="chart3">
+        </canvas>
+        <div id="loading_chart3">
+        </div>
+       </div>
+       <script>
         // Function Name & chartID MUST be unique
-        Scatter();
-        function Scatter()
-        {
-            let chartID = 'chart';
-            let loadingID = 'loading_' + chartID;
-
-            // Do NOT pull column with DATE ("A:A")
-            FormatLinkWithHeaders(FinishedLink, "1kSM1rBeQYe843sQj4r_CrGQ37PN1jBteM5bYdQydAuM", "36100222", "v62787252", "v62787260")
-
-            function FinishedLink(link) 
-            {
-                console.log(link);
-                // link = AddRowRangesToHeaderLink(link, ...rows)
-                // Example = (link, [1, 1], [32, 60], [80, 100000])
-
-                // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
-                SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
-
-                function BuiltChart(chart)
-                {
-                    // OverwriteChartHeader(chart, ...headers);
-                    // Leave empty to disable headers
-                    // Example = (chart, "HeaderOne", "HeaderTwo")
-                }
-            }
-        };
-    </script>
+          Scatter();
+          function Scatter()
+          {
+              let chartID = 'chart3';
+              let loadingID = 'loading_' + chartID;
+              // Do NOT pull column with DATE
+              FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Test", "v111955442 - YoY", "v122718 - YoY")
+              function FinishedLink(link) 
+              {
+                  console.log(link);
+                  // link = AddRowRangesToHeaderLink(link, ...rows)
+                  // Example = (link, [1, 1], [32, 60], [80, 100000])
+                  // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
+                  SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
+                  function BuiltChart(chart)
+                  {
+                      // OverwriteChartHeader(chart, ...headers);
+                      // Leave empty to disable headers
+                      // Example = (chart, "HeaderOne", "HeaderTwo")
+                  }
+              }
+          };
+       </script>
 </body>
 
 </html>

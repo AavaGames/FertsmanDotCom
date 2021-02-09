@@ -10,7 +10,9 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
+    console.log("Getting JSON");
     $.getJSON(link, json => {
+        console.log("Got JSON");
 
         var sortedData = SortJSONintoHeadersAndValues(json)
 
@@ -150,7 +152,9 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, 
                 }
             }
         });
-        
         ChartBuiltCallback(chart);
+
+    }).fail( function(textStatus) {
+        console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
     });
 }
