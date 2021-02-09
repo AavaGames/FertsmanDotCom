@@ -41,14 +41,24 @@
             let chartID = 'chart';
             let loadingID = 'loading_' + chartID;
 
-            var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C");
-            SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
+            // Do NOT pull column with DATE ("A:A")
+            FormatLinkWithHeaders(FinishedLink, "1kSM1rBeQYe843sQj4r_CrGQ37PN1jBteM5bYdQydAuM", "36100222", "v62787252", "v62787260")
 
-            function BuiltChart(chart)
+            function FinishedLink(link) 
             {
-                //OverwriteChartHeader(chart, "");
-                // Leave empty to disable headers
-                // Example = (chart, "HeaderOne", "HeaderTwo")
+                console.log(link);
+                // link = AddRowRangesToHeaderLink(link, ...rows)
+                // Example = (link, [1, 1], [32, 60], [80, 100000])
+
+                // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
+                SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
+
+                function BuiltChart(chart)
+                {
+                    // OverwriteChartHeader(chart, ...headers);
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+                }
             }
         };
     </script>

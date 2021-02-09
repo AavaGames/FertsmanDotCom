@@ -12,33 +12,39 @@
 
 <!-- Fertsman.com Chart Script -->
 <script src="../SheetsAPIKey.js"></script>
-<script src="FertsmanCharts.js"></script>
-<script src="LineChart.js"></script>
+<script src="../FertsmanCharts.js"></script>
+<script src="../SingleScatterChart.js"></script>
+
+<!-- Regression.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
 
 
 <!-- Widget Code -->
 
 <div style="height:100%">
-    <canvas id="lineChart"></canvas>
-    <div id="loading_lineChart"></div>
+    <canvas id="chart"></canvas>
+    <div id="loading_chart"></div>
 </div>
 
 <script>
     // Function Name & chartID MUST be unique
-    Line();
-    function Line()
+    Scatter();
+    function Scatter()
     {
-        let chartID = 'lineChart';
+        let chartID = 'chart';
         let loadingID = 'loading_' + chartID;
-        let link = FormatLinkWithHeaders(FinishedLink, "1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "18100205", "v111955442", "v111955460")
+
+        // Do NOT pull column with DATE
+        FormatLinkWithHeaders(FinishedLink, "1kSM1rBeQYe843sQj4r_CrGQ37PN1jBteM5bYdQydAuM", "36100222", "v62787252", "v62787260")
 
         function FinishedLink(link) 
         {
+            console.log(link);
             // link = AddRowRangesToHeaderLink(link, ...rows)
             // Example = (link, [1, 1], [32, 60], [80, 100000])
 
-            // SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, ...rightAxis)
-            SetupLineChart(BuiltChart, chartID, loadingID, link, 3);
+            // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
+            SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
 
             function BuiltChart(chart)
             {

@@ -54,7 +54,7 @@ Chart.defaults.global.spanGaps = false;
 ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
 
 /**
- * Formats link to pull VECTORS from specific spreadsheet and sheet.
+ * Formats link to pull HEADERS from specific spreadsheet and sheet.
  * 
  * Where this function is called:
  *   - REQUIRED FinishedLink(link) function, place all subsequent code in this function
@@ -65,7 +65,7 @@ ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a -
  *     Example = ["HeaderOne", "HeaderTwo"]
  * 
  *   - var rowRanges;
- *     This variable add row ranges to all vector columns
+ *     This variable add row ranges to all header columns
  *     Example = [
  *         [1, 1], 
  *         [32, 60],
@@ -75,10 +75,10 @@ ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a -
  * @param {Function} functionCallback Function called when line chart is ready
  * @param {String} spreadSheetID The spreadsheet ID
  * @param {String} sheetName The sheet name
- * @param {Number} vectors Vectors to pull from sheet
+ * @param {Number} headers Headers to pull from sheet
  *                        Examples: "v12093102, vå39210901, v231090"
  */
-function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...vectors) {
+function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...headers) {
     const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
     const forceRows = "&majorDimension=ROWS"
 
@@ -89,34 +89,34 @@ function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...ve
 
     var link = startOfLink + spreadSheetID + linkRanges + forceRows + apiKey;
 
-    var vectorColumns = [];
+    var headerColumns = [];
     var firstRow = [];
 
     $.getJSON(link, json => {
         firstRow = json.valueRanges[0].values[0];
 
-        // cycle through vectors, find in row, add to array, remove from array
-        for (var i = 0; i < vectors.length; i++) {
-            var vector = vectors[i];
+        // cycle through headers, find in row, add to array, remove from array
+        for (var i = 0; i < headers.length; i++) {
+            var header = headers[i];
 
-            var vectorFound = false;
+            var headerFound = false;
             for (var j = 0; j < firstRow.length; j++) {
                 var value = firstRow[j];
 
-                if (value == vector) {
-                    vectorColumns.push(j);
-                    vectorFound = true;
+                if (value == header) {
+                    headerColumns.push(j);
+                    headerFound = true;
                     break;
                 }
             }
 
-            if (!vectorFound)
-                console.error("ERROR: Vector not found - " + vector);
+            if (!headerFound)
+                console.error("ERROR: Header not found - " + header);
         }
 
         // Convert to A1
         var ranges = [];
-        vectorColumns.forEach(e => {
+        headerColumns.forEach(e => {
             ranges.push(ColumnNumToLetter(e));
         });
 
@@ -162,7 +162,7 @@ function FormatLinkWithVectors(functionCallback, spreadSheetID, sheetName, ...ve
 }
 
 // TODO unfinished function, remove this section out of other function and rename to HEADERS
-function AddRowRangesToVectorLink(link, ...rows)
+function AddRowRangesToHeaderLink(link, ...rows)
 {
     var linkRanges = "/values:batchGet?ranges=";
     if (typeof rowRanges == 'undefined') {

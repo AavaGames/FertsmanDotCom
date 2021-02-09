@@ -61,13 +61,13 @@
                 a.download = downloadName;
             });
 
-            var vectorBased = false;
+            var headerBased = true;
 
-            if (vectorBased) {
+            if (headerBased) {
                 // Optional Function Adjustments
 
-                // Adds row ranges to FormatLinkWithVectors, call after link is formed
-                // AddRowRangesToVectorLink(link, ...rows)
+                // Adds row ranges to FormatLinkWithHeaders, call after link is formed
+                // AddRowRangesToHeaderLink(link, ...rows)
                 // Example = (link, [1, 1], [32, 60], [80, 100000])
 
                 // Overwrite chart headers, call after chart is created
@@ -75,8 +75,8 @@
                 // OverwriteChartHeader(chartID, ...headers)
                 // Example = (chartID, "HeaderOne", "HeaderTwo")
 
-                FormatLinkWithVectors(FinishedLink, "1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "v65201351", "v65201528")
-                //FormatLinkWithVectors(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "StatsCan_Data", "A:H");
+                FormatLinkWithHeaders(FinishedLink, "1kSM1rBeQYe843sQj4r_CrGQ37PN1jBteM5bYdQydAuM", "36100633", "v1161385356", "v1161385362");
+                //FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "StatsCan_Data", "A:H");
 
                 function FinishedLink(link) {
                     console.log("Building Chart.");
