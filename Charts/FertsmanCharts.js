@@ -30,6 +30,7 @@ function RandomInt(max) {
 }
 
 var globalLoadingSymbolClass = 'lds-dual-ring';
+var globalFailedSymbolClass = 'chart-fail';
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
 var chartFontFamily = "Open Sans";
 
@@ -151,6 +152,7 @@ function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...he
         functionCallback(link);
     }).fail( function(textStatus) {
         console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+        functionCallback(link);
     });
 }
 
@@ -407,9 +409,6 @@ function SetDateRangeToChart(chart, startDate, endDate = "")
             set.data.splice(endRow + 1, amountToRemoveFromBack);
         });
     }
-
-    console.log(dates[0]);
-    console.log(dates[dates.length - 1])
 
     chart.update();
 }

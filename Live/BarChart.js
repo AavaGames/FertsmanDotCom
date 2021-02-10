@@ -127,6 +127,34 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, link, v
                     //display: legendActive,
                     position: 'top',
                     align: 'center' // 'start'
+                },
+                scales: {
+                    xAxes: {
+                        display: false,
+                        gridLines: {
+                            borderDash: [2, 2]
+                        },
+                        // ticks: {
+                        //     autoSkip: true,                               
+                        //     autoSkipPadding: 100,
+                        //     //maxTicksLimit: 3,
+                        //     maxRotation: 0
+                        // }
+                    },
+                    yAxes: {
+                        display: false,
+                        gridLines: {
+                            borderDash: [2, 2]
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            padding: 0,
+                            autoSkipPadding: 15,
+                            callback: function(value) {
+                                return AbbreviateNumber(value);
+                            } 
+                        }
+                    }
                 }
             }
         });
@@ -134,6 +162,7 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, link, v
         ChartBuiltCallback(chart);
     }).fail( function(textStatus) {
         console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+        loadingSymbol.className = globalFailedSymbolClass;
     });
 }
 

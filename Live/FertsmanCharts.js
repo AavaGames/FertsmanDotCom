@@ -30,6 +30,7 @@ function RandomInt(max) {
 }
 
 var globalLoadingSymbolClass = 'lds-dual-ring';
+var globalFailedSymbolClass = 'chart-fail';
 var chartDefaultColor = "rgba(0, 0, 0, 0.1)";
 var chartFontFamily = "Open Sans";
 
@@ -52,76 +53,6 @@ Chart.defaults.global.spanGaps = false;
 
 // Magical lambda to convert column number to letter
 ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
-
-
-/**
- * 
- * @param {String} startDate Must follow data format. (Example: "2013-01", "2020-06-05")
- * @param {*} endDate Must follow data format. (Example: "2013", "2020-12-25")
- */
-function SetDateRangeToChart(chart, startDate, endDate = "")
-{
-    let dates = chart.data.labels;
-    let startRow = -1;
-    let endRow = -1;
-
-    // Starts at the end of dates and moves back
-    for (let i = dates.length - 1; i > -1; i--)
-    {
-        let date = dates[i];
-
-        if (date == startDate)
-        {
-            startRow = i;
-            break;
-        }
-    }
-
-    if (endDate != "")
-    {
-        for (let i = dates.length - 1; i > -1; i--)
-        {
-            let date = dates[i];
-
-            if (date == endDate)
-            {
-                endRow = i;
-                break;
-            }
-        }
-    }
-
-    let datasets = chart.data.datasets;
-
-    // remove all rows before 
-    // start at end row and remove all rows after that
-    if (startRow != -1)
-    {
-        let amountToRemoveFromFront = startRow;
-        dates.splice(0, amountToRemoveFromFront);
-
-        datasets.forEach(set => {
-            set.data.splice(0, amountToRemoveFromFront);
-        });
-    }
-    else
-        console.error("Chart ERROR: Failed to find start row");
-
-    if (endRow != -1)
-    {
-        let amountToRemoveFromBack = dates.length - endRow;
-        dates.splice(endRow + 1, amountToRemoveFromBack);
-
-        datasets.forEach(set => {
-            set.data.splice(endRow + 1, amountToRemoveFromBack);
-        });
-    }
-
-    console.log(dates[0]);
-    console.log(dates[dates.length - 1])
-
-    chart.update();
-}
 
 /**
  * Formats link to pull A1 notation from specific spreadsheet and sheet.
@@ -221,47 +152,8 @@ function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...he
         functionCallback(link);
     }).fail( function(textStatus) {
         console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+        functionCallback(link);
     });
-}
-
-// TODO unfinished function, remove this section out of other function and rename to HEADERS
-function AddRowRangesToHeaderLink(link, ...rows)
-{
-    var linkRanges = "/values:batchGet?ranges=";
-    if (typeof rowRanges == 'undefined') {
-        console.log("Not adding rows to ranges");
-
-        // Get Date
-        linkRanges = "/values:batchGet?ranges=" + sheetName + "!A:A";
-        // Get Columns
-        ranges.forEach(element => {
-            linkRanges = linkRanges + "&ranges=" + sheetName + "!" + element + ":" + element;
-        });
-    } else {
-        console.log("Adding rows to ranges");
-        console.log(ranges);
-        // First entry format exception of date
-        linkRanges += sheetName + "!A" + rowRanges[0][0] + ":A" + rowRanges[0][1];
-        for (var j = 0; j < rowRanges.length; j++) {
-            var date = true;
-            for (var i = 0; i < ranges.length; i++) {
-                // Get Date unless exception
-                if (j != 0 & date) {
-                    linkRanges += "&ranges=" + sheetName + "!A" + rowRanges[j][0] + ":A" + rowRanges[j][1];
-                    date = false;
-                    i--;
-                }
-                // Get Columns
-                else {
-                    linkRanges += "&ranges=" + sheetName + "!" + ranges[i] + rowRanges[j][0] + ":" + ranges[i] + rowRanges[j][1];
-                }
-                console.log(ranges[i]);
-            }
-        }
-    }
-    const forceColumns = "&majorDimension=COLUMNS";
-
-    link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 }
 
 /**
@@ -270,6 +162,17 @@ function AddRowRangesToHeaderLink(link, ...rows)
  * @param {Chart.js} chart The chart to adjust
  * @param  {...String} headers The headers to change to. Example: "Header 1", "Header 2"
  */
+
+
+
+// Line = chart.options.scales.yAxes[axes].scaleLabel.labelString
+
+// Scatter = chart.options.scales.yAxes[axes].scaleLabel.labelString
+//          chart.options.scales.xAxes[axes].scaleLabel.labelString
+
+// Donut = charts.data.labels
+// Bar = charts.data.labels
+// TODO add functionality for scatter & bar & donut 
 function OverwriteChartHeader(chart, ...headers)
 {
     var currentHeader = 0;
@@ -442,6 +345,72 @@ function RemoveEmptyRowsAndValues(data)
     }
 
     return data;
+}
+
+/**
+ * 
+ * @param {String} startDate Must follow data format. (Example: "2013-01", "2020-06-05")
+ * @param {*} endDate Must follow data format. (Example: "2013", "2020-12-25")
+ */
+function SetDateRangeToChart(chart, startDate, endDate = "")
+{
+    let dates = chart.data.labels;
+    let startRow = -1;
+    let endRow = -1;
+
+    // Starts at the end of dates and moves back
+    for (let i = dates.length - 1; i > -1; i--)
+    {
+        let date = dates[i];
+
+        if (date == startDate)
+        {
+            startRow = i;
+            break;
+        }
+    }
+
+    if (endDate != "")
+    {
+        for (let i = dates.length - 1; i > -1; i--)
+        {
+            let date = dates[i];
+
+            if (date == endDate)
+            {
+                endRow = i;
+                break;
+            }
+        }
+    }
+
+    let datasets = chart.data.datasets;
+
+    // remove all rows before 
+    // start at end row and remove all rows after that
+    if (startRow != -1)
+    {
+        let amountToRemoveFromFront = startRow;
+        dates.splice(0, amountToRemoveFromFront);
+
+        datasets.forEach(set => {
+            set.data.splice(0, amountToRemoveFromFront);
+        });
+    }
+    else
+        console.error("Chart ERROR: Failed to find start row");
+
+    if (endRow != -1)
+    {
+        let amountToRemoveFromBack = dates.length - endRow;
+        dates.splice(endRow + 1, amountToRemoveFromBack);
+
+        datasets.forEach(set => {
+            set.data.splice(endRow + 1, amountToRemoveFromBack);
+        });
+    }
+
+    chart.update();
 }
 
 function LoopIndex(index, arrayLength) {

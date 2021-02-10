@@ -28,7 +28,7 @@
     <div style="height:100%">
     <!-- <div style="height:75vh"> -->
         <canvas id="myChart"></canvas>
-        <div id="loading_myChart"></div>
+        <div id="loading_myChart" class="lds-dual-ring"></div>
     </div>
 
     <a id="myDownload" download="" href="" target="_blank" class="">
@@ -68,7 +68,7 @@
                 FormatLinkWithHeaders(FinishedLink, "1oNYCU5Y0gkXzRnL56hEKHfyhSH4oCwHke8M7C_CDyDg", "Covid", "Canada_numconf", "Canada_numdeaths");
 
                 function FinishedLink(link) {
-                    console.log("Building Chart." + link);
+                    console.log("Building Chart = " + link);
 
                     chart = SetupLineChart(BuiltChart, chartID, loadingID, link, 3);
 

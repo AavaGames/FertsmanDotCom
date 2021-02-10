@@ -95,6 +95,9 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
                             borderDash: [2, 2]
                         },
                         ticks: {
+                            autoSkip: true,
+                            padding: 0,
+                            autoSkipPadding: 15,
                             callback: function(value) {
                                 return AbbreviateNumber(value);
                             } 
@@ -109,7 +112,10 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
                             borderDash: [2, 2]
                         },
                         ticks: {
-                           callback: function(value) {
+                            autoSkip: true,
+                            padding: 0,
+                            autoSkipPadding: 15,
+                            callback: function(value) {
                                 return AbbreviateNumber(value);
                            }
                         }
@@ -123,6 +129,7 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
         ChartBuiltCallback(chart);
     }).fail( function(textStatus) {
         console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+        loadingSymbol.className = globalFailedSymbolClass;
     });
 }
 

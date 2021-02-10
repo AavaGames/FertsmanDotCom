@@ -156,5 +156,6 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, 
 
     }).fail( function(textStatus) {
         console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+        loadingSymbol.className = globalFailedSymbolClass;
     });
 }

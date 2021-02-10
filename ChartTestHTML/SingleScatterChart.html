@@ -33,32 +33,32 @@
         </canvas>
         <div id="loading_chart3">
         </div>
-       </div>
-       <script>
+    </div>
+    <script>
         // Function Name & chartID MUST be unique
-          Scatter();
-          function Scatter()
-          {
-              let chartID = 'chart3';
-              let loadingID = 'loading_' + chartID;
-              // Do NOT pull column with DATE
-              FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Test", "v111955442 - YoY", "v122718 - YoY")
-              function FinishedLink(link) 
-              {
-                  console.log(link);
-                  // link = AddRowRangesToHeaderLink(link, ...rows)
-                  // Example = (link, [1, 1], [32, 60], [80, 100000])
-                  // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
-                  SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
-                  function BuiltChart(chart)
-                  {
-                    OverwriteChartHeader(chart, "GDP", "GDP - YoY");
-                      // Leave empty to disable headers
-                      // Example = (chart, "HeaderOne", "HeaderTwo")
-                  }
-              }
-          };
-       </script>
+        Scatter();
+        function Scatter()
+        {
+            let chartID = 'chart3';
+            let loadingID = 'loading_' + chartID;
+            // Do NOT pull column with DATE
+            FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v1930779 - YoY", "v1930780 - YoY")
+            function FinishedLink(link) 
+            {
+                console.log(link);
+                // link = AddRowRangesToHeaderLink(link, ...rows)
+                // Example = (link, [1, 1], [32, 60], [80, 100000])
+                // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
+                SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
+                function BuiltChart(chart)
+                {
+                    //OverwriteChartHeader(chart, "GDP", "GDP - YoY");
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+                }
+            }
+        };
+    </script>
 </body>
 
 </html>

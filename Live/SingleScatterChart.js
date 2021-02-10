@@ -20,24 +20,28 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
         var data = sortedData[1];
 
         if (swapDataAxis) {
-            var tempData = [];
+            let tempData = [];
             tempData[0] = data[1];
-            tempData[1] = data[0];
+            tempData[1] = data[0];            
             data = tempData;
+
+            let tempHeader = dataHeaders[0]
+            dataHeaders[0] = dataHeaders[1];
+            dataHeaders[1] = tempHeader;
         }
 
         // End of JSON formatting
 
         var _datasets = [];
 
-        var axisLabels = ["", ""];
-        for (var i = 0; i < data.length; i++) {
-            var axis = 'y-axis-1';
-            var axisLabel = dataHeaders[i]
-            if (!axisLabels[0] == "")
-                axisLabels[0] = axisLabels[0] + ", ";
-            axisLabels[0] = axisLabels[0] + axisLabel;
-        }
+        // var axisLabels = ["", ""];
+        // for (var i = 0; i < data.length; i++) {
+        //     var axis = 'y-axis-1';
+        //     var axisLabel = dataHeaders[i]
+        //     if (!axisLabels[0] == "")
+        //         axisLabels[0] = axisLabels[0] + ", ";
+        //     axisLabels[0] = axisLabels[0] + axisLabel;
+        // }
 
         var pointData = [];
 
@@ -49,12 +53,12 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
         }
 
         _datasets[0] = {
-            label: axisLabels[0],
+            //label: axisLabels[0],
             backgroundColor: lineOptions.GetColor(0),
             //borderColor: lineOptions.GetRandomColor(),
             data: pointData,
             //fill: true,
-            yAxisID: axis,
+            //yAxisID: axis,
         }
 
         // End of Line / Dataset Formatting
@@ -83,21 +87,35 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
                 },
                 scales: {
                     xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: dataHeaders[0]
+                        },
                         gridLines: {
                             borderDash: [2, 2]
                         },
                         ticks: {
+                            autoSkip: true,
+                            padding: 0,
+                            autoSkipPadding: 15,
                             callback: function(value) {
                                 return AbbreviateNumber(value);
                             } 
                         }
                     }],
                     yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: dataHeaders[1]
+                        },
                         gridLines: {
                             borderDash: [2, 2]
                         },
                         ticks: {
-                           callback: function(value) {
+                            autoSkip: true,
+                            padding: 0,
+                            autoSkipPadding: 15,
+                            callback: function(value) {
                                 return AbbreviateNumber(value);
                            }
                         }
@@ -111,6 +129,7 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, lin
         ChartBuiltCallback(chart);
     }).fail( function(textStatus) {
         console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+        loadingSymbol.className = globalFailedSymbolClass;
     });
 }
 

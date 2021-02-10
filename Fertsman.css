@@ -32,3 +32,33 @@
         transform: rotate(360deg);
     }
 }
+
+.chart-fail {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin: 5vh auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.chart-fail:after {
+    content: '';
+    height: 80px;
+    border-left: 6px solid #000;
+    position: absolute;
+    transform: rotate(45deg);
+    left: 35px;
+}
+
+.chart-fail:before {
+    content: '';
+    height: 80px;
+    border-left: 6px solid #000;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 35px;
+}
