@@ -43,16 +43,24 @@
         {
             let chartID = 'chart';
             let loadingID = 'loading_' + chartID;
-            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
-            //Dates param not functioning at the moment, leave blank
-            // SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
-            SetupDonutChart(BuiltChart, chartID, loadingID, link, true);
 
-            function BuiltChart(chart)
-            {
-                // OverwriteChartHeader(chart, ...headers);
-                // Leave empty to disable headers
-                // Example = (chart, "HeaderOne", "HeaderTwo")
+            FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212");
+
+            function FinishedLink(link) {
+                console.log("Building Chart = " + link);
+
+                // Dates param not functioning at the moment, leave blank
+                // SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
+                chart = SetupDonutChart(BuiltChart, chartID, loadingID, link, true);
+
+                function BuiltChart(chart)
+                {
+                    // OverwriteChartHeader(chart, ...headers);
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+
+                    // SetDateRangeToChart(chart, "2020-05-05");
+                }
             }
         };
     </script>

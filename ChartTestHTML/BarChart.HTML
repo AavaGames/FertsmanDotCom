@@ -2,7 +2,7 @@
 <html>
 <header>
     <meta charset="utf-8">
-    <title>Fertsman.com Donut Chart</title>
+    <title>Fertsman.com Bar Chart</title>
 
     <!-- Chart js bundle min -->
     <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
@@ -39,16 +39,24 @@
         {
             let chartID = 'chart';
             let loadingID = 'loading_' + chartID;
-            var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
-            //Dates param not functioning at the moment, leave blank
-            //SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
-            SetupBarChart(BuiltChart, chartID, loadingID, link, true);
 
-            function BuiltChart(chart)
-            {
-                // OverwriteChartHeader(chart, ...headers);
-                // Leave empty to disable headers
-                // Example = (chart, "HeaderOne", "HeaderTwo")
+            FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212");
+
+            function FinishedLink(link) {
+                console.log("Building Chart = " + link);
+
+                //Dates param not functioning at the moment, leave blank
+                //SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
+                SetupBarChart(BuiltChart, chartID, loadingID, link, true);
+
+                function BuiltChart(chart)
+                {
+                    OverwriteChartHeader(chart, "header", "header 1", "header 2");
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+
+                    // SetDateRangeToChart(chart, "2020-05-05");
+                }
             }
         };
     </script>
