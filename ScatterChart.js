@@ -201,7 +201,7 @@ function CreateScatterChart(json, chartName, xAxis, swapYAxisData) {
                     type: 'linear',
                     scaleLabel: {
                         display: true,
-                        //labelString: dataHeaders[0]
+                        labelString: dataHeaders[0]
                     },
                     gridLines: {
                         borderDash: [2, 2]

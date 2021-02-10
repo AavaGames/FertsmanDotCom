@@ -19,8 +19,8 @@
 
     <!-- Fertsman.com Chart Script -->
     <script src="../SheetsAPIKey.js"></script>
-    <script src="../FertsmanCharts.js"></script>
-    <script src="../SingleScatterChart.js"></script>
+    <script src="../Charts/FertsmanCharts.js"></script>
+    <script src="../Charts/SingleScatterChart.js"></script>
 
     <!-- Regression.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
@@ -28,7 +28,7 @@
 </header>
 
 <body>
-    <div style="height:100%">
+    <div style="height:75vh">
         <canvas id="chart3">
         </canvas>
         <div id="loading_chart3">
@@ -52,7 +52,7 @@
                   SetupScatterChart(BuiltChart, chartID, loadingID, link, false);   
                   function BuiltChart(chart)
                   {
-                      // OverwriteChartHeader(chart, ...headers);
+                    OverwriteChartHeader(chart, "GDP", "GDP - YoY");
                       // Leave empty to disable headers
                       // Example = (chart, "HeaderOne", "HeaderTwo")
                   }
