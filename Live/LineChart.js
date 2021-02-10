@@ -93,9 +93,10 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, 
                             borderDash: [2, 2]
                         },
                         ticks: {
-                            // autoSkip: true,
-                            // maxTicksLimit: 10,
-                            //maxRotation: 0
+                            autoSkip: true,                               
+                            autoSkipPadding: 100,
+                            //maxTicksLimit: 3,
+                            maxRotation: 0
                         }
                     }],
                     yAxes: [{
@@ -110,10 +111,9 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, 
                                 borderDash: [2, 2]
                             },
                             ticks: {
-                                //autoSkip: true,
-                                //maxTicksLimit: 10,
-                                //maxRotation: 0
-                                //padding: 20,
+                                autoSkip: true,
+                                padding: 0,
+                                autoSkipPadding: 15,
                                 callback: function(value) {
                                     return AbbreviateNumber(value);
                                 } 
@@ -132,9 +132,9 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, 
                                 borderDash: [2, 2]
                             },
                             ticks: {
-                                // autoSkip: true,
-                                // maxTicksLimit: 10,
-                                //maxRotation: 0
+                                autoSkip: true,
+                                padding: 0,
+                                autoSkipPadding: 15,
                                 callback: function(value) {
                                     return AbbreviateNumber(value);
                                 } 
