@@ -48,13 +48,47 @@ Chart.defaults.global.spanGaps = false;
 
 // #endregion
 
-
 // Sheet Dictionary for holding sheets from spreadsheets, for use in charts.
 var SheetDictionary = new Object(); 
+// Should it be sorted, or keep the raw JSON? Sorted probably
 // SheetDictionary["spreadsheetID_sheetName"] = [dataHeaders, data];
 
+const STOREDICTIONARY = false;
 
 // #region  FUNCTIONS
+
+function SetSheetDictionary(sheetKey, sortedData)
+{
+    SheetDictionary[sheetKey] = sortedData;
+
+    if (STOREDICTIONARY)
+    {
+        if (typeof(Storage) !== "undefined")
+        {
+            console.log("storing sheet dic");
+            window.sessionStorage.setItem('Fertsman.com-SheetDictionary', JSON.stringify(SheetDictionary));
+            // fails sometimes "exceeds quota"
+        }
+        else
+        {
+            console.log("No local storage");
+        }
+    }
+}
+
+FertsmanInitialization();
+function FertsmanInitialization()
+{
+    console.log("init");
+    if (STOREDICTIONARY)
+    {
+        if (window.sessionStorage.getItem('Fertsman.com-SheetDictionary') != null)
+        {
+            console.log("Obtained through session storage");
+            SheetDictionary = JSON.parse(window.sessionStorage.getItem('Fertsman.com-SheetDictionary'));
+        }
+    }
+}
 
 // Magical lambda to convert column number to letter
 ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
@@ -69,19 +103,65 @@ const TimeTillNextAttempt = 5;
 // 100s is gotten from googles user request quota
 const MaxAttempts = 3;//100 / TimeTillNextAttempt + 1;
 
-// Place this IF into its own function IsSheetInDictionary(), returns false or data
-async function GetDataWithA1(spreadSheetID, sheetName, ...ranges) {
 
-    let sheetKey = spreadSheetID + "_" + sheetName;
+async function WaitForData(DataObtained, sheetKey)
+{
+    // stopped calling for sheet
+    if (SheetDictionary[sheetKey] === false)
+    {
+        console.log("REJECT");
+        DataObtained(false);
+        return;
+    }
+    // has data
+    else if (SheetDictionary[sheetKey] !== true && SheetDictionary[sheetKey] !== undefined)
+    {
+        console.log("DONE WAITING FOR DATA ")// + SheetDictionary[sheetKey])
+        DataObtained(true);
+        return;
+    }
+    //console.log("check " + SheetDictionary[sheetKey]);
 
+    setTimeout(function() {
+        WaitForData(DataObtained, sheetKey);
+    }, 100);
+}
+
+async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
+{
     if (SheetDictionary[sheetKey])
     {
         console.log("sheet in dictionary");
-        GetData();
+
+        if (SheetDictionary[sheetKey] === true)
+        {
+            console.log("WAITING FOR DATA");
+            await WaitForData(DataObtained, sheetKey);
+        }
+        else
+        {
+            DataObtained(true);
+        }
+
+        function DataObtained(obtained)
+        {
+            if (obtained)
+            {
+                console.log("Data in memory, grabbing data");
+                Done(true);
+            }
+            else
+            {
+                console.log("Failed to get data");
+                Done(false);
+            }
+        }
     }
     else
     {    
-        console.log("not in dic");
+        console.error("Not in Dictionary, CALLING FOR JSON");
+
+        SheetDictionary[sheetKey] = true;
 
         let link;
         const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
@@ -94,6 +174,7 @@ async function GetDataWithA1(spreadSheetID, sheetName, ...ranges) {
         console.log(link);
 
         let attempts = 1;
+        let success = false;
 
         while (attempts <= MaxAttempts)
         {
@@ -107,12 +188,14 @@ async function GetDataWithA1(spreadSheetID, sheetName, ...ranges) {
                 
                 var sortedData = SortJSONintoHeadersAndValues(json)
 
-                console.log("Added data to dictionary");
+                console.log("Added sorted data to dictionary");
 
-                SheetDictionary[sheetKey] = sortedData;
-                GetData();
+                SetSheetDictionary(sheetKey, sortedData);
+                //SheetDictionary[sheetKey] = sortedData;
 
+                success = true;
                 console.log("Acquired Data and placed in dictionary");
+                Done(true);
 
             }).fail( async function(textStatus) {
                 console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
@@ -121,12 +204,108 @@ async function GetDataWithA1(spreadSheetID, sheetName, ...ranges) {
             });
             attempts++;
         }
+
+        if (!success)
+        {
+            // failed all attempts of getting sheet
+            SheetDictionary[sheetKey] = false;
+            console.error("Chart ERROR: Failed all attempts to obtain JSON!");
+            Done(false);
+        }
+    }
+}
+
+// Place this IF into its own function IsSheetInDictionary(), returns false or data
+async function GetDataWithHeaders(CallbackFunction, spreadSheetID, sheetName, ...headers) {
+
+    let sheetKey = spreadSheetID + "_" + sheetName;
+
+    IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName);
+    
+    function Done(isInDic)
+    {
+        if (isInDic !== false)
+        {
+            console.log("getting data");
+    
+            let data = GetData();
+    
+            CallbackFunction(data);
+        }
+        else
+        {
+            console.error("is in dic is false");
+        }
+    }
+
+    function GetData()
+    {
+        let sheetData = SheetDictionary[sheetKey];
+        let dataHeaders = [];
+        let data = [];
+
+        let firstRow = sheetData[0];
+        let headerColumns = [];
+
+        // cycle through headers, find in row, add to array, remove from array
+        for (var i = 0; i < headers.length; i++) {
+            var header = headers[i];
+
+            var headerFound = false;
+            for (var j = 0; j < firstRow.length; j++) {
+                var value = firstRow[j];
+
+                if (value == header) {
+                    headerColumns.push(j);
+                    headerFound = true;
+                    break;
+                }
+            }
+
+            if (!headerFound)
+                console.error("ERROR: Header not found - " + header);
+        }
+
+        //push date col
+        dataHeaders.push(sheetData[0][0]);
+        data.push(sheetData[1][0]);
+
+        headerColumns.forEach(e => {
+            dataHeaders.push(sheetData[0][e]);
+            data.push(sheetData[1][e]);
+        });
+
+        console.log([dataHeaders, data]);
+
+        return [dataHeaders, data];
+    }
+}
+
+async function GetDataWithA1(CallbackFunction, spreadSheetID, sheetName, ...ranges) {
+
+    let sheetKey = spreadSheetID + "_" + sheetName;
+
+    let isInDic = await IsSheetInDictionary(sheetKey, spreadSheetID, sheetName);
+    
+    if (isInDic !== false)
+    {
+        console.log("getting data");
+
+        let data = GetData();
+
+        CallbackFunction(data);
     }
 
     function GetData()
     {
         var sheetData = SheetDictionary[sheetKey];
-        // Get data through A1 then return data
+
+        // json is sorted when its obtained
+        // get A1 ranges then data returned
+
+        // need reverse lambda
+
+        return sheetData;
     }
 }
 
@@ -410,32 +589,32 @@ function RemoveEmptyRowsAndValues(data)
     // [row][col] -> [col][row]
     data = Transpose(data);
 
-    console.log(data.length);
-    console.log(data[0].length);
+    // console.log(data.length);
+    // console.log(data[0].length);
 
 
-    console.log(ColumnNumToLetter(53));
+    // console.log(ColumnNumToLetter(53));
 
-    console.log(dataHeaders[53]);
-    console.log(data[53]);
+    // //console.log(dataHeaders[53]);
+    // //console.log(data[53]);
 
-    // Removes empty values
-    for (let col = 1; col < data.length; col++)
-    {
-        console.log(data[col][0]);
+    // // Removes empty values
+    // for (let col = 1; col < data.length; col++)
+    // {
+    //     console.log(data[col][0]);
 
-        for (let row = 0; row < data[0].length; row++)
-        {                
-            //if (col > 8)
-                //console.log(col, row);
-            let value = data[col][row];
+    //     for (let row = 0; row < data[0].length; row++)
+    //     {                
+    //         //if (col > 8)
+    //             //console.log(col, row);
+    //         let value = data[col][row];
 
-            if (String(value).length == 0)
-                value = null;
+    //         if (String(value).length == 0)
+    //             value = null;
 
-            data[col][row] = value;
-        }
-    }
+    //         data[col][row] = value;
+    //     }
+    // }
 
     return data;
 }
