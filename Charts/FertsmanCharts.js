@@ -116,7 +116,6 @@ async function WaitForData(DataObtained, sheetKey)
     // has data
     else if (SheetDictionary[sheetKey] !== true && SheetDictionary[sheetKey] !== undefined)
     {
-        console.log("DONE WAITING FOR DATA ")// + SheetDictionary[sheetKey])
         DataObtained(true);
         return;
     }
@@ -131,8 +130,6 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
 {
     if (SheetDictionary[sheetKey])
     {
-        console.log("sheet in dictionary");
-
         if (SheetDictionary[sheetKey] === true)
         {
             console.log("WAITING FOR DATA");
@@ -147,7 +144,6 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
         {
             if (obtained)
             {
-                console.log("Data in memory, grabbing data");
                 Done(true);
             }
             else
@@ -178,23 +174,19 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
 
         while (attempts <= MaxAttempts)
         {
-            console.log("in loop");
+            console.log("in get JSON loop");
 
             await $.getJSON(link, json => {
                 attempts = MaxAttempts + 1;
 
-                console.log("Got json")
                 // Get Data, sort it and place it in the dictionary
                 
                 var sortedData = SortJSONintoHeadersAndValues(json)
-
-                console.log("Added sorted data to dictionary");
 
                 SetSheetDictionary(sheetKey, sortedData);
                 //SheetDictionary[sheetKey] = sortedData;
 
                 success = true;
-                console.log("Acquired Data and placed in dictionary");
                 Done(true);
 
             }).fail( async function(textStatus) {
@@ -226,10 +218,8 @@ async function GetDataWithHeaders(CallbackFunction, spreadSheetID, sheetName, ..
     {
         if (isInDic !== false)
         {
-            console.log("getting data");
-    
             let data = GetData();
-    
+
             CallbackFunction(data);
         }
         else
@@ -275,7 +265,7 @@ async function GetDataWithHeaders(CallbackFunction, spreadSheetID, sheetName, ..
             data.push(sheetData[1][e]);
         });
 
-        console.log([dataHeaders, data]);
+        data = RemoveEmptyRowsAndValues(data);
 
         return [dataHeaders, data];
     }
@@ -571,7 +561,10 @@ function RemoveEmptyRowsAndValues(data)
             if (data[row].length == 1)
                 break;
 
-            if (String(value).length > 0 || value == null)
+            if (value == null)
+                continue;
+
+            if (String(value).length > 0)// || value == null)
             {
                 noData = false;
                 break;
@@ -587,34 +580,22 @@ function RemoveEmptyRowsAndValues(data)
     }
 
     // [row][col] -> [col][row]
+
     data = Transpose(data);
 
-    // console.log(data.length);
-    // console.log(data[0].length);
+    // Removes empty values
+    for (let col = 1; col < data.length; col++)
+    {
+        for (let row = 0; row < data[0].length; row++)
+        {                
+            let value = data[col][row];
 
+            if (String(value).length == 0 || value == undefined)
+                value = null;
 
-    // console.log(ColumnNumToLetter(53));
-
-    // //console.log(dataHeaders[53]);
-    // //console.log(data[53]);
-
-    // // Removes empty values
-    // for (let col = 1; col < data.length; col++)
-    // {
-    //     console.log(data[col][0]);
-
-    //     for (let row = 0; row < data[0].length; row++)
-    //     {                
-    //         //if (col > 8)
-    //             //console.log(col, row);
-    //         let value = data[col][row];
-
-    //         if (String(value).length == 0)
-    //             value = null;
-
-    //         data[col][row] = value;
-    //     }
-    // }
+            data[col][row] = value;
+        }
+    }
 
     return data;
 }
@@ -713,7 +694,7 @@ function Transpose(array) {
         for (var j = 0; j < array[i].length; ++j) 
         {
             // could cause a problem with sheets fill range
-            if (array[i][j] === undefined) continue;
+            //if (array[i][j] === undefined) continue;
 
             if (tempArray[j] === undefined) tempArray[j] = [];
             tempArray[j][i] = array[i][j];

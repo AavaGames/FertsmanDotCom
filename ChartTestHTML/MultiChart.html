@@ -24,6 +24,9 @@
     <script src="../Charts/BarChart.js"></script>
     <script src="../Charts/SingleScatterChart.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
 </header>
 
 <body>
@@ -58,7 +61,7 @@
             // Do NOT pull column with DATE ("A:A")
             //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Test", "B:C")
 
-            GetDataWithHeaders(GotData, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Daily_Output", "Canada_numconf", "Canada_numconf - WoW");
+            GetDataWithHeaders(GotData, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v111955442 - YoY");
 
             function GotData(data)
             {
