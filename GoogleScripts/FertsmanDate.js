@@ -1,4 +1,3 @@
-
 function DateTest()
 {
     let dateString = "2001-02"

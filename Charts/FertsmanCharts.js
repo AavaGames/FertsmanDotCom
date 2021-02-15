@@ -49,10 +49,86 @@ Chart.defaults.global.spanGaps = false;
 // #endregion
 
 
+// Sheet Dictionary for holding sheets from spreadsheets, for use in charts.
+var SheetDictionary = new Object(); 
+// SheetDictionary["spreadsheetID_sheetName"] = [dataHeaders, data];
+
+
 // #region  FUNCTIONS
 
 // Magical lambda to convert column number to letter
 ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
+
+function Sleep(seconds) {
+    let ms = seconds * 1000;
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Milliseconds
+const TimeTillNextAttempt = 5;
+// 100s is gotten from googles user request quota
+const MaxAttempts = 3;//100 / TimeTillNextAttempt + 1;
+
+// Place this IF into its own function IsSheetInDictionary(), returns false or data
+async function GetDataWithA1(spreadSheetID, sheetName, ...ranges) {
+
+    let sheetKey = spreadSheetID + "_" + sheetName;
+
+    if (SheetDictionary[sheetKey])
+    {
+        console.log("sheet in dictionary");
+        GetData();
+    }
+    else
+    {    
+        console.log("not in dic");
+
+        let link;
+        const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
+        const forceColumns = "&majorDimension=COLUMNS"
+        const apiKey = "&key=" + sheets_api_key;
+        const linkRanges = "/values:batchGet?ranges=" + sheetName;
+    
+        link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
+
+        console.log(link);
+
+        let attempts = 1;
+
+        while (attempts <= MaxAttempts)
+        {
+            console.log("in loop");
+
+            await $.getJSON(link, json => {
+                attempts = MaxAttempts + 1;
+
+                console.log("Got json")
+                // Get Data, sort it and place it in the dictionary
+                
+                var sortedData = SortJSONintoHeadersAndValues(json)
+
+                console.log("Added data to dictionary");
+
+                SheetDictionary[sheetKey] = sortedData;
+                GetData();
+
+                console.log("Acquired Data and placed in dictionary");
+
+            }).fail( async function(textStatus) {
+                console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                // wait a period of time, then try again
+                await Sleep(TimeTillNextAttempt);
+            });
+            attempts++;
+        }
+    }
+
+    function GetData()
+    {
+        var sheetData = SheetDictionary[sheetKey];
+        // Get data through A1 then return data
+    }
+}
 
 /**
  * Formats link to pull A1 notation from specific spreadsheet and sheet.
@@ -232,6 +308,9 @@ function OverwriteChartHeader(chart, ...headers)
  * @param {2D Array} json JSON to be sorted
  * @param {Boolean} addDate keeps date in headers & values
  */
+
+
+ // TODO Destroy this function, as its unnecessary anymore
 function SortJSONintoHeadersAndValues(json, addDate = true)
 {
     var dataHeaders = [];
@@ -301,13 +380,13 @@ function RemoveEmptyRowsAndValues(data)
     data = Transpose(data);
 
     // Removes empty rows
-    for (var row = 0; row < data.length; row++)
+    for (let row = 0; row < data.length; row++)
     {
-        var noData = true;
+        let noData = true;
 
-        for (var col = 1; col < data[0].length; col++)
+        for (let col = 1; col < data[0].length; col++)
         {
-            var value = data[row][col];
+            let value = data[row][col];
 
             // Has only date, breaks out and deletes row
             if (data[row].length == 1)
@@ -328,14 +407,28 @@ function RemoveEmptyRowsAndValues(data)
         }  
     }
 
+    // [row][col] -> [col][row]
     data = Transpose(data);
 
+    console.log(data.length);
+    console.log(data[0].length);
+
+
+    console.log(ColumnNumToLetter(53));
+
+    console.log(dataHeaders[53]);
+    console.log(data[53]);
+
     // Removes empty values
-    for (var col = 0; col < data.length; col++)
+    for (let col = 1; col < data.length; col++)
     {
-        for (var row = 0; row < data[0].length; row++)
-        {
-            var value = data[col][row];
+        console.log(data[col][0]);
+
+        for (let row = 0; row < data[0].length; row++)
+        {                
+            //if (col > 8)
+                //console.log(col, row);
+            let value = data[col][row];
 
             if (String(value).length == 0)
                 value = null;
