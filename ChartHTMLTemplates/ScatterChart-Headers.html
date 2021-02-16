@@ -1,0 +1,57 @@
+<!-- Necessary Script Includes -->
+
+<!-- Chart js bundle min -->
+<script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+
+<!-- Jquery EXCLUDE FROM SITE WIDE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+<!-- Open Sans Font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+<!-- Fertsman.com Chart Script -->
+<script src="../SheetsAPIKey.js"></script>
+<script src="../FertsmanCharts.js"></script>
+<script src="../SingleScatterChart.js"></script>
+
+<!-- Regression.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
+
+
+<!-- Widget Code -->
+
+<div style="height:100%">
+    <canvas id="chart"></canvas>
+    <div id="loading_chart" class="lds-dual-ring"></div>
+</div>
+
+<script>
+    // Function Name & chartID MUST be unique
+    Scatter();
+    function Scatter()
+    {
+        let chartID = 'chart';
+        let loadingID = 'loading_' + chartID;
+
+        // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
+        GetDataWithHeaders(GotData, loadingID, "1kSM1rBeQYe843sQj4r_CrGQ37PN1jBteM5bYdQydAuM", "36100222", "v62787252", "v62787260")
+
+        function GotData(data) 
+        {
+            // data = AddRowRangesToData(data, ...rows)
+            // Example = (data, [1, 1], [32, 60], [80, 100000])
+            // [32, 60] means row 32 to row 60
+
+            // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, swapDataAxis = false)
+            SetupScatterChart(BuiltChart, chartID, loadingID, data, false);   
+
+            function BuiltChart(chart)
+            {
+                // OverwriteChartHeader(chart, ...headers);
+                // Leave empty to disable headers
+                // Example = (chart, "HeaderOne", "HeaderTwo")
+            }
+        }
+    };
+</script>

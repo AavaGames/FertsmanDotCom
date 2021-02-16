@@ -1,0 +1,54 @@
+<!-- Necessary Script Includes -->
+
+<!-- Chart js bundle min -->
+<script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+
+<!-- Jquery EXCLUDE FROM SITE WIDE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+<!-- Open Sans Font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+<!-- Fertsman.com Chart Script -->
+<script src="../SheetsAPIKey.js"></script>
+<script src="../FertsmanCharts.js"></script>
+<script src="../DonutChart.js"></script>
+
+<!-- Chartjs Label Plugin -->
+<script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+
+<!-- Widget Code -->
+
+<div style="height:100%">
+    <canvas id="chart"></canvas>
+    <div id="loading_chart" class="lds-dual-ring"></div>
+</div>
+
+<script>
+    // Function Name & chartID MUST be unique
+    Donut();
+    function Donut()
+    {
+        let chartID = 'chart';
+        let loadingID = 'loading_' + chartID;
+
+        // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
+        GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212");
+
+        function GotData(data) 
+        {
+            // Dates param not functioning at the moment, leave blank
+            // SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates)
+            SetupDonutChart(BuiltChart, chartID, loadingID, data, true);
+
+            function BuiltChart(chart)
+            {
+                // OverwriteChartHeader(chart, ...headers);
+                // Leave empty to disable headers
+                // Example = (chart, "HeaderOne", "HeaderTwo")
+            }
+        }
+    };
+</script>

@@ -29,32 +29,39 @@
 
 <body>
     <div style="height:75vh">
-        <canvas id="myChart"></canvas>
-        <div id="myLoadingSymbol"></div>
+        <canvas id="chart"></canvas>
+        <div id="loading_chart" class="lds-dual-ring"></div>
     </div>
 
     <script>
         // WORK IN PROGRESS
 
 
+        // Function Name & chartID MUST be unique
         Scatter();
         function Scatter()
         {
             let chartID = 'chart';
             let loadingID = 'loading_' + chartID;
 
-            var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C", "D:D");
-            var link = FormatLinkWithA1("1hkZCymsOnrZDnZ0sItFis7NK1-PfFuZXN1Krq36TzpI", "36100434", "B:C", "D:D");
+            // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
+            GetDataWithHeaders(GotData, loadingID, "1kSM1rBeQYe843sQj4r_CrGQ37PN1jBteM5bYdQydAuM", "36100222", "v62787252", "v62787260")
 
-            SetupScatterChart(BuiltChart, chartID, loadingID, link, false);
-            // Dual Scatter Chart
-            //SetupScatterChart('myChart', link, 2);
-            
-            function BuiltChart(chart)
+            function GotData(data) 
             {
-                //OverwriteChartHeader(chart, "");
-                // Leave empty to disable headers
-                // Example = (chart, "HeaderOne", "HeaderTwo")
+                // data = AddRowRangesToData(data, ...rows)
+                // Example = (data, [1, 1], [32, 60], [80, 100000])
+                // [32, 60] means row 32 to row 60
+
+                // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, data, swapDataAxis = false) {
+                SetupScatterChart(BuiltChart, chartID, loadingID, data, false);   
+
+                function BuiltChart(chart)
+                {
+                    // OverwriteChartHeader(chart, ...headers);
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+                }
             }
         };
     </script>

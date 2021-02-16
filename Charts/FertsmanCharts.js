@@ -79,7 +79,7 @@ function SetSheetDictionary(sheetKey, sortedData)
 FertsmanInitialization();
 function FertsmanInitialization()
 {
-    console.log("init");
+    console.log("Fertsman Charts Initializing");
     if (STOREDICTIONARY)
     {
         if (window.sessionStorage.getItem('Fertsman.com-SheetDictionary') != null)
@@ -98,10 +98,10 @@ function Sleep(seconds) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Milliseconds
+// Seconds
 const TimeTillNextAttempt = 5;
 // 100s is gotten from googles user request quota
-const MaxAttempts = 3;//100 / TimeTillNextAttempt + 1;
+const MaxAttempts = 100 / TimeTillNextAttempt + 1;
 
 
 async function WaitForData(DataObtained, sheetKey)
@@ -109,7 +109,6 @@ async function WaitForData(DataObtained, sheetKey)
     // stopped calling for sheet
     if (SheetDictionary[sheetKey] === false)
     {
-        console.log("REJECT");
         DataObtained(false);
         return;
     }
@@ -119,7 +118,6 @@ async function WaitForData(DataObtained, sheetKey)
         DataObtained(true);
         return;
     }
-    //console.log("check " + SheetDictionary[sheetKey]);
 
     setTimeout(function() {
         WaitForData(DataObtained, sheetKey);
@@ -132,7 +130,6 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
     {
         if (SheetDictionary[sheetKey] === true)
         {
-            console.log("WAITING FOR DATA");
             await WaitForData(DataObtained, sheetKey);
         }
         else
@@ -148,15 +145,12 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
             }
             else
             {
-                console.log("Failed to get data");
                 Done(false);
             }
         }
     }
     else
     {    
-        console.error("Not in Dictionary, CALLING FOR JSON");
-
         SheetDictionary[sheetKey] = true;
 
         let link;
@@ -167,15 +161,11 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
     
         link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
 
-        console.log(link);
-
         let attempts = 1;
         let success = false;
 
         while (attempts <= MaxAttempts)
         {
-            console.log("in get JSON loop");
-
             await $.getJSON(link, json => {
                 attempts = MaxAttempts + 1;
 
@@ -189,8 +179,10 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
                 success = true;
                 Done(true);
 
-            }).fail( async function(textStatus) {
+            }).catch(async function(textStatus) {
                 console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                // TODO if "error code 404" break because it means the link doesnt exist rather than exceeding quota
+
                 // wait a period of time, then try again
                 await Sleep(TimeTillNextAttempt);
             });
@@ -201,14 +193,13 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
         {
             // failed all attempts of getting sheet
             SheetDictionary[sheetKey] = false;
-            console.error("Chart ERROR: Failed all attempts to obtain JSON!");
             Done(false);
         }
     }
 }
 
 // Place this IF into its own function IsSheetInDictionary(), returns false or data
-async function GetDataWithHeaders(CallbackFunction, spreadSheetID, sheetName, ...headers) {
+async function GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers) {
 
     let sheetKey = spreadSheetID + "_" + sheetName;
 
@@ -224,7 +215,9 @@ async function GetDataWithHeaders(CallbackFunction, spreadSheetID, sheetName, ..
         }
         else
         {
-            console.error("is in dic is false");
+            console.error("Chart ERROR: Failed all attempts to acquire data, please reload the page to try again.");
+            var loadingSymbol = document.getElementById(loadingSymbolName);
+            loadingSymbol.className = globalFailedSymbolClass;
         }
     }
 
@@ -271,7 +264,8 @@ async function GetDataWithHeaders(CallbackFunction, spreadSheetID, sheetName, ..
     }
 }
 
-async function GetDataWithA1(CallbackFunction, spreadSheetID, sheetName, ...ranges) {
+// TODO
+async function GetDataWithA1(CallbackFunction, loadingSymbol, spreadSheetID, sheetName, ...ranges) {
 
     let sheetKey = spreadSheetID + "_" + sheetName;
 
@@ -284,6 +278,12 @@ async function GetDataWithA1(CallbackFunction, spreadSheetID, sheetName, ...rang
         let data = GetData();
 
         CallbackFunction(data);
+    }
+    else
+    {
+        console.error("is in dic is false");
+        // failed everything, set loading symbol to failed
+        loadingSymbol.className = globalFailedSymbolClass;
     }
 
     function GetData()

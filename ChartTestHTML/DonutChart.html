@@ -33,7 +33,7 @@
 <body>
     <div style="height:75vh">
         <canvas id="chart"></canvas>
-        <div id="loading_chart"></div>
+        <div id="loading_chart" class="lds-dual-ring"></div>
     </div>
 
    <script>
@@ -44,22 +44,20 @@
             let chartID = 'chart';
             let loadingID = 'loading_' + chartID;
 
-            FormatLinkWithHeaders(FinishedLink, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212");
+            // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212");
 
-            function FinishedLink(link) {
-                console.log("Building Chart = " + link);
-
-                // Dates param not functioning at the moment, leave blank
-                // SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, link, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates) {
-                chart = SetupDonutChart(BuiltChart, chartID, loadingID, link, true);
+            function GotData(data) 
+            {
+                //Dates param not functioning at the moment, leave blank
+                //SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, legendActive = false, additionalDates = 0, movingBackwards = true, ...dates)
+                SetupDonutChart(BuiltChart, chartID, loadingID, data, true);
 
                 function BuiltChart(chart)
                 {
                     // OverwriteChartHeader(chart, ...headers);
                     // Leave empty to disable headers
                     // Example = (chart, "HeaderOne", "HeaderTwo")
-
-                    // SetDateRangeToChart(chart, "2020-05-05");
                 }
             }
         };

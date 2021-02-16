@@ -23,9 +23,6 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
     } 
     else
     {
-        // WIP, cannot find other dates atm
-        console.log(sortedData);
-
         //var startingAtLatestDate = dates.length == 0;
         var startingAtLatestDate = true;
 
@@ -43,9 +40,7 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
             
             // Get latest row
             dateRows[0] = data[0].length - 1;
-            console.log("Latest Date " + data[0][data[0].length - 1]);
         } else {
-            console.log("Finding Date");
             // find dates
             for (var row = 0; row < data[0].length; row++) {
                 for (var i = 0; i < dates.length; i++) {
@@ -58,14 +53,11 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
                     }
                 }
             }
-            console.log(dateRows.length, dateRows);
         }
 
         // remove date from data
         dataHeaders.splice(0, 1);
         data.splice(0, 1);
-
-        console.log(dateRows);
 
         for (var i = 0; i < dateRows.length; i++) {
             newDatasets[i] = new Array();
@@ -80,7 +72,6 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
         });
     }
 
-    console.log(data);
     // End of JSON formatting
 
     var bgColors = [];
@@ -102,8 +93,6 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
             borderWidth: 5
         }
     }
-
-    console.log(_datasets);
 
     // End of chart specific Line / Dataset Formatting
 

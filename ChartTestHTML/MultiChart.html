@@ -23,6 +23,7 @@
     <script src="../Charts/LineChart.js"></script>
     <script src="../Charts/BarChart.js"></script>
     <script src="../Charts/SingleScatterChart.js"></script>
+    <script src="../Charts/DonutChart.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
@@ -30,24 +31,29 @@
 </header>
 
 <body>
-    <div style="height:100%">
+    <div style="height:20vh">
         <canvas id="chart1"></canvas>
         <div id="loading_chart1" class="lds-dual-ring"></div>
     </div>
 
-    <div style="height:100%">
+    <div style="height:20vh">
         <canvas id="chart2"></canvas>
         <div id="loading_chart2" class="lds-dual-ring"></div>
     </div>
 
-    <div style="height:100%">
+    <div style="height:20vh">
         <canvas id="chart3"></canvas>
         <div id="loading_chart3" class="lds-dual-ring"></div>
     </div>
 
-    <div style="height:100%">
+    <div style="height:20vh">
         <canvas id="chart4"></canvas>
         <div id="loading_chart4" class="lds-dual-ring"></div>
+    </div>
+
+    <div style="height:20vh">
+        <canvas id="chart6"></canvas>
+        <div id="loading_chart6" class="lds-dual-ring"></div>
     </div>
     
     <script>
@@ -61,7 +67,7 @@
             // Do NOT pull column with DATE ("A:A")
             //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Test", "B:C")
 
-            GetDataWithHeaders(GotData, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v111955442 - YoY");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v42135493 - YoY", "v42135490 - YoY");
 
             function GotData(data)
             {
@@ -87,13 +93,39 @@
             // Dates param not functioning at the moment, leave blank
             // SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
 
-            GetDataWithHeaders(GotData, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v111955442 - YoY");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v41690918", "v41690922");
 
             //SetupBarChart(BuiltChart, chartID, loadingID, link, true);
 
             function GotData(data)
             {
                 SetupBarChart(BuiltChart, chartID, loadingID, data, true);
+            }
+
+            function BuiltChart(chart)
+            {
+                // OverwriteChartHeader(chart, ...headers);
+                // Leave empty to disable headers
+                // Example = (chart, "HeaderOne", "HeaderTwo")
+            }
+        };
+
+        Donut();
+        function Donut()
+        {
+            let chartID = 'chart6';
+            let loadingID = 'loading_' + chartID;
+            //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
+            // Dates param not functioning at the moment, leave blank
+            // SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
+
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v41690918", "v41690922");
+
+            //SetupBarChart(BuiltChart, chartID, loadingID, link, true);
+
+            function GotData(data)
+            {
+                SetupDonutChart(BuiltChart, chartID, loadingID, data, true);
             }
 
             function BuiltChart(chart)
@@ -111,7 +143,7 @@
             let chartID = 'chart1';
             let loadingID = 'loading_' + chartID;
 
-            GetDataWithHeaders(GotData, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v111955442 - YoY");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v41690917", "v41690918");
 
             //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
             function GotData(data)
@@ -135,7 +167,7 @@
             let chartID = 'chart2';
             let loadingID = 'loading_' + chartID;
     
-            GetDataWithHeaders(GotData, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v111955442 - YoY");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v86822805", "v86822812");
             
             function GotData(data)
             {

@@ -147,6 +147,7 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
             break;
     }
     
+
     switch(nominalMethod)
     {
       case "YoY":
@@ -195,9 +196,85 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
 
         log("Writing to sheet " + i);
         WriteDataToSheet(sheetData, sheetName);
+        //SetDateFormat(sheetData, sheetName);
     }
     
     log("The CSV file was successfully fetched and imported");
+}
+
+// Only works for single sheets
+function ConvertSheetToNominal(sheetName, nominalMethod = "")
+{
+    let data;
+    log("Grabbing sheet");
+    data = GetDataFromSheet(sheetName, true);
+
+    log("Converting to nominal");
+    switch(nominalMethod)
+    {
+        case "YoY":
+            data = ConvertValuesToYoY(data);
+            break;
+        case "WoW":
+            data = ConvertValuesToWoW(data);
+            break;
+        case "QoQ":
+            data = ConvertValuesToWoW(data);
+            break;
+        default:
+            console.error("No nominal method found, make sure you use a viable options (YoY, QoQ, WoW)");
+            return;
+    }
+    sheetName += " - " + nominalMethod;
+    DoesSheetExist(sheetName);
+
+    log("Writing to sheet");
+    WriteDataToSheet(data, sheetName);
+
+    log("The sheet was successfully converted");
+}
+
+function SetDateFormat(sheetData, sheetName)
+{
+    // Needs to be done before reaching nominal conversion. Needs to be done by hand rather than by sheet formatting
+    // or if this date needs to be formatted then the YoY will use the other function
+    
+    let dateColumn = sheetData[0];
+    let aDate = dateColumn[1];
+
+    // convert values to correct format (2020-01 or 2020-01-31)
+
+    // If its a number
+    if (!isNaN(String(aDate).replace("-", "")))
+    {
+        console.log(aDate);
+        console.log(String(aDate).replace("-", ""));
+        console.log(isNaN(String(aDate).replace("-", "")));
+
+        log("Date format correct, no changes needed");
+        return;
+    }
+    else
+    {
+        log("Changing date format");
+
+        var ss = SpreadsheetApp.getActive();
+        var sheet = ss.getSheetByName(sheetName);
+
+        // if date has 3 parts, its in day format
+        var isDayFormat = aDate.split("-").length > 2;
+
+        if (isDayFormat)
+        {
+            // CANT use this because date is not a number
+
+            sheet.getRange(sheet.getLastRow(), 1).setNumberFormat('yyyy-MM-dd');
+        }
+        else
+        {
+            sheet.getRange(sheet.getLastRow(), 1).setNumberFormat('yyyy-MM');
+        }
+    }
 }
 
 function DoesSheetExist(location)
@@ -209,7 +286,10 @@ function DoesSheetExist(location)
         // Template sheet
         var sheetTemplate = ss.getSheetByName("Template");
         if (!sheetTemplate)
+        {
             log("ERROR: Please add Template sheet");
+            return;
+        }
         ss.insertSheet(location, {template: sheetTemplate});
     }
 }
@@ -230,6 +310,26 @@ function WriteDataToSheet(_data, location, startRow = 1) {
             }]
     };
     Sheets.Spreadsheets.Values.batchUpdate(request, ss.getId());
+}
+
+function GetDataFromSheet(sheetName, majorDimensionColumns = true)
+{
+    var ss = SpreadsheetApp.getActive();
+    var sheet = ss.getSheetByName(sheetName);
+
+    var allRanges = sheet.getRange(1, 1, sheet.getLastRow(), sheet.getLastColumn());
+
+    var ranges = sheetName + "!" + allRanges.getA1Notation();
+
+    var dimension = majorDimensionColumns ? 'COLUMNS' : 'ROWS';
+
+    var response = Sheets.Spreadsheets.Values.get(ss.getId(), ranges, {
+        majorDimension: dimension, 
+        //valueRenderOption: 'FORMATTED_VALUE',
+        //dateTimeRenderOption: 'SERIAL_NUMBER',
+    });
+
+    return response.values;
 }
 
 function ClearEntireSheet(location) {
