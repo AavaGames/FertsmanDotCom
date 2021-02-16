@@ -4,133 +4,129 @@
  * @param {String} link The link/URL to the JSON
  * @param {String} swapDataAxis Swaps the axis of the data
  */
-function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, link, swapDataAxis = false) {
+function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, swapDataAxis = false) {
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
 
-    console.log("Fetching JSON from link");
-    $.getJSON(link, json => {
-        console.log("JSON Acquired");
+    var dataHeaders = sortedData[0];
+    var data = sortedData[1];
 
-        var sortedData = SortJSONintoHeadersAndValues(json, false)
+    // needs to remove date from dataset, but keep it for adjustments
+    dataHeaders.splice(0,1);
+    data.splice(0,1);
+    
+    if (swapDataAxis) {
+        let tempData = [];
+        tempData[0] = data[1];
+        tempData[1] = data[0];            
+        data = tempData;
 
-        console.log(sortedData);
-        
-        var dataHeaders = sortedData[0];
-        var data = sortedData[1];
+        let tempHeader = dataHeaders[0]
+        dataHeaders[0] = dataHeaders[1];
+        dataHeaders[1] = tempHeader;
+    }
 
-        if (swapDataAxis) {
-            let tempData = [];
-            tempData[0] = data[1];
-            tempData[1] = data[0];            
-            data = tempData;
+    // End of JSON formatting
 
-            let tempHeader = dataHeaders[0]
-            dataHeaders[0] = dataHeaders[1];
-            dataHeaders[1] = tempHeader;
+    var _datasets = [];
+
+    // var axisLabels = ["", ""];
+    // for (var i = 0; i < data.length; i++) {
+    //     var axis = 'y-axis-1';
+    //     var axisLabel = dataHeaders[i]
+    //     if (!axisLabels[0] == "")
+    //         axisLabels[0] = axisLabels[0] + ", ";
+    //     axisLabels[0] = axisLabels[0] + axisLabel;
+    // }
+
+    var pointData = [];
+
+    for (var i = 0; i < data[0].length; i++) {
+        pointData[i] = {
+            x: Number(data[0][i]),
+            y: Number(data[1][i])
         }
+    }
 
-        // End of JSON formatting
+    _datasets[0] = {
+        //label: axisLabels[0],
+        backgroundColor: lineOptions.GetColor(0),
+        //borderColor: lineOptions.GetRandomColor(),
+        data: pointData,
+        //fill: true,
+        //yAxisID: axis,
+    }
 
-        var _datasets = [];
+    // End of Line / Dataset Formatting
 
-        // var axisLabels = ["", ""];
-        // for (var i = 0; i < data.length; i++) {
-        //     var axis = 'y-axis-1';
-        //     var axisLabel = dataHeaders[i]
-        //     if (!axisLabels[0] == "")
-        //         axisLabels[0] = axisLabels[0] + ", ";
-        //     axisLabels[0] = axisLabels[0] + axisLabel;
-        // }
+    loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
-        var pointData = [];
-
-        for (var i = 0; i < data[0].length; i++) {
-            pointData[i] = {
-                x: Number(data[0][i]),
-                y: Number(data[1][i])
-            }
-        }
-
-        _datasets[0] = {
-            //label: axisLabels[0],
-            backgroundColor: lineOptions.GetColor(0),
-            //borderColor: lineOptions.GetRandomColor(),
-            data: pointData,
-            //fill: true,
-            //yAxisID: axis,
-        }
-
-        // End of Line / Dataset Formatting
-
-        loadingSymbol.classList.remove(globalLoadingSymbolClass);
-
-        let chart = new Chart(document.getElementById(chartName), {
-            type: 'scatter',
-            data: {
-                datasets: _datasets
+    let chart = new Chart(document.getElementById(chartName), {
+        type: 'scatter',
+        data: {
+            datasets: _datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom'
+                }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom'
-                    }]
-                },
-                title: {
-                    display: false,
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: dataHeaders[0]
-                        },
-                        gridLines: {
-                            borderDash: [2, 2]
-                        },
-                        ticks: {
-                            autoSkip: true,
-                            padding: 0,
-                            autoSkipPadding: 15,
-                            callback: function(value) {
-                                return AbbreviateNumber(value);
-                            } 
+            title: {
+                display: false,
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: dataHeaders[0]
+                    },
+                    gridLines: {
+                        borderDash: [2, 2]
+                    },
+                    ticks: {
+                        autoSkip: true,
+                        padding: 0,
+                        autoSkipPadding: 15,
+                        callback: function(value) {
+                            return AbbreviateNumber(value);
+                        } 
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: dataHeaders[1]
+                    },
+                    gridLines: {
+                        borderDash: [2, 2]
+                    },
+                    ticks: {
+                        autoSkip: true,
+                        padding: 0,
+                        autoSkipPadding: 15,
+                        callback: function(value) {
+                            return AbbreviateNumber(value);
                         }
-                    }],
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: dataHeaders[1]
-                        },
-                        gridLines: {
-                            borderDash: [2, 2]
-                        },
-                        ticks: {
-                            autoSkip: true,
-                            padding: 0,
-                            autoSkipPadding: 15,
-                            callback: function(value) {
-                                return AbbreviateNumber(value);
-                           }
-                        }
-                    }]
-                }
+                    }
+                }]
             }
-        });
-
-        CalculateTrendLine(chart);
-
-        ChartBuiltCallback(chart);
-    }).fail( function(textStatus) {
-        console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
-        loadingSymbol.className = globalFailedSymbolClass;
+        }
     });
+
+    CalculateTrendLine(chart);
+
+    ChartBuiltCallback(chart);
+    // }).fail( function(textStatus) {
+    //     console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+    //     loadingSymbol.className = globalFailedSymbolClass;
+    // });
 }
 
 function CalculateTrendLine(chart) {

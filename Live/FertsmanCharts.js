@@ -48,11 +48,256 @@ Chart.defaults.global.spanGaps = false;
 
 // #endregion
 
+// Sheet Dictionary for holding sheets from spreadsheets, for use in charts.
+var SheetDictionary = new Object(); 
+// Should it be sorted, or keep the raw JSON? Sorted probably
+// SheetDictionary["spreadsheetID_sheetName"] = [dataHeaders, data];
+
+const STOREDICTIONARY = false;
 
 // #region  FUNCTIONS
 
+function SetSheetDictionary(sheetKey, sortedData)
+{
+    SheetDictionary[sheetKey] = sortedData;
+
+    if (STOREDICTIONARY)
+    {
+        if (typeof(Storage) !== "undefined")
+        {
+            console.log("storing sheet dic");
+            window.sessionStorage.setItem('Fertsman.com-SheetDictionary', JSON.stringify(SheetDictionary));
+            // fails sometimes "exceeds quota"
+        }
+        else
+        {
+            console.log("No local storage");
+        }
+    }
+}
+
+FertsmanInitialization();
+function FertsmanInitialization()
+{
+    console.log("Fertsman Charts Initializing");
+    if (STOREDICTIONARY)
+    {
+        if (window.sessionStorage.getItem('Fertsman.com-SheetDictionary') != null)
+        {
+            console.log("Obtained through session storage");
+            SheetDictionary = JSON.parse(window.sessionStorage.getItem('Fertsman.com-SheetDictionary'));
+        }
+    }
+}
+
 // Magical lambda to convert column number to letter
 ColumnNumToLetter = (n) => (a = Math.floor(n / 26)) >= 0 ? ColumnNumToLetter(a - 1) + String.fromCharCode(65 + (n % 26)) : '';
+
+function Sleep(seconds) {
+    let ms = seconds * 1000;
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Seconds
+const TimeTillNextAttempt = 5;
+// 100s is gotten from googles user request quota
+const MaxAttempts = 100 / TimeTillNextAttempt + 1;
+
+
+async function WaitForData(DataObtained, sheetKey)
+{
+    // stopped calling for sheet
+    if (SheetDictionary[sheetKey] === false)
+    {
+        DataObtained(false);
+        return;
+    }
+    // has data
+    else if (SheetDictionary[sheetKey] !== true && SheetDictionary[sheetKey] !== undefined)
+    {
+        DataObtained(true);
+        return;
+    }
+
+    setTimeout(function() {
+        WaitForData(DataObtained, sheetKey);
+    }, 100);
+}
+
+async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
+{
+    if (SheetDictionary[sheetKey])
+    {
+        if (SheetDictionary[sheetKey] === true)
+        {
+            await WaitForData(DataObtained, sheetKey);
+        }
+        else
+        {
+            DataObtained(true);
+        }
+
+        function DataObtained(obtained)
+        {
+            if (obtained)
+            {
+                Done(true);
+            }
+            else
+            {
+                Done(false);
+            }
+        }
+    }
+    else
+    {    
+        SheetDictionary[sheetKey] = true;
+
+        let link;
+        const startOfLink = "https://sheets.googleapis.com/v4/spreadsheets/";
+        const forceColumns = "&majorDimension=COLUMNS"
+        const apiKey = "&key=" + sheets_api_key;
+        const linkRanges = "/values:batchGet?ranges=" + sheetName;
+    
+        link = startOfLink + spreadSheetID + linkRanges + forceColumns + apiKey;
+
+        let attempts = 1;
+        let success = false;
+
+        while (attempts <= MaxAttempts)
+        {
+            await $.getJSON(link, json => {
+                attempts = MaxAttempts + 1;
+
+                // Get Data, sort it and place it in the dictionary
+                
+                var sortedData = SortJSONintoHeadersAndValues(json)
+
+                SetSheetDictionary(sheetKey, sortedData);
+                //SheetDictionary[sheetKey] = sortedData;
+
+                success = true;
+                Done(true);
+
+            }).catch(async function(textStatus) {
+                console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                // TODO if "error code 404" break because it means the link doesnt exist rather than exceeding quota
+
+                // wait a period of time, then try again
+                await Sleep(TimeTillNextAttempt);
+            });
+            attempts++;
+        }
+
+        if (!success)
+        {
+            // failed all attempts of getting sheet
+            SheetDictionary[sheetKey] = false;
+            Done(false);
+        }
+    }
+}
+
+// Place this IF into its own function IsSheetInDictionary(), returns false or data
+async function GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers) {
+
+    let sheetKey = spreadSheetID + "_" + sheetName;
+
+    IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName);
+    
+    function Done(isInDic)
+    {
+        if (isInDic !== false)
+        {
+            let data = GetData();
+
+            CallbackFunction(data);
+        }
+        else
+        {
+            console.error("Chart ERROR: Failed all attempts to acquire data, please reload the page to try again.");
+            var loadingSymbol = document.getElementById(loadingSymbolName);
+            loadingSymbol.className = globalFailedSymbolClass;
+        }
+    }
+
+    function GetData()
+    {
+        let sheetData = SheetDictionary[sheetKey];
+        let dataHeaders = [];
+        let data = [];
+
+        let firstRow = sheetData[0];
+        let headerColumns = [];
+
+        // cycle through headers, find in row, add to array, remove from array
+        for (var i = 0; i < headers.length; i++) {
+            var header = headers[i];
+
+            var headerFound = false;
+            for (var j = 0; j < firstRow.length; j++) {
+                var value = firstRow[j];
+
+                if (value == header) {
+                    headerColumns.push(j);
+                    headerFound = true;
+                    break;
+                }
+            }
+
+            if (!headerFound)
+                console.error("ERROR: Header not found - " + header);
+        }
+
+        //push date col
+        dataHeaders.push(sheetData[0][0]);
+        data.push(sheetData[1][0]);
+
+        headerColumns.forEach(e => {
+            dataHeaders.push(sheetData[0][e]);
+            data.push(sheetData[1][e]);
+        });
+
+        data = RemoveEmptyRowsAndValues(data);
+
+        return [dataHeaders, data];
+    }
+}
+
+// TODO
+async function GetDataWithA1(CallbackFunction, loadingSymbol, spreadSheetID, sheetName, ...ranges) {
+
+    let sheetKey = spreadSheetID + "_" + sheetName;
+
+    let isInDic = await IsSheetInDictionary(sheetKey, spreadSheetID, sheetName);
+    
+    if (isInDic !== false)
+    {
+        console.log("getting data");
+
+        let data = GetData();
+
+        CallbackFunction(data);
+    }
+    else
+    {
+        console.error("is in dic is false");
+        // failed everything, set loading symbol to failed
+        loadingSymbol.className = globalFailedSymbolClass;
+    }
+
+    function GetData()
+    {
+        var sheetData = SheetDictionary[sheetKey];
+
+        // json is sorted when its obtained
+        // get A1 ranges then data returned
+
+        // need reverse lambda
+
+        return sheetData;
+    }
+}
 
 /**
  * Formats link to pull A1 notation from specific spreadsheet and sheet.
@@ -232,6 +477,9 @@ function OverwriteChartHeader(chart, ...headers)
  * @param {2D Array} json JSON to be sorted
  * @param {Boolean} addDate keeps date in headers & values
  */
+
+
+ // TODO Destroy this function, as its unnecessary anymore
 function SortJSONintoHeadersAndValues(json, addDate = true)
 {
     var dataHeaders = [];
@@ -301,19 +549,22 @@ function RemoveEmptyRowsAndValues(data)
     data = Transpose(data);
 
     // Removes empty rows
-    for (var row = 0; row < data.length; row++)
+    for (let row = 0; row < data.length; row++)
     {
-        var noData = true;
+        let noData = true;
 
-        for (var col = 1; col < data[0].length; col++)
+        for (let col = 1; col < data[0].length; col++)
         {
-            var value = data[row][col];
+            let value = data[row][col];
 
             // Has only date, breaks out and deletes row
             if (data[row].length == 1)
                 break;
 
-            if (String(value).length > 0 || value == null)
+            if (value == null)
+                continue;
+
+            if (String(value).length > 0)// || value == null)
             {
                 noData = false;
                 break;
@@ -328,16 +579,18 @@ function RemoveEmptyRowsAndValues(data)
         }  
     }
 
+    // [row][col] -> [col][row]
+
     data = Transpose(data);
 
     // Removes empty values
-    for (var col = 0; col < data.length; col++)
+    for (let col = 1; col < data.length; col++)
     {
-        for (var row = 0; row < data[0].length; row++)
-        {
-            var value = data[col][row];
+        for (let row = 0; row < data[0].length; row++)
+        {                
+            let value = data[col][row];
 
-            if (String(value).length == 0)
+            if (String(value).length == 0 || value == undefined)
                 value = null;
 
             data[col][row] = value;
@@ -441,7 +694,7 @@ function Transpose(array) {
         for (var j = 0; j < array[i].length; ++j) 
         {
             // could cause a problem with sheets fill range
-            if (array[i][j] === undefined) continue;
+            //if (array[i][j] === undefined) continue;
 
             if (tempArray[j] === undefined) tempArray[j] = [];
             tempArray[j][i] = array[i][j];
