@@ -39,15 +39,14 @@
 
         function GotData(data) 
         {
-            // data = AddRowRangesToData(data, ...rows)
-            // Example = (data, [1, 1], [32, 60], [80, 100000])
-            // [32, 60] means row 32 to row 60
-
             // SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, swapDataAxis = false)
             SetupScatterChart(BuiltChart, chartID, loadingID, data, false);   
 
             function BuiltChart(chart)
             {
+                // SetDateRangeToChart(chart, startDate, endDate = "")
+                // Example = (chart, "2020-01") or (chart, "2010-01-15", "2015-12-31") 
+
                 // OverwriteChartHeader(chart, ...headers);
                 // Leave empty to disable headers
                 // Example = (chart, "HeaderOne", "HeaderTwo")
