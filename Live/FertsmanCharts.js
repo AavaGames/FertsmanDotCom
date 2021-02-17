@@ -407,68 +407,179 @@ function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...he
  * @param {Chart.js} chart The chart to adjust
  * @param  {...String} headers The headers to change to. Example: "Header 1", "Header 2"
  */
-
-
-
-// Line = chart.options.scales.yAxes[axes].scaleLabel.labelString
-
-// Scatter = chart.options.scales.yAxes[axes].scaleLabel.labelString
-//          chart.options.scales.xAxes[axes].scaleLabel.labelString
-
-// Donut = charts.data.labels
-// Bar = charts.data.labels
-// TODO add functionality for scatter & bar & donut 
 function OverwriteChartHeader(chart, ...headers)
 {
-    var currentHeader = 0;
-
-    // Hide Y axes labels
-    if (headers.length == 0)
+    let headerSeparator = ", ";
+    let currentHeader = 0;
+    
+    if (chart.config.type == 'scatter')
     {
-        for (var axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+        // Hide Y axes labels
+        if (currentHeader >= headers.length)
         {
-            chart.options.scales.yAxes[axes].scaleLabel.display = false;
+            for (let axes = 0; axes < chart.options.scales.xAxes.length; axes++)
+                chart.options.scales.xAxes[axes].scaleLabel.display = false;
         }
-    }
-    else
-    {
-        for (var axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+        else
         {
-            chart.options.scales.yAxes[axes].scaleLabel.display = true;
-            
-            const separator = ", ";
-            // var label = String(chart.data.datasets[set].label);
-    
-            var label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
-    
-            var labels = label.split(", ");
-            
-            for (var i = 0; i < labels.length; i++)
+            for (let axes = 0; axes < chart.options.scales.xAxes.length; axes++)
             {
-                labels[i] = headers[currentHeader];
-                currentHeader++;
-    
-                // break and write if no headers left
+                chart.options.scales.xAxes[axes].scaleLabel.display = true;
+                
+                let label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
+                let labels = label.split(headerSeparator);
+                
+                for (let i = 0; i < labels.length; i++)
+                {
+                    labels[i] = headers[currentHeader];
+                    currentHeader++;
+
+                    // break and write if no headers left
+                    if (currentHeader >= headers.length)
+                        break;
+                }
+
+                label = ""
+                for (let i = 0; i < labels.length; i++)
+                {
+                    if (i != 0)
+                        label += headerSeparator
+                    label += labels[i];
+                }
+
+                chart.options.scales.xAxes[axes].scaleLabel.labelString = label
+
+                // Leave the function if no more headers left
                 if (currentHeader >= headers.length)
                     break;
             }
-    
-            label = ""
-            for (var i = 0; i < labels.length; i++)
-            {
-                if (i != 0)
-                    label += ", "
-                label += labels[i];
-            }
-
-            chart.options.scales.yAxes[axes].scaleLabel.labelString = label
-    
-            // Leave the function if no more headers left
-            if (currentHeader >= headers.length)
-                break;
         }
     }
 
+    if (chart.config.type == 'line' || chart.config.type == 'scatter')
+    {
+        // Hide Y axes labels
+        if (currentHeader >= headers.length)
+        {
+            for (let axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+                chart.options.scales.yAxes[axes].scaleLabel.display = false;
+        }
+        else
+        {
+            for (let axes = 0; axes < chart.options.scales.yAxes.length; axes++)
+            {
+                chart.options.scales.yAxes[axes].scaleLabel.display = true;
+                
+                let label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
+                let labels = label.split(headerSeparator);
+                
+                for (let i = 0; i < labels.length; i++)
+                {
+                    labels[i] = headers[currentHeader];
+                    currentHeader++;
+
+                    // break and write if no headers left
+                    if (currentHeader >= headers.length)
+                        break;
+                }
+
+                label = ""
+                for (let i = 0; i < labels.length; i++)
+                {
+                    if (i != 0)
+                        label += headerSeparator
+                    label += labels[i];
+                }
+
+                chart.options.scales.yAxes[axes].scaleLabel.labelString = label
+
+                // Leave the function if no more headers left
+                if (currentHeader >= headers.length)
+                    break;
+            }
+        }
+    }
+
+    if (chart.config.type == 'bar' || chart.config.type == 'doughnut' || chart.config.type == 'pie')
+    {
+        headers.length = chart.data.labels.length;
+        chart.data.labels = headers;
+    }
+
+    chart.update();
+}
+
+/**
+ * Changes data range depending on dates provided, works with LINE & SCATTER charts
+ * 
+ * @param {String} startDate Must follow data format. (Example: "2013-01", "2020-06-05")
+ * @param {*} endDate Must follow data format. (Example: "2013", "2020-12-25")
+ */
+function SetDateRangeToChart(chart, startDate, endDate = "")
+{
+    let dates = chart.data.labels;
+    let startRow = -1;
+    let endRow = -1;
+
+    let datasets = chart.data.datasets;
+
+    // Starts at the end of dates and moves back
+    for (let i = dates.length - 1; i > -1; i--)
+    {
+        let date = dates[i];
+
+        if (date == startDate)
+        {
+            startRow = i;
+            break;
+        }
+    }
+
+    // remove all rows before 
+    // start at end row and remove all rows after that
+    if (startRow != -1)
+    {
+        let amountToRemoveFromFront = startRow;
+        dates.splice(0, amountToRemoveFromFront);
+
+        datasets.forEach(set => {
+            set.data.splice(0, amountToRemoveFromFront);
+        });
+    }
+    else if (startDate != "")
+        console.error("Chart ERROR: Failed to find start date - " + startDate 
+            + "\n    Date format = " + dates[0]);
+
+            
+    if (endDate != "")
+    {
+        for (let i = dates.length - 1; i > -1; i--)
+        {
+            let date = dates[i];
+
+            if (date == endDate)
+            {
+                endRow = i;
+                break;
+            }
+        }
+    }
+
+    if (endRow != -1)
+    {
+        let amountToRemoveFromBack = dates.length - endRow;
+        dates.splice(endRow + 1, amountToRemoveFromBack);
+
+        datasets.forEach(set => {
+            set.data.splice(endRow + 1, amountToRemoveFromBack);
+        });
+    }
+    else if (endDate != "")
+        console.error("Chart ERROR: Failed to find end date - " + endDate);
+
+    if (chart.config.type == "scatter")
+        CalculateTrendLine(chart)
+        
     chart.update();
 }
 
@@ -478,8 +589,7 @@ function OverwriteChartHeader(chart, ...headers)
  * @param {Boolean} addDate keeps date in headers & values
  */
 
-
- // TODO Destroy this function, as its unnecessary anymore
+ // TODO Destroy parts of this function, as its unnecessary
 function SortJSONintoHeadersAndValues(json, addDate = true)
 {
     var dataHeaders = [];
@@ -598,72 +708,6 @@ function RemoveEmptyRowsAndValues(data)
     }
 
     return data;
-}
-
-/**
- * 
- * @param {String} startDate Must follow data format. (Example: "2013-01", "2020-06-05")
- * @param {*} endDate Must follow data format. (Example: "2013", "2020-12-25")
- */
-function SetDateRangeToChart(chart, startDate, endDate = "")
-{
-    let dates = chart.data.labels;
-    let startRow = -1;
-    let endRow = -1;
-
-    // Starts at the end of dates and moves back
-    for (let i = dates.length - 1; i > -1; i--)
-    {
-        let date = dates[i];
-
-        if (date == startDate)
-        {
-            startRow = i;
-            break;
-        }
-    }
-
-    if (endDate != "")
-    {
-        for (let i = dates.length - 1; i > -1; i--)
-        {
-            let date = dates[i];
-
-            if (date == endDate)
-            {
-                endRow = i;
-                break;
-            }
-        }
-    }
-
-    let datasets = chart.data.datasets;
-
-    // remove all rows before 
-    // start at end row and remove all rows after that
-    if (startRow != -1)
-    {
-        let amountToRemoveFromFront = startRow;
-        dates.splice(0, amountToRemoveFromFront);
-
-        datasets.forEach(set => {
-            set.data.splice(0, amountToRemoveFromFront);
-        });
-    }
-    else
-        console.error("Chart ERROR: Failed to find start row");
-
-    if (endRow != -1)
-    {
-        let amountToRemoveFromBack = dates.length - endRow;
-        dates.splice(endRow + 1, amountToRemoveFromBack);
-
-        datasets.forEach(set => {
-            set.data.splice(endRow + 1, amountToRemoveFromBack);
-        });
-    }
-
-    chart.update();
 }
 
 function LoopIndex(index, arrayLength) {

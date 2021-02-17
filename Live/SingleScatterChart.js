@@ -11,7 +11,9 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
     var dataHeaders = sortedData[0];
     var data = sortedData[1];
 
-    // needs to remove date from dataset, but keep it for adjustments
+    // Save dates for late, delete from data
+    let dataDates = data[0];
+
     dataHeaders.splice(0,1);
     data.splice(0,1);
     
@@ -64,7 +66,9 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
     let chart = new Chart(document.getElementById(chartName), {
         type: 'scatter',
         data: {
-            datasets: _datasets
+            datasets: _datasets,
+            labels: dataDates,
+            hasTrendLine: false
         },
         options: {
             responsive: true,
@@ -80,6 +84,14 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
             },
             legend: {
                 display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        let date = data.labels[tooltipItem.index];
+                        return date + ' = (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ")";
+                    }
+                }
             },
             scales: {
                 xAxes: [{
@@ -123,14 +135,17 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
     CalculateTrendLine(chart);
 
     ChartBuiltCallback(chart);
-    // }).fail( function(textStatus) {
-    //     console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public." + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
-    //     loadingSymbol.className = globalFailedSymbolClass;
-    // });
 }
 
-function CalculateTrendLine(chart) {
-    var dataPoints = chart.data.datasets[0].data;
+function CalculateTrendLine(chart) 
+{
+    var dataPoints;
+
+    // Incase recalculating line
+    if (chart.data.hasTrendLine)
+        dataPoints = chart.data.datasets[1].data;
+    else
+        dataPoints = chart.data.datasets[0].data;
 
     var lowestAndHighest = GetLowestAndHighestNumberInArray(dataPoints)
     var lowestX = lowestAndHighest[0];
@@ -160,22 +175,26 @@ function CalculateTrendLine(chart) {
     var equation = result.string;
     var r2 = String(result.r2.toPrecision(2));
     // Place line of best fit in front of scatter points
-    var tempData = chart.data.datasets[0];
+    
+    if (!chart.data.hasTrendLine)
+    {
+        var tempData = chart.data.datasets[0];
+        chart.data.datasets.push(tempData);
+    }
     chart.data.datasets[0] = ({
-        //label: "Equation: " + equation + ", R2 = " + r2,
         data: [startPoint, endPoint],
         showLine: true,
         pointRadius: 0,
         fill: false,
         borderColor: lineOptions.trendLine
     });
-    chart.data.datasets.push(tempData);
     chart.options.title = {
         display: true,
         text: "Equation: " + equation + ", R2 = " + r2,
         fontStyle: 'bolder',
         fontSize: 12
     }
+    chart.data.hasTrendLine = true;
     chart.update();
 }
 
