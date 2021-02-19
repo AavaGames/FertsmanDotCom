@@ -90,7 +90,7 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
                         autoSkip: true,                               
                         autoSkipPadding: 10,
                         //maxTicksLimit: 3,
-                        maxRotation: 0
+                        maxRotation: 45
                     }
                 }],
                 yAxes: [{
