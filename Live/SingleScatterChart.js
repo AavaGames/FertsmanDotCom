@@ -87,9 +87,8 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
             },
             tooltips: {
                 callbacks: {
-                    label: function(tooltipItem, data) {
-                        let date = data.labels[tooltipItem.index];
-                        return date + ' = (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ")";
+                    title: function(tooltipItem, data) {
+                        return data.labels[tooltipItem[0].index];
                     }
                 }
             },

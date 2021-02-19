@@ -407,7 +407,7 @@ function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...he
  * @param {Chart.js} chart The chart to adjust
  * @param  {...String} headers The headers to change to. Example: "Header 1", "Header 2"
  */
-function OverwriteChartHeader(chart, ...headers)
+function OverwriteChartHeader(chart, hideLabels, ...headers)
 {
     let headerSeparator = ", ";
     let currentHeader = 0;
@@ -415,12 +415,13 @@ function OverwriteChartHeader(chart, ...headers)
     if (chart.config.type == 'scatter')
     {
         // Hide Y axes labels
-        if (currentHeader >= headers.length)
+        if (hideLabels)
         {
             for (let axes = 0; axes < chart.options.scales.xAxes.length; axes++)
                 chart.options.scales.xAxes[axes].scaleLabel.display = false;
         }
-        else
+
+        if (currentHeader <= headers.length)
         {
             for (let axes = 0; axes < chart.options.scales.xAxes.length; axes++)
             {
@@ -431,7 +432,10 @@ function OverwriteChartHeader(chart, ...headers)
                 
                 for (let i = 0; i < labels.length; i++)
                 {
-                    labels[i] = headers[currentHeader];
+                    // if header is nothing, keep same label
+                    if (headers[currentHeader].length != 0)
+                        labels[i] = headers[currentHeader];
+
                     currentHeader++;
 
                     // break and write if no headers left
@@ -459,12 +463,13 @@ function OverwriteChartHeader(chart, ...headers)
     if (chart.config.type == 'line' || chart.config.type == 'scatter')
     {
         // Hide Y axes labels
-        if (currentHeader >= headers.length)
+        if (hideLabels)
         {
             for (let axes = 0; axes < chart.options.scales.yAxes.length; axes++)
                 chart.options.scales.yAxes[axes].scaleLabel.display = false;
         }
-        else
+        
+        if (currentHeader <= headers.length)
         {
             for (let axes = 0; axes < chart.options.scales.yAxes.length; axes++)
             {
@@ -475,7 +480,10 @@ function OverwriteChartHeader(chart, ...headers)
                 
                 for (let i = 0; i < labels.length; i++)
                 {
-                    labels[i] = headers[currentHeader];
+                    // if header is nothing, keep same label
+                    if (headers[currentHeader].length != 0)                
+                        labels[i] = headers[currentHeader];
+
                     currentHeader++;
 
                     // break and write if no headers left
@@ -500,10 +508,22 @@ function OverwriteChartHeader(chart, ...headers)
         }
     }
 
-    if (chart.config.type == 'bar' || chart.config.type == 'doughnut' || chart.config.type == 'pie')
+    if (chart.config.type == 'bar' || chart.config.type == 'horizontalBar' || chart.config.type == 'doughnut' || chart.config.type == 'pie')
     {
-        headers.length = chart.data.labels.length;
-        chart.data.labels = headers;
+        let labels = chart.data.labels;
+        for (let i = 0; i < labels.length; i++)
+        {
+            // if header is nothing, keep same label
+            if (headers[currentHeader].length != 0)                     
+                labels[i] = headers[currentHeader];
+
+            currentHeader++;
+
+            // break and write if no headers left
+            if (currentHeader >= headers.length) //TEST || currentHeader > labels.length)
+                break;
+        }
+        chart.data.labels = labels;
     }
 
     chart.update();

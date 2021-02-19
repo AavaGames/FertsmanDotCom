@@ -64,9 +64,6 @@
             let chartID = 'chart4';
             let loadingID = 'loading_' + chartID;
     
-            // Do NOT pull column with DATE ("A:A")
-            //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Test", "B:C")
-
             GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v42135493 - YoY", "v42135490 - YoY");
 
             function GotData(data)
@@ -77,38 +74,56 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, "header yoy", "header");
+                OverwriteChartHeader(chart, false, "header yoy", "header");
                 // Leave empty to disable headers
                 // Example = (chart, "HeaderOne", "HeaderTwo")
             }
         };
         
         // Function Name & chartID MUST be unique
-        Bar();
-        function Bar()
+        Bar2();
+
+        function Bar1()
         {
             let chartID = 'chart3';
             let loadingID = 'loading_' + chartID;
-            //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
-            // Dates param not functioning at the moment, leave blank
-            // SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
-
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v41690918", "v41690922");
-
-            //SetupBarChart(BuiltChart, chartID, loadingID, link, true);
-
-            function GotData(data)
+            // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212", "v65201210", "v65201211", "v65201212", "v65201210", "v65201211", "v65201212");
+           
+            function GotData(data) 
             {
-                SetupBarChart(BuiltChart, chartID, loadingID, data, true);
+                // Dates param not functioning at the moment, leave blank, gets latest
+                // SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, verticalBar = true, dates = "")
+                SetupBarChart(BuiltChart, chartID, loadingID, data, false);
+                function BuiltChart(chart)
+                {
+                    OverwriteChartHeader(chart, false, "GDP", "", "Bossman", "aw", "awda", "gwq");
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+                }
             }
-
-            function BuiltChart(chart)
+        };
+        function Bar2()
+        {
+            let chartID = 'chart3';
+            let loadingID = 'loading_' + chartID;
+            // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", 
+            "v1161385353 - YoY", "v1161385357 - YoY", "v1161385361 - YoY", "v1161385365 - YoY", "v1161385369 - YoY", 
+            "v1161385373 - YoY", "v1161385377 - YoY", "v1161385381 - YoY", "v1161385385 - YoY", "v1161385389 - YoY", 
+            "v1161385393 - YoY", "v1161385397 - YoY", "v1161385401 - YoY");
+            function GotData(data) 
             {
-                OverwriteChartHeader(chart, "header yoy", "header");
-
-                // OverwriteChartHeader(chart, ...headers);
-                // Leave empty to disable headers
-                // Example = (chart, "HeaderOne", "HeaderTwo")
+                // Dates param not functioning at the moment, leave blank, gets latest
+                // SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, verticalBar = true, dates = "")
+                SetupBarChart(BuiltChart, chartID, loadingID, data, false);
+                function BuiltChart(chart)
+                {
+                    // OverwriteChartHeader(chart, ...headers);
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+                    OverwriteChartHeader(chart, false, "NFLD", "PEI", "NS", "NB", "QC", "ON", "MB", "SK", "AB", "BC", "YK", "NT", "NU");
+                }
             }
         };
 
@@ -132,7 +147,7 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, "header yoy", "header", "waodjawoipd");
+                OverwriteChartHeader(chart, false, "header yoy", "header", "waodjawoipd");
 
                 // OverwriteChartHeader(chart, ...headers);
                 // Leave empty to disable headers
@@ -158,7 +173,7 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, "header yoy", "header");
+                OverwriteChartHeader(chart, false, "header yoy", "header");
 
                 // OverwriteChartHeader(chart, ...headers);
                 // Leave empty to disable headers
@@ -184,7 +199,7 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, "header yoy", "header");
+                OverwriteChartHeader(chart, false, "", "header", "empty");
 
                 // OverwriteChartHeader(chart, ...headers);
                 // Leave empty to disable headers

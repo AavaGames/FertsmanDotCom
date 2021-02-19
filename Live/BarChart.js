@@ -15,6 +15,9 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
 
     var randomData = false;
 
+    // TODO find this with the data
+    var latestDate = sortedData[1][0][sortedData[1][0].length - 1];
+
     var dataHeaders = sortedData[0];
     var data;
     if (randomData) 
@@ -58,7 +61,7 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
         // remove date from data
         dataHeaders.splice(0, 1);
         data.splice(0, 1);
-
+        
         for (var i = 0; i < dateRows.length; i++) {
             newDatasets[i] = new Array();
             data.forEach(columnData => {
@@ -78,19 +81,19 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
     for (var i = 0; i < data[0].length; i++) {
         bgColors[i] = lineOptions.GetColor(i);
     }
-    var _borderColor = "rgba(255, 255, 255, 1)";
 
     var _datasets = [];
     for (var i = 1; i < data.length; i++) {
         _datasets[i - 1] = {
             // remove in multiset
             //label: data[0],
-            label: "",
-            borderColor: _borderColor,
+            label: latestDate,
             data: data[i],
             backgroundColor: bgColors,
             //fill: true
-            borderWidth: 5
+            borderWidth: 5,
+            borderColor: "rgba(0, 0, 0, 0.25)",
+            hoverBorderColor: "rgba(0, 0, 0, 0.5)",
         }
     }
 
@@ -117,32 +120,40 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
                 align: 'center' // 'start'
             },
             scales: {
-                xAxes: {
-                    display: false,
-                    gridLines: {
-                        borderDash: [2, 2]
-                    },
-                    // ticks: {
-                    //     autoSkip: true,                               
-                    //     autoSkipPadding: 100,
-                    //     //maxTicksLimit: 3,
-                    //     maxRotation: 0
-                    // }
-                },
-                yAxes: {
-                    display: false,
+                xAxes: [{
+                    display: true,
                     gridLines: {
                         borderDash: [2, 2]
                     },
                     ticks: {
-                        autoSkip: true,
-                        padding: 0,
-                        autoSkipPadding: 15,
+                        // autoSkip: true,
+                        // padding: 0,
+                        // autoSkipPadding: 15,
                         callback: function(value) {
                             return AbbreviateNumber(value);
                         } 
                     }
-                }
+                }],
+                yAxes: [{
+                    display: true,
+                    gridLines: {
+                        borderDash: [2, 2]
+                    },
+                    ticks: {
+                        // autoSkip: true,
+                        // padding: 0,
+                        // autoSkipPadding: 15,
+                        callback: function(value) {
+                            return AbbreviateNumber(value);
+                        } 
+                    }
+                }],
+            },                
+            plugins: {
+                labels: [{
+                    // hide plugin label
+                    fontSize: 0
+                }]
             }
         }
     });

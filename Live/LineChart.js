@@ -146,6 +146,6 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             }
         }
     });
-    
+
     ChartBuiltCallback(chart);
 }
