@@ -88,7 +88,7 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
                     },
                     ticks: {
                         autoSkip: true,                               
-                        autoSkipPadding: 100,
+                        autoSkipPadding: 10,
                         //maxTicksLimit: 3,
                         maxRotation: 0
                     }
