@@ -57,6 +57,8 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
         data: pointData,
         //fill: true,
         //yAxisID: axis,
+        pointHoverRadius: 4,
+        pointHoverBackgroundColor: 'rgba(0, 0, 0, 1)',
     }
 
     // End of Line / Dataset Formatting
@@ -86,6 +88,8 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
                 display: false
             },
             tooltips: {
+                // shows tooltip when near
+                intersect: false,
                 callbacks: {
                     title: function(tooltipItem, data) {
                         return data.labels[tooltipItem[0].index];

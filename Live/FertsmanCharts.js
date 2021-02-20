@@ -407,7 +407,7 @@ function FormatLinkWithHeaders(functionCallback, spreadSheetID, sheetName, ...he
  * @param {Chart.js} chart The chart to adjust
  * @param  {...String} headers The headers to change to. Example: "Header 1", "Header 2"
  */
-function OverwriteChartHeader(chart, hideLabels, ...headers)
+function OverwriteChartHeader(chart, showLabels, ...headers)
 {
     let headerSeparator = ", ";
     let currentHeader = 0;
@@ -415,7 +415,7 @@ function OverwriteChartHeader(chart, hideLabels, ...headers)
     if (chart.config.type == 'scatter')
     {
         // Hide Y axes labels
-        if (hideLabels)
+        if (!showLabels)
         {
             for (let axes = 0; axes < chart.options.scales.xAxes.length; axes++)
                 chart.options.scales.xAxes[axes].scaleLabel.display = false;
@@ -424,9 +424,7 @@ function OverwriteChartHeader(chart, hideLabels, ...headers)
         if (currentHeader <= headers.length)
         {
             for (let axes = 0; axes < chart.options.scales.xAxes.length; axes++)
-            {
-                chart.options.scales.xAxes[axes].scaleLabel.display = true;
-                
+            {                
                 let label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
                 let labels = label.split(headerSeparator);
                 
@@ -463,7 +461,7 @@ function OverwriteChartHeader(chart, hideLabels, ...headers)
     if (chart.config.type == 'line' || chart.config.type == 'scatter')
     {
         // Hide Y axes labels
-        if (hideLabels)
+        if (!showLabels)
         {
             for (let axes = 0; axes < chart.options.scales.yAxes.length; axes++)
                 chart.options.scales.yAxes[axes].scaleLabel.display = false;
@@ -472,9 +470,7 @@ function OverwriteChartHeader(chart, hideLabels, ...headers)
         if (currentHeader <= headers.length)
         {
             for (let axes = 0; axes < chart.options.scales.yAxes.length; axes++)
-            {
-                chart.options.scales.yAxes[axes].scaleLabel.display = true;
-                
+            {                
                 let label = String(chart.options.scales.yAxes[axes].scaleLabel.labelString);
                 let labels = label.split(headerSeparator);
                 
@@ -506,6 +502,29 @@ function OverwriteChartHeader(chart, hideLabels, ...headers)
                     break;
             }
         }
+    }
+
+    currentHeader = 0;
+
+    // Overwrites tooltips
+    if (chart.config.type == 'line' || chart.config.type == 'scatter')
+    {
+        for (let i = 0; i < chart.data.datasets.length; i++)
+        {
+            let label = chart.data.datasets[i].label;
+
+            // if header is nothing, keep same label
+            if (headers[currentHeader].length != 0)                     
+                label = headers[currentHeader];
+
+            currentHeader++;
+
+            chart.data.datasets[i].label = label;
+
+            // break and write if no headers left
+            if (currentHeader >= headers.length)
+                break;
+        };
     }
 
     if (chart.config.type == 'bar' || chart.config.type == 'horizontalBar' || chart.config.type == 'doughnut' || chart.config.type == 'pie')

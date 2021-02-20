@@ -91,18 +91,19 @@ function SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, sorte
     for (var i = 0; i < data[0].length; i++) {
         bgColors[i] = lineOptions.GetColor(i);
     }
-    var _borderColor = "rgba(255, 255, 255, 1)";
 
     var _datasets = [];
     for (var i = 1; i < data.length; i++) {
         _datasets[i - 1] = {
             // remove in multiset
             //label: data[0],
-            borderColor: _borderColor,
             data: data[i],
             backgroundColor: bgColors,
             //fill: true
-            borderWidth: 5
+            borderWidth: 5,
+            borderColor: "rgba(255, 255, 255, 1)",
+            hoverBackgroundColor: "rgba(50, 50, 50, 1)",
+            hoverBorderColor: "rgba(255, 255, 255, 0.5)",
         }
     }
 

@@ -74,7 +74,7 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, false, "header yoy", "header");
+                OverwriteChartHeader(chart, true, "header yoy", "header");
                 // Leave empty to disable headers
                 // Example = (chart, "HeaderOne", "HeaderTwo")
             }
@@ -97,7 +97,7 @@
                 SetupBarChart(BuiltChart, chartID, loadingID, data, false);
                 function BuiltChart(chart)
                 {
-                    OverwriteChartHeader(chart, false, "GDP", "", "Bossman", "aw", "awda", "gwq");
+                    OverwriteChartHeader(chart, true, "GDP", "", "Bossman", "aw", "awda", "gwq");
                     // Leave empty to disable headers
                     // Example = (chart, "HeaderOne", "HeaderTwo")
                 }
@@ -122,7 +122,7 @@
                     // OverwriteChartHeader(chart, ...headers);
                     // Leave empty to disable headers
                     // Example = (chart, "HeaderOne", "HeaderTwo")
-                    OverwriteChartHeader(chart, false, "NFLD", "PEI", "NS", "NB", "QC", "ON", "MB", "SK", "AB", "BC", "YK", "NT", "NU");
+                    OverwriteChartHeader(chart, true, "NFLD", "PEI", "NS", "NB", "QC", "ON", "MB", "SK", "AB", "BC", "YK", "NT", "NU");
                 }
             }
         };
@@ -147,7 +147,7 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, false, "header yoy", "header", "waodjawoipd");
+                OverwriteChartHeader(chart, true, "header yoy", "header", "waodjawoipd");
 
                 // OverwriteChartHeader(chart, ...headers);
                 // Leave empty to disable headers
@@ -173,7 +173,7 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, false, "header yoy", "header");
+                OverwriteChartHeader(chart, true, "header yoy", "header");
 
                 // OverwriteChartHeader(chart, ...headers);
                 // Leave empty to disable headers
@@ -199,9 +199,9 @@
 
             function BuiltChart(chart)
             {
-                OverwriteChartHeader(chart, false, "", "header", "empty");
+                OverwriteChartHeader(chart, false, "header 1", "header", "empty");
 
-                // OverwriteChartHeader(chart, ...headers);
+                // OverwriteChartHeader(chart, showLabels, ...headers);
                 // Leave empty to disable headers
                 // Example = (chart, "HeaderOne", "HeaderTwo")
             }

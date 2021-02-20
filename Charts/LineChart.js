@@ -42,12 +42,15 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
 
         _datasets[i - 1] = {
             label: dataHeaders[i],
-            //For Bar Chart
-            //backgroundColor: "rgba(0, 175, 181, 1)",
-            borderColor: lineOptions.GetColor(i - 1),
             data: data[i],
             fill: false,
             yAxisID: axis,
+            borderColor: lineOptions.GetColor(i - 1),
+            hoverBackgroundColor: 'rgba(0, 0, 0, 1)',
+
+            hoverBorderColor: 'rgba(0, 0, 0, 1)',
+            pointHoverBackgroundColor: 'rgba(0, 0, 0, 1)',
+
         }
     }
 
@@ -69,6 +72,7 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
                 display: false,
             },
             tooltips: {
+                // point or index - index shows all data 
                 mode: 'index',
                 intersect: false,
             },
@@ -81,7 +85,6 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
                     display: true,
                     scaleLabel: {
                         display: false,
-                        //labelString: dataHeaders[0]
                     },
                     gridLines: {
                         borderDash: [2, 2]

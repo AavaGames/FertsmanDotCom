@@ -37,14 +37,13 @@
         function GotData(data) 
         {
             // Dates param not functioning at the moment, leave blank, gets latest
-            // SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, verticalBar = true, dates = "")
+            // SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, verticalBar = true, legendActive, false, dates = "")
             SetupBarChart(BuiltChart, chartID, loadingID, data, true);
 
             function BuiltChart(chart)
             {
-                // OverwriteChartHeader(chart, ...headers);
-                // Leave empty to disable headers
-                // Example = (chart, "HeaderOne", "HeaderTwo")
+                // OverwriteChartHeader(chart, showLabels, ...headers);
+                // Example = (chart, true, "HeaderOne", "HeaderTwo")
             }
         }
     };

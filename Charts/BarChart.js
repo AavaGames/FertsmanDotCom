@@ -5,7 +5,7 @@
  * @param {String} link The link/URL to the JSON
  * @param {String} date "2019-12" Format depends on data's date format, if left blank defaults to latest date
  */
-function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, verticalBar = true, dates = "") {
+function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, verticalBar = true, legendActive = false, dates = "") {
 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
@@ -91,9 +91,10 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
             data: data[i],
             backgroundColor: bgColors,
             //fill: true
-            borderWidth: 5,
-            borderColor: "rgba(0, 0, 0, 0.25)",
-            hoverBorderColor: "rgba(0, 0, 0, 0.5)",
+            hoverBackgroundColor: "rgba(50, 50, 50, 1)",
+            borderWidth: 1,          
+            borderColor: "rgba(255, 255, 255, 1)",
+            hoverBorderColor: "rgba(255, 255, 255, 0.5)",
         }
     }
 
@@ -115,7 +116,7 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
                 display: false,
             },
             legend: {
-                //display: legendActive,
+                display: legendActive,
                 position: 'top',
                 align: 'center' // 'start'
             },
