@@ -13,8 +13,9 @@ var lineOptions = {
         // Loops color list automatically
         //return this.colors[LoopIndex(i, this.colors.length)];
         var baseGrey = 85;
+        let maxGrey = 205;
         var increment = 10;
-        var loopAt = (255 - baseGrey) / increment + 1;
+        var loopAt = (maxGrey - baseGrey) / increment + 1;
 
         var grey = baseGrey + (increment * LoopIndex(i, loopAt));
 

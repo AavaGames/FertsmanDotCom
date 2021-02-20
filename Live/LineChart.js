@@ -5,7 +5,7 @@
  * @param {Number} rightAxis Rest syntax for all columns put on the right axis, count from 1.
  *                           leave EMPTY if no right axis is desired.
  */
-function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, ...rightAxis) {
+function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, allItemsOnToolTip = false, ...rightAxis) {
 
     var loadingSymbol = document.getElementById(loadingSymbolName);
     loadingSymbol.className = globalLoadingSymbolClass;
@@ -45,16 +45,40 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             data: data[i],
             fill: false,
             yAxisID: axis,
+            borderWidth: 3,
             borderColor: lineOptions.GetColor(i - 1),
-            hoverBackgroundColor: 'rgba(0, 0, 0, 1)',
-
-            hoverBorderColor: 'rgba(0, 0, 0, 1)',
-            pointHoverBackgroundColor: 'rgba(0, 0, 0, 1)',
-
+            // hoverBackgroundColor: 'rgba(0, 0, 0, 1)',
+            // pointHoverBackgroundColor: 'rgba(0, 0, 0, 1)',
         }
     }
 
     // End of chart specific Line / Dataset Formatting
+
+    var tooltipOption;
+    var hoverOption;
+    if (allItemsOnToolTip)
+    {
+        // nearest, point or index - index shows all
+        tooltipOption = {
+            mode: 'index',
+            intersect: false,
+        };
+        hoverOption = {
+            mode: 'nearest',
+            intersect: true
+        };
+    }
+    else
+    {
+        tooltipOption = {
+            mode: 'nearest',
+            intersect: false,
+        };
+        hoverOption = {
+            mode: 'nearest',
+            intersect: false
+        };
+    }
 
     loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
@@ -71,14 +95,40 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             title: {
                 display: false,
             },
-            tooltips: {
-                // point or index - index shows all data 
-                mode: 'index',
-                intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
+            tooltips: tooltipOption,
+            hover: hoverOption,
+            onHover: function onHover (event, activeElements) {
+                if (allItemsOnToolTip || !activeElements || !activeElements.length) return;
+
+                let activeIndex = activeElements[0]._datasetIndex;
+
+                // make active black and larger
+                for (let i = 0; i < this.data.datasets.length; i++)
+                {
+                    if (i == activeIndex && this.data.datasets[i].borderWidth == 3)
+                    {
+                        console.log("switch to large")
+                        this.data.datasets[i].borderWidth = 5;
+                        this.data.datasets[i].borderColor = 'rgba(0, 0, 0, 1)';
+                    }
+                    else if (this.data.datasets[i].borderWidth == 5)
+                    {
+                        console.log("switch to small")
+
+                        this.data.datasets[i].borderWidth = 3;
+                        this.data.datasets[i].borderColor = lineOptions.GetColor(i - 1);
+                    }
+                }
+
+                // Move active to the front
+                if (activeIndex !== 0)
+                {
+                    let activeSet = this.data.datasets[activeIndex];
+                    this.data.datasets.splice(activeIndex, 1);
+                    this.data.datasets.splice(0, 0, activeSet);
+                }
+
+                this.update();
             },
             scales: {
                 xAxes: [{
