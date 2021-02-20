@@ -49,9 +49,8 @@ Chart.defaults.global.spanGaps = false;
 // #endregion
 
 // Sheet Dictionary for holding sheets from spreadsheets, for use in charts.
-var SheetDictionary = new Object(); 
-// Should it be sorted, or keep the raw JSON? Sorted probably
 // SheetDictionary["spreadsheetID_sheetName"] = [dataHeaders, data];
+var SheetDictionary = new Object(); 
 
 const STOREDICTIONARY = false;
 
@@ -67,7 +66,7 @@ function SetSheetDictionary(sheetKey, sortedData)
         {
             console.log("storing sheet dic");
             window.sessionStorage.setItem('Fertsman.com-SheetDictionary', JSON.stringify(SheetDictionary));
-            // fails sometimes "exceeds quota"
+            // chrome quota is 25mb
         }
         else
         {
@@ -79,7 +78,7 @@ function SetSheetDictionary(sheetKey, sortedData)
 FertsmanInitialization();
 function FertsmanInitialization()
 {
-    console.log("Fertsman Charts Initializing");
+    //console.log("Fertsman Charts Initializing");
     if (STOREDICTIONARY)
     {
         if (window.sessionStorage.getItem('Fertsman.com-SheetDictionary') != null)
@@ -102,7 +101,6 @@ function Sleep(seconds) {
 const TimeTillNextAttempt = 5;
 // 100s is gotten from googles user request quota
 const MaxAttempts = 100 / TimeTillNextAttempt + 1;
-
 
 async function WaitForData(DataObtained, sheetKey)
 {
@@ -129,24 +127,16 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
     if (SheetDictionary[sheetKey])
     {
         if (SheetDictionary[sheetKey] === true)
-        {
             await WaitForData(DataObtained, sheetKey);
-        }
         else
-        {
             DataObtained(true);
-        }
 
         function DataObtained(obtained)
         {
             if (obtained)
-            {
                 Done(true);
-            }
             else
-            {
                 Done(false);
-            }
         }
     }
     else
@@ -166,45 +156,48 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
 
         while (attempts <= MaxAttempts)
         {
-            await $.getJSON(link, json => {
-                attempts = MaxAttempts + 1;
+            try {
+                await $.getJSON(link, json => {
+                    attempts = MaxAttempts + 1;
+                        
+                    var sortedData = SortJSONintoHeadersAndValues(json)
+                    SetSheetDictionary(sheetKey, sortedData);
 
-                // Get Data, sort it and place it in the dictionary
-                
-                var sortedData = SortJSONintoHeadersAndValues(json)
+                    success = true;
+                    Done(true);
+                });
+            } 
+            catch(textStatus) {
+                if (textStatus.responseJSON.error.code == 404)
+                {
+                    console.error("Chart ERROR: Failed to obtain JSON, sheet NOT found!" + 
+                    "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                    attempts = MaxAttempts + 1;
+                }   
+                else
+                {
+                    console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                    await Sleep(TimeTillNextAttempt);
+                } 
+            };
 
-                SetSheetDictionary(sheetKey, sortedData);
-                //SheetDictionary[sheetKey] = sortedData;
-
-                success = true;
-                Done(true);
-
-            }).catch(async function(textStatus) {
-                console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
-                // TODO if "error code 404" break because it means the link doesnt exist rather than exceeding quota
-
-                // wait a period of time, then try again
-                await Sleep(TimeTillNextAttempt);
-            });
             attempts++;
         }
 
         if (!success)
         {
-            // failed all attempts of getting sheet
             SheetDictionary[sheetKey] = false;
             Done(false);
         }
     }
 }
 
-// Place this IF into its own function IsSheetInDictionary(), returns false or data
-async function GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers) {
-
+async function GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers) 
+{
     let sheetKey = spreadSheetID + "_" + sheetName;
-
-    IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName);
     
+    IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName);
+
     function Done(isInDic)
     {
         if (isInDic !== false)
@@ -215,7 +208,7 @@ async function GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadShe
         }
         else
         {
-            console.error("Chart ERROR: Failed all attempts to acquire data, please reload the page to try again.");
+            console.error("Chart ERROR: Failed all attempts to acquire the data, please reload the page to try again.");
             var loadingSymbol = document.getElementById(loadingSymbolName);
             loadingSymbol.className = globalFailedSymbolClass;
         }
