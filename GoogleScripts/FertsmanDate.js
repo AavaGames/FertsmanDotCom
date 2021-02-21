@@ -113,3 +113,71 @@ function CreateStringFromDate(date, originalDateString)
 
     return dateString;
 }
+
+function ConvertDates(data)
+{
+    let dateColumn = data[0];
+    let dateSeparator = "-";
+
+    let months = [
+        ["Jan", "01"],
+        ["Feb", "02"],
+        ["Mar", "03"],
+        ["Apr", "04"],
+        ["May", "05"],
+        ["Jun", "06"],
+        ["Jul", "07"],
+        ["Aug", "08"],
+        ["Sep", "09"],
+        ["Oct", "10"],
+        ["Nov", "11"],
+        ["Dec", "12"],
+    ]
+
+    for (let i = 0; i < dateColumn.length; i++)
+    {
+        // If Feb-2019 format, continue fixing date, if all are numbers then skip all formatting
+
+        let date = dateColumn[i].split(dateSeparator);
+
+        for (let j = 0; j < date.length; j++)
+        {
+            let value = date[j];
+            if (isNaN(value))
+            {
+                for (let month = 0; month < months.length; month++)
+                {
+                    if (String(value).includes(months[month[0]]))
+                    {
+                        value = months[month[1]];
+                        date[j] = value;
+                        break;
+                    }
+                }
+            }
+            
+            let day = "";
+            let month = "";
+            let year = "";
+
+
+            for (let i = 0; i < date.length; i++)
+            {
+                if (i != 0)
+                    newDate += dateSeparator;
+                newDate += date[i];
+            }
+
+
+
+
+        }
+        let newDate = ;
+
+        dateColumn[i] = "";
+    }
+
+    data[0] = dateColumn;
+
+    return data;
+}
