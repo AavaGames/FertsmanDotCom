@@ -147,6 +147,7 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
             break;
     }
     
+    data = CheckAndConvertDateFormat(data);
 
     switch(nominalMethod)
     {
@@ -196,7 +197,6 @@ function ImportCsvFromUrl(sortingMethod = SortingMethodEnum.Undefined, tableID =
 
         log("Writing to sheet " + i);
         WriteDataToSheet(sheetData, sheetName);
-        //SetDateFormat(sheetData, sheetName);
     }
     
     log("The CSV file was successfully fetched and imported");
@@ -232,49 +232,6 @@ function ConvertSheetToNominal(sheetName, nominalMethod = "")
     WriteDataToSheet(data, sheetName);
 
     log("The sheet was successfully converted");
-}
-
-function SetDateFormat(sheetData, sheetName)
-{
-    // Needs to be done before reaching nominal conversion. Needs to be done by hand rather than by sheet formatting
-    // or if this date needs to be formatted then the YoY will use the other function
-    
-    let dateColumn = sheetData[0];
-    let aDate = dateColumn[1];
-
-    // convert values to correct format (2020-01 or 2020-01-31)
-
-    // If its a number
-    if (!isNaN(String(aDate).replace("-", "")))
-    {
-        console.log(aDate);
-        console.log(String(aDate).replace("-", ""));
-        console.log(isNaN(String(aDate).replace("-", "")));
-
-        log("Date format correct, no changes needed");
-        return;
-    }
-    else
-    {
-        log("Changing date format");
-
-        var ss = SpreadsheetApp.getActive();
-        var sheet = ss.getSheetByName(sheetName);
-
-        // if date has 3 parts, its in day format
-        var isDayFormat = aDate.split("-").length > 2;
-
-        if (isDayFormat)
-        {
-            // CANT use this because date is not a number
-
-            sheet.getRange(sheet.getLastRow(), 1).setNumberFormat('yyyy-MM-dd');
-        }
-        else
-        {
-            sheet.getRange(sheet.getLastRow(), 1).setNumberFormat('yyyy-MM');
-        }
-    }
 }
 
 function DoesSheetExist(location)

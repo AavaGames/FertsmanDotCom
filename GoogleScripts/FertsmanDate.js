@@ -114,10 +114,33 @@ function CreateStringFromDate(date, originalDateString)
     return dateString;
 }
 
-function ConvertDates(data)
+/*
+*   Only checks and converts date formats that have words
+*/
+function CheckAndConvertDateFormat(data)
 {
-    let dateColumn = data[0];
     let dateSeparator = "-";
+    let monthIndex = -1;
+
+    let correctFormat = true;
+    let testDate = data[0][1].split(dateSeparator);
+    for (let i = 0; i < testDate.length; i++)
+    {
+        let value = testDate[i];
+        if (isNaN(value))
+        {
+            monthIndex = i;
+            correctFormat = false;
+            break;
+        }
+    }
+    // if in the correct format already, skip conversion
+    if (correctFormat)
+        return;
+    else
+        log("Converting Date Format");
+
+    let dateColumn = data[0];
 
     let months = [
         ["Jan", "01"],
@@ -132,49 +155,45 @@ function ConvertDates(data)
         ["Oct", "10"],
         ["Nov", "11"],
         ["Dec", "12"],
-    ]
+    ];
 
-    for (let i = 0; i < dateColumn.length; i++)
+    for (let i = 1; i < dateColumn.length; i++)
     {
-        // If Feb-2019 format, continue fixing date, if all are numbers then skip all formatting
+        let day = "";
+        let month = "";
+        let year = "";
 
         let date = dateColumn[i].split(dateSeparator);
 
+        let value = date[monthIndex];
+        for (let month = 0; month < months.length; month++)
+        {
+            if (String(value).includes(months[month][0]))
+            {
+                value = months[month][1];
+                date[monthIndex] = value;
+                break;
+            }
+        }
+
+        month = date[monthIndex];
+
         for (let j = 0; j < date.length; j++)
         {
-            let value = date[j];
-            if (isNaN(value))
-            {
-                for (let month = 0; month < months.length; month++)
-                {
-                    if (String(value).includes(months[month[0]]))
-                    {
-                        value = months[month[1]];
-                        date[j] = value;
-                        break;
-                    }
-                }
-            }
-            
-            let day = "";
-            let month = "";
-            let year = "";
+            if (j == monthIndex) continue;
 
-
-            for (let i = 0; i < date.length; i++)
-            {
-                if (i != 0)
-                    newDate += dateSeparator;
-                newDate += date[i];
-            }
-
-
-
-
+            if (date[j].length == 4)
+                year = date[j];
+            else
+                day = date[j];
         }
-        let newDate = ;
+        
+        let newDate = year + dateSeparator + month;
+        
+        if (day != "")
+            newDate += dateSeparator + day;
 
-        dateColumn[i] = "";
+        dateColumn[i] = newDate;
     }
 
     data[0] = dateColumn;
