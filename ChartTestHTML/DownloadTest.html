@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <title>Fertsman.com LineChart</title>
+
+    <!-- Chart js bundle min -->
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+
+    <!-- Jquery EXCLUDE FROM SITE WIDE -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Open Sans Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Fertsman.com CSS Stylesheet -->
+    <link rel="stylesheet" href="../Fertsman.css">
+
+    <!-- Fertsman.com Chart Script -->
+    <script type="text/javascript" src="../SheetsAPIKey.js"></script>
+    <script type="text/javascript" src="../Charts/FertsmanCharts.js"></script>
+    <script type="text/javascript" src="../Charts/LineChart.js"></script>
+
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+</header>
+
+<body>
+    <!-- containers invisible div -->
+    <div id="testdiv">
+        <!-- widgets invisible div -->
+        <div id= "102">
+
+            <div>
+                <p>
+                    <span>Title Test</span>
+                </p>
+            </div>
+
+            <div style="height:75vh">
+                <canvas id="myChart"></canvas>
+                <div id="loading_myChart" class="lds-dual-ring"></div>
+            </div>
+            
+            <a id="myDownload"  href="" download="" target="_blank" class="">
+                <p>DOWNLOAD</p>
+                <!-- Download Icon -->
+                <!-- <i class="fa fa-download"></i> -->
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        Line();
+        function Line()
+        {
+            // This declaration will cause a problem when using this script in multiple places use let instead ?
+            let chartID = 'myChart';
+            let loadingID = 'loading_' + chartID;
+
+            let downloadID = 'myDownload';
+
+
+            // Move to fertsman charts
+            document.getElementById(downloadID).addEventListener('click', function(event) 
+            {
+                DownloadChart(event, downloadID);
+            });
+
+            // end of dl
+
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Homepage_Output", "v111955442 - YoY", "v36724 - YoY");
+
+            function GotData(data) 
+            {
+                // data = AddRowRangesToData(data, ...rows)
+                // Example = (data, [1, 1], [32, 60], [80, 100000])
+                // [32, 60] means row 32 to row 60
+
+                // SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, ...rightAxis)
+                SetupLineChart(BuiltChart, chartID, loadingID, data, 3);
+
+                function BuiltChart(chart)
+                {
+                    // OverwriteChartHeader(chart, ...headers);
+                    // Leave empty to disable headers
+                    // Example = (chart, "HeaderOne", "HeaderTwo")
+                    OverwriteChartHeader(chart, "header", "header2");
+
+                    SetDateRangeToChart(chart, "2005-05");
+                    //SetDateRangeToChart(chart, "2020-05-05", "2021-01-01");
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

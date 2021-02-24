@@ -796,21 +796,33 @@ function Transpose(array) {
     return tempArray;
 }
 
-function DownloadChart(chartID, downloadID)
+function DownloadChart(event, downloadID)
 {
-    /*Get image of canvas element*/
-    var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
-    /*get download button (tag: <a></a>) */
-    document.getElementById(downloadID).href = url_base64jp;
-    /*insert chart image url to download button (tag: <a></a>) */
+    event.preventDefault();
 
-    /*Get image of canvas element*/
-    var url_base64jp = document.getElementById(chartID).toDataURL("image/jpg");
-    /*get download button (tag: <a></a>) */
-    var a =  document.getElementById(downloadID);
-    /*insert chart image url to download button (tag: <a></a>) */
-    a.href = url_base64jp;
-    a.download = downloadName;
+    let downloadDiv =  document.getElementById(downloadID);
+
+    let firstParentDiv = downloadDiv.parentNode;
+    let secondParentDiv = firstParentDiv.parentNode;
+
+    let title;
+    title = $("#" + firstParentDiv.id + " span").html();
+    if (title !== undefined)
+        title = title.replace(/\s/g, "");
+    else
+        title = "FertsmanChart";
+    title += ".jpg";
+
+    html2canvas(secondParentDiv).then(function(canvas) {
+        let url_base64jpg = canvas.toDataURL();
+        
+        var a = document.createElement('A');
+        a.href = url_base64jpg;
+        a.download = title;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
 }
 
 // #endregion
