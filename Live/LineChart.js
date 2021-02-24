@@ -47,8 +47,7 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             yAxisID: axis,
             borderWidth: 3,
             borderColor: lineOptions.GetColor(i - 1),
-            // hoverBackgroundColor: 'rgba(0, 0, 0, 1)',
-            // pointHoverBackgroundColor: 'rgba(0, 0, 0, 1)',
+            pointHoverRadius: 0,
         }
     }
 
@@ -94,40 +93,54 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             maintainAspectRatio: false,
             title: {
                 display: false,
+            },            
+            elements: {
+                point: {
+                    radius: 0
+                },
+            },
+            legend: {
+                display: false
             },
             tooltips: tooltipOption,
             hover: hoverOption,
+            hoverSwitchingLocked: false,
+            previousActiveElement: -1,
+            onClick: function onClick ()
+            {
+                this.options.hoverSwitchingLocked = !this.options.hoverSwitchingLocked;
+            },
             onHover: function onHover (event, activeElements) {
-                if (allItemsOnToolTip || !activeElements || !activeElements.length) return;
+                if (allItemsOnToolTip || this.options.hoverSwitchingLocked || !activeElements || !activeElements.length) return;
 
                 let activeIndex = activeElements[0]._datasetIndex;
 
-                // make active black and larger
-                for (let i = 0; i < this.data.datasets.length; i++)
+                if (this.options.previousActiveElement != activeIndex)
                 {
-                    if (i == activeIndex && this.data.datasets[i].borderWidth == 3)
+                    for (let i = 0; i < this.data.datasets.length; i++)
                     {
-                        //console.log("switch to large")
-                        this.data.datasets[i].borderWidth = 5;
-                        this.data.datasets[i].borderColor = 'rgba(0, 0, 0, 1)';
+                        if (i == activeIndex && this.data.datasets[i].borderWidth == 3)
+                        {
+                            this.data.datasets[i].borderWidth = 5;
+                            this.data.datasets[i].borderColor = 'rgba(0, 0, 0, 1)';
+                        }
+                        else if (this.data.datasets[i].borderWidth == 5)
+                        {
+                            this.data.datasets[i].borderWidth = 3;
+                            this.data.datasets[i].borderColor = lineOptions.GetColor(i - 1);
+                        }
                     }
-                    else if (this.data.datasets[i].borderWidth == 5)
+
+                    if (activeIndex !== 0)
                     {
-                        //console.log("switch to small")
-                        this.data.datasets[i].borderWidth = 3;
-                        this.data.datasets[i].borderColor = lineOptions.GetColor(i - 1);
+                        let activeSet = this.data.datasets[activeIndex];
+                        this.data.datasets.splice(activeIndex, 1);
+                        this.data.datasets.splice(0, 0, activeSet);
                     }
-                }
 
-                // Move active to the front
-                if (activeIndex !== 0)
-                {
-                    let activeSet = this.data.datasets[activeIndex];
-                    this.data.datasets.splice(activeIndex, 1);
-                    this.data.datasets.splice(0, 0, activeSet);
+                    this.options.previousActiveElement = 0;
+                    this.update();
                 }
-
-                this.update();
             },
             scales: {
                 xAxes: [{
@@ -188,14 +201,6 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
                     }
                 ]
             },
-            elements: {
-                point: {
-                    radius: 0
-                },
-            },
-            legend: {
-                display: false
-            }
         }
     });
 

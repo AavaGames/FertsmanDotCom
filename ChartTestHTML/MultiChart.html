@@ -64,7 +64,7 @@
             let chartID = 'chart4';
             let loadingID = 'loading_' + chartID;
     
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v42135493 - YoY", "v42135490 - YoY");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Government_Output", "v86822775 - YoY", "v86822777 - YoY");
 
             function GotData(data)
             {
@@ -81,14 +81,14 @@
         };
         
         // Function Name & chartID MUST be unique
-        Bar2();
+        Bar1();
 
         function Bar1()
         {
             let chartID = 'chart3';
             let loadingID = 'loading_' + chartID;
             // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201210", "v65201211", "v65201212", "v65201210", "v65201211", "v65201212", "v65201210", "v65201211", "v65201212");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Government_Output", "v36665", "v41550172");
            
             function GotData(data) 
             {
@@ -136,7 +136,7 @@
             // Dates param not functioning at the moment, leave blank
             // SetupBarChart(chartName, loadingSymbolName, link, verticalBar = true, dates = "")
 
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v41690918", "v41690922");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Government_Output", "v36665", "v41550172");
 
             //SetupBarChart(BuiltChart, chartID, loadingID, link, true);
 
@@ -162,13 +162,13 @@
             let chartID = 'chart1';
             let loadingID = 'loading_' + chartID;
 
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v41690917", "v41690918");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Government_Output", "v36677", "v41550172");
 
             //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
             function GotData(data)
             {
                 // SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, ...rightAxis)
-                SetupLineChart(BuiltChart, chartID, loadingID, data, true, 3);
+                SetupLineChart(BuiltChart, chartID, loadingID, data, false, 3);
             }
 
             function BuiltChart(chart)
@@ -188,7 +188,7 @@
             let chartID = 'chart2';
             let loadingID = 'loading_' + chartID;
     
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v65201229 - YoY", "v65201236 - YoY", "v65201254 - YoY", "v65201258 - YoY", "v65201263 - YoY", "v65201358 - YoY", "v65201368 - YoY", "v65201381 - YoY", "v65201398 - YoY", "v65201407 - YoY", "v65201419 - YoY", "v65201429 - YoY", "v65201441 - YoY", "v65201442 - YoY", "v65201452 - YoY", "v65201457 - YoY", "v65201463 - YoY", "v65201468 - YoY", "v65201471 - YoY", "v65201476 - YoY");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Homepage_Output", "v111955442 - YoY", "v36724 - YoY");
             function GotData(data) 
             {
                 // SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedData, ...rightAxis)
