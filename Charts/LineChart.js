@@ -104,11 +104,13 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             },
             tooltips: tooltipOption,
             hover: hoverOption,
+            isMobileBrowser: DetectMobileBrowser(),
             hoverSwitchingLocked: false,
             previousActiveElement: -1,
             onClick: function onClick ()
             {
-                this.options.hoverSwitchingLocked = !this.options.hoverSwitchingLocked;
+                if (!this.options.isMobileBrowser)
+                    this.options.hoverSwitchingLocked = !this.options.hoverSwitchingLocked;
             },
             onHover: function onHover (event, activeElements) {
                 if (allItemsOnToolTip || this.options.hoverSwitchingLocked || !activeElements || !activeElements.length) return;
