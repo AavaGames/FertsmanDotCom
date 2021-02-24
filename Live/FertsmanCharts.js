@@ -169,17 +169,26 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
                 });
             } 
             catch(textStatus) {
-                if (textStatus.responseJSON.error.code == 404)
+                if ((typeof textStatus !== 'undefined'))
                 {
-                    console.error("Chart ERROR: Failed to obtain JSON, sheet NOT found!" + 
-                    "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
-                    attempts = MaxAttempts + 1;
-                }   
+                    if (typeof textStatus.responseJSON.error !== 'undefined' && textStatus.responseJSON.error.code == 404)
+                    {
+                        console.error("Chart ERROR: Failed to obtain JSON, sheet NOT found!" + 
+                        "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                        attempts = MaxAttempts + 1;
+                    }   
+                    else
+                    {
+                        console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                        await Sleep(TimeTillNextAttempt);
+                    } 
+                }
                 else
                 {
-                    console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: " + textStatus.responseJSON.error.message);
+                    console.error("Chart ERROR: Failed to obtain JSON, make sure spreadsheet is public. Attempt " + attempts + "/" + MaxAttempts + "\n\nJSON Error Message: Failed to be caught.");
                     await Sleep(TimeTillNextAttempt);
-                } 
+                }
+                
             };
 
             attempts++;

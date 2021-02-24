@@ -107,14 +107,13 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
                 {
                     if (i == activeIndex && this.data.datasets[i].borderWidth == 3)
                     {
-                        console.log("switch to large")
+                        //console.log("switch to large")
                         this.data.datasets[i].borderWidth = 5;
                         this.data.datasets[i].borderColor = 'rgba(0, 0, 0, 1)';
                     }
                     else if (this.data.datasets[i].borderWidth == 5)
                     {
-                        console.log("switch to small")
-
+                        //console.log("switch to small")
                         this.data.datasets[i].borderWidth = 3;
                         this.data.datasets[i].borderColor = lineOptions.GetColor(i - 1);
                     }

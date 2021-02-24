@@ -136,7 +136,7 @@ function CheckAndConvertDateFormat(data)
     }
     // if in the correct format already, skip conversion
     if (correctFormat)
-        return;
+        return data;
     else
         log("Converting Date Format");
 
