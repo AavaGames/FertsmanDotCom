@@ -158,7 +158,7 @@ async function IsSheetInDictionary(Done, sheetKey, spreadSheetID, sheetName)
         while (attempts <= MaxAttempts)
         {
             try {
-                await $.getJSON(link, json => {
+                await jQuery.getJSON(link, json => {
                     attempts = MaxAttempts + 1;
                         
                     var sortedData = SortJSONintoHeadersAndValues(json)
