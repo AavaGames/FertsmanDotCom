@@ -806,7 +806,7 @@ function DownloadChart(event, downloadID, downloadTitle)
     let containerParentDiv = downloadDiv.parentNode.parentNode.parentNode.parentNode.parentNode;
     console.log(downloadTitle);
     let title = downloadTitle;
-    if (title !== "")
+    if (title !== undefined || title !== "")
         title = title.replace(/\s/g, "");
     else
         title = "FertsmanChart";
