@@ -796,20 +796,17 @@ function Transpose(array) {
     return tempArray;
 }
 
-function DownloadChart(event, downloadID, downloadTitle)
+function DownloadChart(event, downloadID, downloadTitle = "")
 {
     event.preventDefault();
 
     let downloadDiv =  document.getElementById(downloadID);
-
     // Five parents out is the whole container  
     let containerParentDiv = downloadDiv.parentNode.parentNode.parentNode.parentNode.parentNode;
     console.log(downloadTitle);
-    let title = downloadTitle;
-    if (title !== undefined || title !== "")
-        title = title.replace(/\s/g, "");
-    else
-        title = "FertsmanChart";
+    let title = "FertsmanCharts-" + downloadTitle;
+    // Remove whitespace
+    title = title.replace(/\s/g, "");
     title += ".jpg";
 
     html2canvas(containerParentDiv).then(function(canvas) {
