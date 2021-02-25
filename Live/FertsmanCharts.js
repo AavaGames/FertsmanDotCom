@@ -796,24 +796,23 @@ function Transpose(array) {
     return tempArray;
 }
 
-function DownloadChart(event, downloadID)
+function DownloadChart(event, downloadID, downloadTitle)
 {
     event.preventDefault();
 
     let downloadDiv =  document.getElementById(downloadID);
 
-    let firstParentDiv = downloadDiv.parentNode;
-    let secondParentDiv = firstParentDiv.parentNode;
-
-    let title;
-    title = $("#" + firstParentDiv.id + " span").html();
-    if (title !== undefined)
+    // Five parents out is the whole container  
+    let containerParentDiv = downloadDiv.parentNode.parentNode.parentNode.parentNode.parentNode;
+    console.log(downloadTitle);
+    let title = downloadTitle;
+    if (title !== "")
         title = title.replace(/\s/g, "");
     else
         title = "FertsmanChart";
     title += ".jpg";
 
-    html2canvas(secondParentDiv).then(function(canvas) {
+    html2canvas(containerParentDiv).then(function(canvas) {
         let url_base64jpg = canvas.toDataURL();
         
         var a = document.createElement('A');
@@ -827,6 +826,7 @@ function DownloadChart(event, downloadID)
 
 // #endregion
 
+// Detects mobile / tablet browser
 function DetectMobileBrowser()
 {
     let check = false;

@@ -31,24 +31,28 @@
     <div id="testdiv">
         <!-- widgets invisible div -->
         <div id= "102">
-
             <div>
-                <p>
-                    <span>Title Test</span>
-                </p>
-            </div>
-
-            <div style="height:75vh">
-                <canvas id="myChart"></canvas>
-                <div id="loading_myChart" class="lds-dual-ring"></div>
-            </div>
+                <div>
+                    <div>
+                        <div>
+                            <p>
+                                <span>Title Test</span>
+                            </p>
+                        </div>
             
-            <a id="myDownload"  href="" download="" target="_blank" class="">
-                <p>DOWNLOAD</p>
-                <!-- Download Icon -->
-                <!-- <i class="fa fa-download"></i> -->
-            </a>
-
+                        <div style="height:75vh">
+                            <canvas id="myChart"></canvas>
+                            <div id="loading_myChart" class="lds-dual-ring"></div>
+                        </div>
+                        
+                        <a id="myDownload"  href="" download="" target="_blank" class="">
+                            <p>DOWNLOAD</p>
+                            <!-- Download Icon -->
+                            <!-- <i class="fa fa-download"></i> -->
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -61,12 +65,12 @@
             let loadingID = 'loading_' + chartID;
 
             let downloadID = 'myDownload';
-
+            let downloadTitle = "Chart";
 
             // Move to fertsman charts
-            document.getElementById(downloadID).addEventListener('click', function(event) 
+            document.getElementById(downloadID, downloadTitle).addEventListener('click', function(event) 
             {
-                DownloadChart(event, downloadID);
+                DownloadChart(event, downloadID, downloadTitle);
             });
 
             // end of dl
@@ -80,7 +84,7 @@
                 // [32, 60] means row 32 to row 60
 
                 // SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, link, ...rightAxis)
-                SetupLineChart(BuiltChart, chartID, loadingID, data, 3);
+                SetupLineChart(BuiltChart, chartID, loadingID, data, false, 3);
 
                 function BuiltChart(chart)
                 {
