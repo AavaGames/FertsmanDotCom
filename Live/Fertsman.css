@@ -3,6 +3,7 @@
 .lds-text {
     margin-left: -100%;
     margin-right: -100%;
+    margin-top: 10px;
     text-align: center;
     white-space: nowrap;
 
@@ -12,10 +13,9 @@
 }
 .lds-dual-ring {
     display: inline-block;
-    width: 80px;
-    height: 80px;
-    /* Remove 0 to center in page */
-    margin: 5vh auto;
+    width: 64px;
+    height: 64px;
+    margin: auto;
     position: absolute;
     top: 0;
     bottom: 0;
