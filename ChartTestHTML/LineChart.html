@@ -66,10 +66,12 @@
             if (headerBased) 
             {
                 // GetDataWithHeaders(CallbackFunction, loadingSymbolName, spreadSheetID, sheetName, ...headers)
-                GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "v42135493 - YoY", "v42135490 - YoY");
+                GetDataWithHeaders(GotData, loadingID, "1oNYCU5Y0gkXzRnL56hEKHfyhSH4oCwHke8M7C_CDyDg", "Covid", "Nova Scotia_numconf");
 
                 function GotData(data) 
                 {
+                    console.log(data);
+
                     // data = AddRowRangesToData(data, ...rows)
                     // Example = (data, [1, 1], [32, 60], [80, 100000])
                     // [32, 60] means row 32 to row 60
@@ -79,13 +81,13 @@
 
                     function BuiltChart(chart)
                     {
+                        // SetDateRangeToChart(chart, startDate, endDate = "")
+                        // Example = (chart, "2020-01") or (chart, "2010-01-15", "2015-12-31")
+                        //SetDateRangeToChart(chart, "2020-01");
                         // OverwriteChartHeader(chart, ...headers);
                         // Leave empty to disable headers
                         // Example = (chart, "HeaderOne", "HeaderTwo")
-                        OverwriteChartHeader(chart, "header", "header2");
-
-                        SetDateRangeToChart(chart, "2005-05");
-                        //SetDateRangeToChart(chart, "2020-05-05", "2021-01-01");
+                        //OverwriteChartHeader(chart, false, "Economic activity index (%)");
                     }
                 }
             } 

@@ -31,9 +31,6 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
     for (var enumMember in DateTypeEnum)
         dateTypes.push(enumMember);
 
-    if (dateType == DateTypeEnum.Daily)
-        console.error("WARNING: Daily template sheet is not finished");
-
     var dateSheet = dateTypes[dateType];
 
     var dataSpreadsheetID = "16kfOjEefC5KgIkTuguyVQMc7wjE-WzHmohQIogE6m2Y";
@@ -67,7 +64,7 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
 
             if (spreadsheetID.length > 0)
             {
-              console.log("Pulling data - found new SpreadsheetID");
+              console.log("PULLING DATA - found new SpreadsheetID");
               // Pull data with current sheet variables, then reset all vars and continue
               PullData();
               ResetVariables(true);
@@ -83,7 +80,7 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
 
             if (sheetName.length > 0)
             {
-                console.log("Pulling data - found new Sheet Name");
+                console.log("PULLING DATA - found new Sheet Name = " + sheetName);
                 // Pull data with current sheet variables, then reset all var except spreadsheet ID and continue
                 PullData();
                 ResetVariables(false);
@@ -130,13 +127,10 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
 
     var tempArray = data;
     tempArray = Transpose(tempArray);
-    console.log("headers = " + tempArray[0]);
-    //console.log("last row = " + tempArray[tempArray.length-1])
-    console.log("rows = " + data[0].length + " cols = " + data.length)
+    console.log("Final cols = " + data.length + " Final rows = " + data[0].length)
 
     // Write data to sheet
     WriteDataToSheet(data, sheet);
-
 
 
     // START of nested functions
@@ -173,11 +167,6 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
             console.error("ERROR: Failed to receive data from sheet: " + sheetName + "\nID: " + spreadsheetID);
         }
 
-        //console.log("ID = " + spreadsheetID);
-        //console.log("Name = " + sheetName);
-        //console.log("First Header = " + headers[0])
-        //console.log("Last Header = " + headers[headers.length - 1]);
-        
         if (!failedToPullData)
         {
             // Removes excess data, finds headers and keeps date col
@@ -205,15 +194,13 @@ function PullDataForMasterSheet(sheet, dateType = DateTypeEnum.Undefined, cleanP
                 data.push(sheetData[i]);
             }
 
-            console.log("Added to data - cols = " + data.length + " last row = " + data[data.length - 1].length);
+            console.log("Added " + sheetData.length + " columns to data");
         }
         else
         {
             console.log("add empty rows here");
             // add empty rows to data
         }
-
-
     }
     
     function GetFuncParameters(inputRow)
@@ -274,12 +261,8 @@ function FindHeadersInSheet(data, headersToGet)
     return newData;
 }
 
-
 function AlignDates(dataToAlignTo, data)
 {
-    // TODO implement error system when date formats do not match up
-
-
     // data[row][column]
 
     // iterate through data rows and find matching date and place it there
@@ -288,11 +271,7 @@ function AlignDates(dataToAlignTo, data)
     // Create an empty row at the same size of all other rows, for filling in
     var emptyRow = []
     for(var i = 0; i < data[0].length; i++)
-    {
         emptyRow.push("");
-    }
-
-    //console.log("data[0] = emptyRow = " + data[0].length + " = " + emptyRow.length);
 
     var startLength = data.length;
     var counter = 0;
@@ -314,14 +293,11 @@ function AlignDates(dataToAlignTo, data)
                 foundDate = true;
                 // fill before data[i] with empty spaces
 
-                // DOUBLE CHECK THIS
                 var startIndex = i;
                 var endIndex = alignRow;
                 var amountToAdd = endIndex - startIndex;
                 if (amountToAdd <= 0)
                   break;
-
-                console.log("i = " + i + " startIndex = " +  startIndex + " endIndex = " + alignRow + " amountToAdd = " + amountToAdd);
                 
                 var amountAdded = 0;
 
@@ -330,7 +306,6 @@ function AlignDates(dataToAlignTo, data)
                   amountAdded++;
                   data.splice(startIndex, 0, emptyRow);
                 }
-                console.log("amount added = " + amountAdded + "data length = " + data.length);
                 i += amountToAdd;
                 break;
             }
@@ -359,10 +334,6 @@ function AlignDates(dataToAlignTo, data)
       }
     }
 
-
-    //console.log("Shoulda have ran " +  startLength + " times and ran " + counter + " times");
-    console.log("Start length = " +  startLength + " and length = " + data.length);
-    console.log("Goal length = " +  dataToAlignTo.length + " and length = " + data.length);
     return data;
 }
 
@@ -429,8 +400,6 @@ function GetDataFromSheet(sheetName, majorDimensionColumns = true)
 
     var response = Sheets.Spreadsheets.Values.get(ss.getId(), ranges, {
         majorDimension: dimension, 
-        //valueRenderOption: 'FORMATTED_VALUE',
-        //dateTimeRenderOption: 'SERIAL_NUMBER',
     });
 
     return response.values;
@@ -449,8 +418,6 @@ function GetDataFromSpreadsheetID(spreadsheetID, sheetName, majorDimensionColumn
 
     var response = Sheets.Spreadsheets.Values.get(ss.getId(), ranges, {
         majorDimension: dimension, 
-        //valueRenderOption: 'FORMATTED_VALUE',
-        //dateTimeRenderOption: 'SERIAL_NUMBER',
     });
     return response.values;
 }
@@ -472,7 +439,6 @@ function WriteDataToSheet(data, location) {
     var ss = SpreadsheetApp.getActive();
     var sheet = ss.getSheetByName(spreadSheetName);
     var ranges = sheet.getRange(1, 1, data[0].length, data.length);
-    console.log(ranges.getA1Notation());
     var request = {
         'valueInputOption': 'USER_ENTERED',
         'data': [

@@ -68,22 +68,16 @@ function SetSheetDictionary(sheetKey, sortedData)
     if (STOREDICTIONARY)
     {
         if (typeof(Storage) !== "undefined")
-        {
-            console.log("storing sheet dic");
             window.sessionStorage.setItem('Fertsman.com-SheetDictionary', JSON.stringify(SheetDictionary));
             // chrome quota is 25mb
-        }
         else
-        {
             console.log("No local storage");
-        }
     }
 }
 
 FertsmanInitialization();
 function FertsmanInitialization()
 {
-    //console.log("Fertsman Charts Initializing");
     if (STOREDICTIONARY)
     {
         if (window.sessionStorage.getItem('Fertsman.com-SheetDictionary') != null)
