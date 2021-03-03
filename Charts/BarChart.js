@@ -99,7 +99,8 @@ function SetupBarChart(ChartBuiltCallback, chartName, loadingSymbolName, sortedD
     }
 
     // End of chart specific Line / Dataset Formatting
-
+    
+    $("#" + loadingSymbolName).find('.lds-text').remove();
     loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
     var barType = verticalBar ? 'bar' : 'horizontalBar'

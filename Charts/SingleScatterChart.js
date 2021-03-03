@@ -62,7 +62,8 @@ function SetupScatterChart(ChartBuiltCallback, chartName, loadingSymbolName, sor
     }
 
     // End of Line / Dataset Formatting
-
+    
+    $("#" + loadingSymbolName).find('.lds-text').remove();
     loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
     let chart = new Chart(document.getElementById(chartName), {

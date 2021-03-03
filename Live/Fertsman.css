@@ -1,5 +1,15 @@
 /* Acquired from https://loading.io/css/ */
 
+.lds-text {
+    margin-left: -100%;
+    margin-right: -100%;
+    text-align: center;
+    white-space: nowrap;
+
+    font-family: "Open Sans";
+    font-size: large;
+    font-weight: 900;
+}
 .lds-dual-ring {
     display: inline-block;
     width: 80px;
@@ -13,7 +23,7 @@
     right: 0;
 }
 
-.lds-dual-ring:after {
+.lds-dual-ring:before {
     content: " ";
     display: block;
     width: 64px;

@@ -42,7 +42,9 @@
             
                         <div style="height:75vh">
                             <canvas id="myChart"></canvas>
-                            <div id="loading_myChart" class="lds-dual-ring"></div>
+                            <div id="loading_myChart" class="lds-dual-ring">
+                                <p class="lds-text">fetching latest data</p>
+                            </div>
                         </div>
                         
                         <a id="myDownload"  href="" download="" target="_blank" class="">
@@ -67,15 +69,14 @@
             let downloadID = 'myDownload';
             let downloadTitle = "Chart";
 
-            // Move to fertsman charts
             document.getElementById(downloadID, downloadTitle).addEventListener('click', function(event) 
             {
                 DownloadChart(event, downloadID, downloadTitle);
             });
 
             // end of dl
-
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Homepage_Output", "v111955442 - YoY", "v36724 - YoY");
+            
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98_awda", "Homepage_Output", "v111955442 - YoY", "v36724 - YoY");
 
             function GotData(data) 
             {

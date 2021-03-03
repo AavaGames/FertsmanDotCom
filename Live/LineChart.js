@@ -78,7 +78,8 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
             intersect: false
         };
     }
-
+    
+    $("#" + loadingSymbolName).find('.lds-text').remove();
     loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
     var isDualAxisChart = rightAxis.length > 0;

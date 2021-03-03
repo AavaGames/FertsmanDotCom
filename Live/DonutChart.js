@@ -108,6 +108,8 @@ function SetupDonutChart(ChartBuiltCallback, chartName, loadingSymbolName, sorte
     }
 
     // End of chart specific Line / Dataset Formatting
+    
+    $("#" + loadingSymbolName).find('.lds-text').remove();
     loadingSymbol.classList.remove(globalLoadingSymbolClass);
 
     let chart = new Chart(document.getElementById(chartName), {

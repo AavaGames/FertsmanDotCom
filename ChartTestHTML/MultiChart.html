@@ -64,6 +64,7 @@
             let chartID = 'chart4';
             let loadingID = 'loading_' + chartID;
     
+            AddLoadingText(loadingID);
             GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Government_Output", "v86822775 - YoY", "v86822777 - YoY");
 
             function GotData(data)
@@ -162,7 +163,7 @@
             let chartID = 'chart1';
             let loadingID = 'loading_' + chartID;
 
-            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Government_Output", "v36677", "v41550172");
+            GetDataWithHeaders(GotData, loadingID, "1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98aa", "Government_Output", "v36677", "v41550172");
 
             //var link = FormatLinkWithA1("1Mb1GM7LmNWnxXr9R3zlKSPGw1XztfzBZ4Y_4JhdCb98", "Monthly_Output", "A:A", "E:G")
             function GotData(data)
