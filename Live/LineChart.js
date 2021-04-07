@@ -207,5 +207,23 @@ function SetupLineChart(ChartBuiltCallback, chartName, loadingSymbolName, sorted
         }
     });
 
+    document.getElementById(chartName).addEventListener('mouseleave', e => {
+        LineUnHover(chart);
+    });
+
     ChartBuiltCallback(chart);
+}
+
+function LineUnHover(chart)
+{
+    if (chart.options.hoverSwitchingLocked) return;
+
+    for (let i = 0; i < chart.data.datasets.length; i++)
+    {
+        chart.data.datasets[i].borderWidth = 3;
+        chart.data.datasets[i].borderColor = lineOptions.GetColor(i - 1);
+    }
+
+    chart.options.previousActiveElement = -1;
+    chart.update();
 }
