@@ -31,6 +31,7 @@ function ConvertValuesToYoY(oldData) {
             var currentDate = String(oldData[0][row])
 
             var dateToFind = new FertsmanDate(currentDate);
+            // subtract a 12 months
             dateToFind.Subtract(0, sortingLength);
             dateToFind = dateToFind.GetDateString();
 
@@ -72,10 +73,10 @@ function ConvertValuesToYoY(oldData) {
             newData[column][row] = yoy;
         }
         // remove first 12 data rows
-        newData[column].splice(1, 12);
+        newData[column].splice(1, sortingLength);
     }
     // remove dates first 12 rows
-    newData[0].splice(1, 12);
+    newData[0].splice(1, sortingLength);
 
     return newData;
 }

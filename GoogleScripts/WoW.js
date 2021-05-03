@@ -35,6 +35,7 @@ function ConvertValuesToWoW(oldData) {
 
             var currentDate = String(oldData[0][row])
             var dateToFind = new FertsmanDate(currentDate);
+            // subtract 7 days or a week
             dateToFind.Subtract(0, 0, sortingLength);
             dateToFind = dateToFind.GetDateString();
 
@@ -76,10 +77,10 @@ function ConvertValuesToWoW(oldData) {
             newData[column][row] = wow;
         }
         // remove first 7 data rows
-        newData[column].splice(1, 7);
+        newData[column].splice(1, sortingLength);
     }
     // remove dates first 7 rows
-    newData[0].splice(1, 7);
+    newData[0].splice(1, sortingLength);
 
     return newData;
 }
